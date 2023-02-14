@@ -1,32 +1,9 @@
 #!/bin/sh
 
-julie_is_wsl() {
-  uname -r | grep -q microsoft
-}
-
-julie_fix_wsl_env() {
-		if test -e ${WSL_INTEROP}; then
-				return 0
-    fi
-
-    local _pid
-		_pid="${PPID}"
-
-    while test -n "${_pid}"; do 
-        if test -e "/run/WSL/${_pid}_interop"; then
-				    echo "found: /run/WSL/${_pid}_interop"
-            export WSL_INTEROP="/run/WSL/${_pid}_interop"
-			      return 0
-        fi
-				_pid=$(awk '$1 == "PPid:" { print $2 }' "/proc/${_pid}/status")
-		done
-
-    return 1
-}
-
-if julie_is_wsl; then
-  julie_fix_wsl_env
-  alias ssh=ssh.exe
+if uname -r | grep -q microsoft; then
+  "${HOME}/dotfiles/wsl/fix_wsl_interop"
+  _wsl_path="${HOME}/dotfiles/wsl"
+  export PATH="${_wsl_path}:$(echo "${PATH}" | sed -r "s,(^|:)${_wsl_path}($|:),,g")"
 fi
 
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}

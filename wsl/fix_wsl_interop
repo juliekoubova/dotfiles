@@ -1,0 +1,16 @@
+#!/bin/sh
+if test -e ${WSL_INTEROP}; then
+    exit 0
+fi
+
+_pid="${PPID}"
+
+while test -n "${_pid}"; do 
+    if test -e "/run/WSL/${_pid}_interop"; then
+        export WSL_INTEROP="/run/WSL/${_pid}_interop"
+        exit 0
+    fi
+    _pid=$(awk '$1 == "PPid:" { print $2 }' "/proc/${_pid}/status")
+done
+
+exit 1

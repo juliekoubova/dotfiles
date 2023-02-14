@@ -1,0 +1,2 @@
+#!/bin/sh
+exec tmux new-window -S -n bydlenka 'ssh bydlenka'
