@@ -16,7 +16,3 @@ If (Get-Command code-insiders) {
 If (Get-Command oh-my-posh) {
     oh-my-posh init pwsh --config "${Env:POSH_THEMES_PATH}/catppuccin_mocha.omp.json"| Invoke-Expression
 }
-
-Remove-Alias rm
-Remove-Alias ls
-Import-Module (Join-Path $PSScriptRoot Aliases.ps1)
