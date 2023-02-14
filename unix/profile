@@ -26,6 +26,7 @@ julie_fix_wsl_env() {
 
 if julie_is_wsl; then
   julie_fix_wsl_env
+  alias ssh=ssh.exe
 fi
 
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
