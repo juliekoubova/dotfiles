@@ -1,0 +1,10 @@
+#!/bin/sh
+_name=work
+_start_dir=/mnt/c/src/teams-client-native-shell
+_cmd=pwsh.exe
+
+if ! tmux select-window -t "${_name}"; then
+  tmux new-window      -n "${_name}" -c "${_start_dir}" "${_cmd}" \; \
+       split-window -h -t "${_name}" -c "${_start_dir}" "${_cmd}" 
+fi
+
