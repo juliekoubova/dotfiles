@@ -1,0 +1,5 @@
+#!/bin/sh
+. "${HOME}/dotfiles/wsl/fix_wsl_interop"
+cd /mnt/c/src 2>/dev/null || cd /mnt/c 
+exec "$(command -v pwsh.exe || echo powershell.exe)"
+

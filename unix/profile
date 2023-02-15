@@ -1,9 +1,28 @@
 #!/bin/sh
 
-if uname -r | grep -q microsoft; then
-  "${HOME}/dotfiles/wsl/fix_wsl_interop"
+julie_init_wsl() {
+  local _wsl_path
   _wsl_path="${HOME}/dotfiles/wsl"
+  "${_wsl_path}/fix_wsl_interop"
   export PATH="${_wsl_path}:$(echo "${PATH}" | sed -r "s,(^|:)${_wsl_path}($|:),,g")"
+}
+
+if command -v nvim > /dev/null; then
+  alias vim=nvim
+  export MANPAGER='nvim +Man!'
 fi
 
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+if uname -r | grep -q microsoft; then
+  julie_init_wsl
+fi
+
+unset -f julie_init_wsl
+
+if test -z "${TMUX}" && command -v tmux > /dev/null; then
+  if tmux attach; then
+    exit
+  else
+    exec "${HOME}/dotfiles/tmux/main-session"
+  fi
+
+fi

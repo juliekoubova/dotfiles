@@ -1,0 +1,33 @@
+#!/bin/sh
+_session="main"
+_window=`hostname`
+
+if ! tmux has-session -t "${_session}" 2> /dev/null; then
+  tmux \
+    new-session -d -s "${_session}" -n "${_window}" -c "${HOME}" \; \
+    split-window -h -t "${_session}:${_window}" -c "${HOME}" \
+  || exit 1
+
+  if uname -r | grep -q microsoft; then
+    tmux rename-window -t "${_session}:${_window}" wsl || exit 1
+
+    tmux \
+      new-window \
+        -b -t "${_session}:wsl" \
+        -n "${_window}" \
+        -c "${_windows_home}" \
+        "${HOME}/dotfiles/wsl/winpwsh" \
+      \; \
+      split-window -h \
+        -t "${_session}:${_window}" \
+        -c "${_windows_home}" \
+       "${HOME}/dotfiles/wsl/winpwsh" \
+    || exit 1
+  fi
+fi
+
+if test -n "${TMUX}"; then
+  exec tmux switch-client -t "${_session}"
+else
+  exec tmux attach-session -t "${_session}"
+fi
