@@ -2,6 +2,7 @@ call plug#begin()
 
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
