@@ -9,6 +9,7 @@ Plug 'overcache/NeoSolarized'
 
 call plug#end()
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 colorscheme catppuccin-mocha
 
