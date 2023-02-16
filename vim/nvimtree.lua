@@ -20,10 +20,3 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = function(data)
   end
 end })
 
-require('lualine').setup {
-  options = {
-    disabled_filetypes = { 'NvimTree' },
-    theme = 'auto'
-  }
-}
-

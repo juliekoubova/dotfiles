@@ -46,9 +46,12 @@ let g:gitblame_enabled = 0
 let g:gitblame_date_format = '%r'
 
 let g:mapleader = ","
-noremap <leader>s :Files<CR>
-noremap <leader>b :Buffer<CR>
-noremap <leader>blame :GitBlameToggle<CR>
+noremap <leader>b  :Buffer<CR>
+noremap <leader>bl :GitBlameToggle<CR>
+noremap <leader>f  :Files<CR>
+
+noremap <leader>h  :DiffviewFileHistory
+noremap <leader>g  :DiffviewOpen
 
 noremap <C-P> :Files<CR>
 noremap <C-A-L> :NvimTreeFindFileToggle<CR>
@@ -67,4 +70,6 @@ augroup julie
     \ echo $MYVIMRC . " reloaded"
 augroup END
 
-source $DOTFILES/vim/init.lua
+source $DOTFILES/vim/nvimtree.lua
+source $DOTFILES/vim/lualine.lua
+
