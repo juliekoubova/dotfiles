@@ -1,3 +1,4 @@
+
 require('nvim-tree').setup({
   actions = {
     open_file = { quit_on_open = true },
@@ -18,4 +19,11 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = function(data)
     require('nvim-tree.api').tree.open()
   end
 end })
+
+require('lualine').setup {
+  options = {
+    disabled_filetypes = { 'NvimTree' },
+    theme = 'auto'
+  }
+}
 

@@ -8,13 +8,14 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
 Plug 'f-person/git-blame.nvim'
-
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 
 call plug#end()
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
 set termguicolors
 colorscheme catppuccin-mocha
 
@@ -41,16 +42,16 @@ syntax on
 " Read :help shortmess for everything else
 set shortmess=I 
 
+let g:gitblame_enabled = 0
+let g:gitblame_date_format = '%r'
+
 let g:mapleader = ","
 noremap <leader>s :Files<CR>
 noremap <leader>b :Buffer<CR>
+noremap <leader>blame :GitBlameToggle<CR>
 
 noremap <C-P> :Files<CR>
 noremap <C-A-L> :NvimTreeFindFileToggle<CR>
-
-" Move lines
-nnoremap <A-k> <CMD>m .-2<CR>==
-nnoremap <A-j> <CMD>m .+1<CR>==
 
 " Clear search with <Esc>
 nnoremap <Esc> <Cmd>noh<CR><Esc>
@@ -66,6 +67,4 @@ augroup julie
     \ echo $MYVIMRC . " reloaded"
 augroup END
 
-if has('nvim')
-  source $DOTFILES/vim/init-nvim-tree.lua
-endif
+source $DOTFILES/vim/init.lua
