@@ -12,3 +12,13 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = function(data)
     require('nvim-tree.api').tree.open()
   end
 end })
+
+vim.opt.fillchars = {
+  horiz = '━',
+  horizup = '┻',
+  horizdown = '┳',
+  vert = '┃',
+  vertleft  = '┫',
+  vertright = '┣',
+  verthoriz = '╋',
+}

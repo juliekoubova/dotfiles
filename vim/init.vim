@@ -1,19 +1,16 @@
 call plug#begin()
 
-if (has("nvim"))
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-endif
-
-Plug 'overcache/NeoSolarized'
-Plug 'nvim-tree/nvim-tree.lua'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'overcache/NeoSolarized'
 
 call plug#end()
 
-if (has("termguicolors"))
-  set termguicolors
-  colorscheme NeoSolarized
-endif
+set termguicolors
+colorscheme catppuccin-mocha
 
 filetype plugin on
 
