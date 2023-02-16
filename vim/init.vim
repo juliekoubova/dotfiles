@@ -30,6 +30,8 @@ set ruler
 set nowrap
 set number
 
+set incsearch ignorecase smartcase
+
 " Text width
 set colorcolumn=80
 set textwidth=80
@@ -45,6 +47,14 @@ noremap <leader>b :Buffer<CR>
 
 noremap <C-P> :Files<CR>
 noremap <C-A-L> :NvimTreeFindFileToggle<CR>
+
+" Move lines
+nnoremap <A-k> <CMD>m .-2<CR>==
+nnoremap <A-j> <CMD>m .+1<CR>==
+
+" Clear search with <Esc>
+nnoremap <Esc> <Cmd>noh<CR><Esc>
+inoremap <Esc> <Cmd>noh<CR><Esc>
 
 " Assume we're in dotfiles/vim/init.vim
 let $DOTFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
