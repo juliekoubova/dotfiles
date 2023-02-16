@@ -1,0 +1,5 @@
+#!/bin/sh
+_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+_packages=$(cat "${_dir}/alpine.packages" | tr '\n' ' ')
+apk update || exit 1
+apk add ${_packages} || exit 1

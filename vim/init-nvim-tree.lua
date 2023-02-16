@@ -2,6 +2,12 @@ require('nvim-tree').setup({
   actions = {
     open_file = { quit_on_open = true },
   },
+  filters = {
+    custom = {
+      "^\\.git",
+    },
+  },
+  git = { enable = false },
   update_focused_file = { enable = true }
 })
 
@@ -13,12 +19,3 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = function(data)
   end
 end })
 
-vim.opt.fillchars = {
-  horiz = '━',
-  horizup = '┻',
-  horizdown = '┳',
-  vert = '┃',
-  vertleft  = '┫',
-  vertright = '┣',
-  verthoriz = '╋',
-}

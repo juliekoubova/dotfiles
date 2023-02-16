@@ -7,6 +7,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
+Plug 'f-person/git-blame.nvim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'sindrets/diffview.nvim'
 
 call plug#end()
 
@@ -40,7 +44,7 @@ noremap <leader>s :Files<CR>
 noremap <leader>b :Buffer<CR>
 
 noremap <C-P> :Files<CR>
-noremap <C-A-L> :NvimTreeFindFile<CR>
+noremap <C-A-L> :NvimTreeFindFileToggle<CR>
 
 " Assume we're in dotfiles/vim/init.vim
 let $DOTFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
