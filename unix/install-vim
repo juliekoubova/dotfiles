@@ -3,9 +3,7 @@
 _config_dir="${HOME}/.config/nvim"
 _dotfiles_dir="${HOME}/dotfiles/vim"
 
-if test -e "${_config_dir}"; then
-  echo "Already exists: ${_config_dir}" >&2
-  exit 1
-fi
-
+mkdir -p "${HOME}/.config" || exit 1
 ln -s "${_dotfiles_dir}" "${_config_dir}" || exit 1
+
+exec nvim +PlugInstall
