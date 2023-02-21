@@ -1,6 +1,6 @@
 #!/bin/sh
 _session="main"
-_window=`hostname`
+_window=`hostname -s`
 
 if ! tmux has-session -t "${_session}" 2> /dev/null; then
   tmux \
