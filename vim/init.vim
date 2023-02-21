@@ -1,17 +1,17 @@
 call plug#begin()
 
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'f-person/git-blame.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
-Plug 'f-person/git-blame.nvim'
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 
 call plug#end()
 
@@ -68,8 +68,9 @@ augroup julie
   autocmd BufWritePost $DOTFILES/vim/*.{vim,lua} 
     \ source $MYVIMRC |
     \ echo $MYVIMRC . " reloaded"
+  autocmd BufWritePost $DOTFILES/tmux/*
+    \ terminal test -n ${TMUX} && tmux source-file $DOTFILES/tmux/tmux.conf 
 augroup END
 
 source $DOTFILES/vim/nvimtree.lua
 source $DOTFILES/vim/lualine.lua
-

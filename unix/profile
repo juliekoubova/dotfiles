@@ -18,11 +18,14 @@ fi
 
 unset -f julie_init_wsl
 
+if command -v ssh-agent > /dev/null; then
+  eval $(ssh-agent)
+fi
+
 if test -z "${TMUX}" && command -v tmux > /dev/null; then
   if tmux attach; then
     exit
   else
     exec "${HOME}/dotfiles/tmux/main-session"
   fi
-
 fi

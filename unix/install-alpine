@@ -1,5 +1,10 @@
 #!/bin/sh
 _dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 _packages=$(cat "${_dir}/alpine.packages" | tr '\n' ' ')
+_shell=/bin/zsh
+
 apk update || exit 1
 apk add ${_packages} || exit 1
+
+echo "Changing shell to ${_shell}"
+chsh --shell "${_shell}"

@@ -3,3 +3,4 @@ git git-doc
 neovim neovim-doc
 sudo sudo-doc
 tmux tmux-doc
+zsh zsh-doc
