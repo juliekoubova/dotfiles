@@ -60,6 +60,9 @@ noremap <C-A-L> :NvimTreeFindFileToggle<CR>
 nnoremap <Esc> <Cmd>noh<CR><Esc>
 inoremap <Esc> <Cmd>noh<CR><Esc>
 
+" Disable Ctrl+Z
+nnoremap <C-z> <nop>
+
 " Assume we're in dotfiles/vim/init.vim
 let $DOTFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 
