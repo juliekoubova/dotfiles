@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-if julie_is_wsl then
+if uname -r | grep -q microsoft; then
   git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
 fi
 
