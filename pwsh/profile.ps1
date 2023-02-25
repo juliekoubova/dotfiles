@@ -1,3 +1,5 @@
+$DotFiles = Split-Path -Parent $PSScriptRoot
+
 If ($IsWindows -And (Get-Command vs -ea SilentlyContinue)) {
     $VSPath = @(vs where preview -prop=InstallationPath)[-1]
     Import-Module (Join-Path $VSPath Common7\Tools\Microsoft.VisualStudio.DevShell.dll)
@@ -9,10 +11,11 @@ Set-PSReadLineOption -EditMode Vi
 # Use Ctrl+[ to exit insert mode
 Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
 
-If (Get-Command code-insiders) {
+If (Get-Command code-insiders -ea SilentlyContinue) {
     Set-Alias code code-insiders
 }
 
-If (Get-Command oh-my-posh) {
-    oh-my-posh init pwsh --config "${Env:POSH_THEMES_PATH}/catppuccin_mocha.omp.json"| Invoke-Expression
+If (Get-Command starship -ea SilentlyContinue) {
+  $Env:STARSHIP_CONFIG = "${DotFiles}/starship.toml"
+  Invoke-Expression (starship init powershell)
 }
