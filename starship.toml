@@ -21,6 +21,7 @@ vimcmd_symbol = "[❮](green)"
 disabled = false
 
 [os.symbols]
+Alpine = ""
 Windows = ""
 
 [git_branch]
