@@ -1,7 +1,6 @@
 format = """
 $os \
-$username\
-$hostname\
+$username@$hostname\
 $directory\
 $git_branch\
 $git_state\
@@ -23,6 +22,14 @@ disabled = false
 [os.symbols]
 Alpine = ""
 Windows = ""
+
+[username]
+show_always = true
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+ssh_symbol = ""
 
 [git_branch]
 format = "[$branch]($style)"

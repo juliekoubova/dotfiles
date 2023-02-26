@@ -4,12 +4,11 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'overcache/NeoSolarized'
 Plug 'sindrets/diffview.nvim'
 
@@ -42,19 +41,22 @@ syntax on
 " Read :help shortmess for everything else
 set shortmess=I 
 
+let g:mapleader = ","
+
+" git-blame
 let g:gitblame_enabled = 0
 let g:gitblame_date_format = '%r'
-
-let g:mapleader = ","
-noremap <leader>b  :Buffer<CR>
 noremap <leader>bl :GitBlameToggle<CR>
-noremap <leader>f  :Files<CR>
 
-noremap <leader>h  :DiffviewFileHistory
-noremap <leader>g  :DiffviewOpen
+" Telescope
+noremap <leader>ff <cmd>Telescope find_files<CR>
+noremap <leader>fb <cmd>Telescope buffers<CR>
 
-noremap <C-P> :Files<CR>
-noremap <C-A-L> :NvimTreeFindFileToggle<CR>
+noremap <leader>h  <cmd>DiffviewFileHistory<CR>
+noremap <leader>g  <cmd>DiffviewOpen
+
+noremap <C-P>   <cmd>Telescope find_files<CR>
+noremap <C-A-L> <cmd>NvimTreeFindFileToggle<CR>
 
 " Clear search with <Esc>
 nnoremap <Esc> <Cmd>noh<CR><Esc>

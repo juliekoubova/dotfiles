@@ -18,8 +18,12 @@ fi
 
 unset -f julie_init_wsl
 
-if command -v ssh-agent > /dev/null; then
+if command -v ssh-agent > /dev/null && test -z "${SSH_AGENT_PID}"; then
   eval $(ssh-agent)
+fi
+
+if command -v starship > /dev/null; then
+  export STARSHIP_CONFIG="${HOME}/dotfiles/starship.toml"
 fi
 
 if test -e "${HOME}/.cargo/env"; then

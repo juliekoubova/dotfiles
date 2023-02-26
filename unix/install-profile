@@ -1,22 +1,29 @@
 #!/bin/sh
+dotfiles="${HOME}/dotfiles"
 
-install_link() {
-  local _dotfile _link
-  _dotfile="${HOME}/dotfiles/$1"
-  _link="
+mkdir -p "${HOME}/.config" || exit 1
+
+if test -e "${HOME}/.config/starship.toml"; then
+  echo "Already exists, skipping: ${HOME}/.config/starship.toml" >&2
+else
+  ln -s "${dotfiles}/starship.toml" "${HOME}/.config/starship.toml" || exit 1
+fi
+
 if test -e "${HOME}/.profile"; then
   echo "Already exists, skipping: ${HOME}/.profile" >&2
 else
-  echo ". ~/dotfiles/unix/profile" > "${HOME}/.profile" || exit 1
+  echo ". \"${dotfiles}/unix/profile\"" > "${HOME}/.profile" || exit 1
+fi
+
+if test -e "${HOME}/.tmux.conf"; then
+  echo "Already exists, skipping: ${HOME}/.tmux.conf" >&2
+else
+  echo "source-file \"${dotfiles}/tmux/tmux.conf\"" > "${HOME}/.tmux.conf" || exit 1
 fi
 
 if test -e "${HOME}/.zprofile"; then
   echo "Already exists, skipping: ${HOME}/.zprofile" >&2
 else
-  echo ". ~/dotfiles/unix/zprofile" > "${HOME}/.zprofile" || exit 1
+  echo ". \"${dotfiles}/unix/zprofile\"" > "${HOME}/.zprofile" || exit 1
 fi
 
-mkdir -p "${HOME}/.config" || exit 1
-
-if test -e "${HOME}/.config/starship.toml"; then
-fi
