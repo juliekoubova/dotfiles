@@ -30,3 +30,10 @@ if test -e "${HOME}/.cargo/env"; then
   source "${HOME}/.cargo/env"
 fi
 
+if test -z "${TMUX}" && command -v tmux > /dev/null; then
+  if tmux attach; then
+    exit
+  else
+    exec "${HOME}/dotfiles/tmux/main-session"
+  fi
+fi
