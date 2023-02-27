@@ -22,5 +22,5 @@ If (Get-Command nvim -ea SilentlyContinue) {
 
 If (Get-Command starship -ea SilentlyContinue) {
   $Env:STARSHIP_CONFIG = "${DotFiles}/starship.toml"
-  Invoke-Expression "$(& starship init powershell --print-full-init)"
+  Invoke-Expression "$(& starship init powershell --print-full-init | Out-String)"
 }
