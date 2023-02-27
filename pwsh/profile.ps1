@@ -15,7 +15,12 @@ If (Get-Command code-insiders -ea SilentlyContinue) {
     Set-Alias code code-insiders
 }
 
+If (Get-Command nvim -ea SilentlyContinue) {
+  $Env:EDITOR = 'nvim'
+  Set-Alias vim nvim
+}
+
 If (Get-Command starship -ea SilentlyContinue) {
   $Env:STARSHIP_CONFIG = "${DotFiles}/starship.toml"
-  Invoke-Expression (starship init powershell)
+  Invoke-Expression "$(& starship init powershell --print-full-init)"
 }
