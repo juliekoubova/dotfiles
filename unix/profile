@@ -26,6 +26,10 @@ if command -v starship > /dev/null; then
   export STARSHIP_CONFIG="${HOME}/dotfiles/starship.toml"
 fi
 
+if command -v nvim > /dev/null; then
+  export EDITOR=nvim
+fi
+
 if test -e "${HOME}/.cargo/env"; then
   source "${HOME}/.cargo/env"
 fi
