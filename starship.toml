@@ -1,6 +1,6 @@
 format = """
+$username@$hostname \
 $os \
-$username@$hostname\
 $directory\
 $git_branch\
 $git_state\
@@ -20,16 +20,17 @@ vimcmd_symbol = "[❮](green)"
 disabled = false
 
 [os.symbols]
-Alpine = "🐧"
-Windows = "🪟"
+Alpine = "󰌽"
+FreeBSD = ""
+Windows = "󰖳"
 
 [username]
 show_always = true
 format = "[$user]($style)"
 
 [hostname]
+format = "[$hostname]($style)"
 ssh_only = false
-ssh_symbol = ""
 
 [git_branch]
 format = "[$branch]($style)"
