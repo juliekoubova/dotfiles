@@ -20,9 +20,9 @@ vimcmd_symbol = "[❮](green)"
 disabled = false
 
 [os.symbols]
-Alpine = "󰌽"
-FreeBSD = ""
-Windows = "󰖳"
+Alpine = "🐧"
+FreeBSD = "😈"
+Windows = "🪟"
 
 [username]
 show_always = true
