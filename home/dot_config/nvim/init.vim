@@ -65,17 +65,3 @@ inoremap <Esc> <Cmd>noh<CR><Esc>
 " Disable Ctrl+Z
 nnoremap <C-z> <nop>
 
-" Assume we're in dotfiles/vim/init.vim
-let $DOTFILES = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-
-augroup julie
-  autocmd! 
-  autocmd BufWritePost $DOTFILES/vim/*.{vim,lua} 
-    \ source $MYVIMRC |
-    \ echo $MYVIMRC . " reloaded"
-  autocmd BufWritePost $DOTFILES/tmux/*
-    \ terminal test -n ${TMUX} && tmux source-file $DOTFILES/tmux/tmux.conf 
-augroup END
-
-source $DOTFILES/vim/nvimtree.lua
-source $DOTFILES/vim/lualine.lua

@@ -5,4 +5,4 @@ if command -v starship > /dev/null; then
   eval `starship completions zsh`
 fi
 
-. "${HOME}/dotfiles/unix/shrc"
+. "${HOME}/.shrc"
