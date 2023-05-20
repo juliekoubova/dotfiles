@@ -1,9 +1,0 @@
-#!/bin/sh
-
-_config_dir="${HOME}/.config/nvim"
-_dotfiles_dir="${HOME}/dotfiles/vim"
-
-mkdir -p "${HOME}/.config" || exit 1
-ln -s "${_dotfiles_dir}" "${_config_dir}" || exit 1
-
-exec nvim +PlugInstall
