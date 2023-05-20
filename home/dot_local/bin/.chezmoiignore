@@ -1,0 +1,10 @@
+{{ 
+  $is_wsl := (and 
+    (eq .chezmoi.os "linux") 
+    (.chezmoi.kernel.osrelease | lower | contains "microsoft") 
+  )
+}}
+{{ if not $is_wsl }}
+ssh
+winpwsh
+{{ end }}
