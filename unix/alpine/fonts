@@ -1,0 +1,12 @@
+#!/bin/sh
+
+apk add --virtual .julie-fonts \
+  font-awesome \
+  font-cascadia-code-nerd \
+  font-dejavu \
+  font-inconsolata \
+  font-noto \
+  font-noto-cjk  \
+  font-noto-emoji \
+  font-noto-extra \
+  font-terminus 

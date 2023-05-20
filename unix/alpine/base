@@ -1,0 +1,57 @@
+#!/bin/sh
+_julie_shell=/bin/zsh
+_julie_tz=Europe/Prague
+_julie_groups="wheel"
+
+_julie_user="${DOAS_USER:-${SUDO_USER}}"
+if test -z "${_julie_user}"; then
+  echo "DOAS_USER nor SUDO_USER not set, skipping user config." >&2
+  echo "Make sure to run this script again using doas/sudo under your account." >&2
+  echo >&2
+fi
+
+echo "Switching to Alpine Edge"
+cat << EOF > /etc/apk/repositories || exit 1
+https://dl-cdn.alpinelinux.org/alpine/edge/main
+https://dl-cdn.alpinelinux.org/alpine/edge/community
+https://dl-cdn.alpinelinux.org/alpine/edge/testing
+EOF
+
+echo "Upgrading packages"
+apk update || exit 1
+apk upgrade || exit 1
+
+echo "Installing .julie-alpine-base"
+apk add --virtual .julie-alpine-base \
+  apk-tools-doc \
+  chezmoi \
+  curl curl-doc \
+  doas doas-doc \
+  fzf fzf-doc \
+  git git-doc \
+  man-pages \
+  mandoc \
+  neovim neovim-doc \
+  openntpd openntpd-doc \
+  openrc-doc \
+  shadow shadow-doc \
+  starship \
+  tzdata tzdata-doc \
+  zsh zsh-doc || exit 1
+
+echo "Configuring openntpd"
+rc-update add openntpd || exit 1
+rc-service openntpd start || exit 1
+
+echo "Configuring doas"
+echo "permit persist :wheel" > /etc/doas.d/julie-wheel.conf
+
+echo "Setting TZ to ${_julie_tz}"
+echo "export TZ='${_julie_tz}'" > /etc/profile.d/julie-timezone.sh
+
+if test -n "${_julie_user}"; then
+  echo "Changing ${_julie_user}'s shell to ${_julie_shell}"
+  usermod --shell "${_julie_shell}" "${_julie_user}"  || exit 1
+fi
+
+

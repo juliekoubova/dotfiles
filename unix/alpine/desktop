@@ -1,0 +1,41 @@
+#!/bin/sh
+cd $(dirname $0)
+
+./base || exit 1
+
+_target_user="$(../lib/get-target-user)"
+
+apk add --virtual .julie-desktop \
+  chromium \
+  eudev eudev-doc \
+  foot foot-doc \
+  libinput libinput-doc \
+  mesa-dri-gallium \
+  river river-doc \
+  seatd seatd-doc \
+  sway sway-doc \
+  wlr-randr \
+  xwayland xwayland-doc \
+  || exit 1
+
+./fonts || exit 1
+
+rc-update add seatd || exit 1
+rc-service seatd start || exit 1
+
+if test -n "${_target_user}"; then
+  adduser "${_target_user}" audio || exit 1
+  adduser "${_target_user}" input || exit 1
+  adduser "${_target_user}" seat || exit 1
+  adduser "${_target_user}" video || exit 1
+fi
+
+echo "Setting XDG_RUNTIME_DIR"
+cat << EOF > /etc/profile.d/julie-xdg-runtime-dir.sh || exit 1
+if test -z "${XDG_RUNTIME_DIR}"; then
+  export XDG_RUNTIME_DIR="/tmp/$(id -u)-runtime-dir"
+  if ! test -d "${XDG_RUNTIME_DIR}"; then
+    mkdir -m 0700 "${XDG_RUNTIME_DIR}"
+  fi
+fi
+EOF

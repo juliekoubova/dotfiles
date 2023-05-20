@@ -1,29 +1,23 @@
 #!/bin/sh
-dotfiles="${HOME}/dotfiles"
+_dotfiles="${HOME}/dotfiles"
 
-mkdir -p "${HOME}/.config" || exit 1
+function link_dotfile() {
+  local _dotfile _link
+  _dotfile="${_dotfiles}/$1"
+  _link="${HOME}/$2"
 
-if test -e "${HOME}/.config/starship.toml"; then
-  echo "Already exists, skipping: ${HOME}/.config/starship.toml" >&2
-else
-  ln -s "${dotfiles}/starship.toml" "${HOME}/.config/starship.toml" || exit 1
-fi
+  if test -e "${_link}"; then
+    echo "Already exists, skipping: ${_link}" >&2
+  else
+    mkdir -p $(dirname "${_link}") || exit 1
+    ln -v -s "${_dotfile}" "${_link}" || exit 1
+  fi
+}
 
-if test -e "${HOME}/.profile"; then
-  echo "Already exists, skipping: ${HOME}/.profile" >&2
-else
-  echo ". \"${dotfiles}/unix/profile\"" > "${HOME}/.profile" || exit 1
-fi
 
-if test -e "${HOME}/.tmux.conf"; then
-  echo "Already exists, skipping: ${HOME}/.tmux.conf" >&2
-else
-  echo "source-file \"${dotfiles}/tmux/tmux.conf\"" > "${HOME}/.tmux.conf" || exit 1
-fi
-
-if test -e "${HOME}/.zprofile"; then
-  echo "Already exists, skipping: ${HOME}/.zprofile" >&2
-else
-  echo ". \"${dotfiles}/unix/zprofile\"" > "${HOME}/.zprofile" || exit 1
-fi
-
+link_dotfile starship.toml  .config/starship.toml 
+link_dotfile tmux/tmux.conf .tmux.conf
+link_dotfile unix/foot.ini  .config/foot/foot.ini
+link_dotfile unix/profile   .profile
+link_dotfile unix/zprofile  .zprofile
+link_dotfile unix/zshrc     .zshrc

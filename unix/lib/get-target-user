@@ -1,0 +1,12 @@
+#!/bin/sh
+
+_target_user="${DOAS_USER:-${SUDO_USER}}"
+if test -z "${_target_user}"; then
+  echo "DOAS_USER nor SUDO_USER not set, skipping user config." >&2
+  echo "Make sure to run this script again using doas/sudo under your account." >&2
+  echo >&2
+  exit 1
+else
+  echo "${_target_user}"
+  exit 0
+fi

@@ -1,37 +1,7 @@
 #!/bin/sh
 
-julie_init_wsl() {
-  local _wsl_path
-  _wsl_path="${HOME}/dotfiles/wsl"
-  "${_wsl_path}/fix_wsl_interop"
-  export PATH="${_wsl_path}:$(echo "${PATH}" | sed -r "s,(^|:)${_wsl_path}($|:),,g")"
-}
-
-if command -v nvim > /dev/null; then
-  alias vim=nvim
-  export MANPAGER='nvim +Man!'
-fi
-
-if uname -r | grep -q microsoft; then
-  julie_init_wsl
-fi
-
-unset -f julie_init_wsl
-
 if command -v ssh-agent > /dev/null && test -z "${SSH_AGENT_PID}"; then
   eval $(ssh-agent)
-fi
-
-if command -v starship > /dev/null; then
-  export STARSHIP_CONFIG="${HOME}/dotfiles/starship.toml"
-fi
-
-if command -v nvim > /dev/null; then
-  export EDITOR=nvim
-fi
-
-if test -e "${HOME}/.cargo/env"; then
-  source "${HOME}/.cargo/env"
 fi
 
 if test -z "${TMUX}" && command -v tmux > /dev/null; then

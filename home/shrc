@@ -1,0 +1,40 @@
+#!/bin/sh
+
+julie_init_wsl() {
+  local _wsl_path
+  _wsl_path="${HOME}/dotfiles/wsl"
+  "${_wsl_path}/fix_wsl_interop"
+  export PATH="${_wsl_path}:$(echo "${PATH}" | sed -r "s,(^|:)${_wsl_path}($|:),,g")"
+}
+
+julie_has_command() {
+  command -v $1 > /dev/null
+}
+
+if julie_has_command doas && ! julie_has_command sudo; then
+  alias sudo=doas
+elif julie_has_command sudo && ! julie_has_command doas; then
+  alias doas=sudo
+fi
+
+if julie_has_command nvim; then
+  alias vim=nvim
+  export MANPAGER='nvim +Man!'
+  export EDITOR=nvim
+elif julie_has_command vim; then
+  alias nvim=vim
+elif julie_has_command vi; then
+  alias nvim=vi
+  alias vim=vi
+fi
+
+if uname -r | grep -q microsoft; then
+  julie_init_wsl
+fi
+
+unset -f julie_init_wsl
+unset -f julie_has_command
+
+if test -e "${HOME}/.cargo/env"; then
+  source "${HOME}/.cargo/env"
+fi

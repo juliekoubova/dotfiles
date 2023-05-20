@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
-
+#
 if command -v starship > /dev/null; then
-  export STARSHIP_CONFIG="${HOME}/dotfiles/starship.toml"
   eval `starship init zsh`
+  eval `starship completions zsh`
 fi
 
-source "${0:a:h}/profile"
+. "${HOME}/dotfiles/unix/shrc"
