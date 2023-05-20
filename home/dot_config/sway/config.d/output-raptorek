@@ -1,0 +1,8 @@
+# vi:ft=swayconfig
+
+o:utput * mode  2560x1440@74.968Hz 
+output * scale 1.25
+
+output DP-1     position 0    0
+output HDMI-A-1 position 2048 0
+

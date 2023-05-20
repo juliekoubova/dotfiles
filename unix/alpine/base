@@ -54,4 +54,3 @@ if test -n "${_julie_user}"; then
   usermod --shell "${_julie_shell}" "${_julie_user}"  || exit 1
 fi
 
-
