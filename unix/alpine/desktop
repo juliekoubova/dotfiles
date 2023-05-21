@@ -1,7 +1,9 @@
 #!/bin/sh
+set -e
 cd $(dirname $0)
 
-./base || exit 1
+./base
+./apk-edge
 
 _target_user="$(../lib/get-target-user)"
 
@@ -19,23 +21,22 @@ apk add --virtual .julie-desktop \
   sway sway-doc \
   waybar waybar-doc \
   wlr-randr \
-  xwayland xwayland-doc \
-  || exit 1
+  xwayland xwayland-doc 
 
-./fonts || exit 1
+./fonts 
 
-rc-update add seatd || exit 1
-rc-service seatd start || exit 1
+rc-update add seatd 
+rc-service seatd start 
 
 if test -n "${_target_user}"; then
-  adduser "${_target_user}" audio || exit 1
-  adduser "${_target_user}" input || exit 1
-  adduser "${_target_user}" seat || exit 1
-  adduser "${_target_user}" video || exit 1
+  adduser "${_target_user}" audio
+  adduser "${_target_user}" input
+  adduser "${_target_user}" seat
+  adduser "${_target_user}" video
 fi
 
 echo "Setting XDG_RUNTIME_DIR"
-cat << EOF > /etc/profile.d/julie-xdg-runtime-dir.sh || exit 1
+cat << EOF > /etc/profile.d/julie-xdg-runtime-dir.sh
 if test -z "${XDG_RUNTIME_DIR}"; then
   export XDG_RUNTIME_DIR="/tmp/$(id -u)-runtime-dir"
   if ! test -d "${XDG_RUNTIME_DIR}"; then

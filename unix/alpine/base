@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 _julie_shell=/bin/zsh
 _julie_tz=Europe/Prague
 _julie_groups="wheel"
@@ -15,16 +17,15 @@ if test -z "${_julie_user}"; then
   echo >&2
 fi
 
-echo "Switching to Alpine Edge"
-cat << EOF > /etc/apk/repositories || exit 1
-https://dl-cdn.alpinelinux.org/alpine/edge/main
-https://dl-cdn.alpinelinux.org/alpine/edge/community
-https://dl-cdn.alpinelinux.org/alpine/edge/testing
-EOF
+function _enable_service() {
+  echo "Configuring $1"
+  rc-update add "$1"
+  rc-service "$1" start
+}
 
 echo "Upgrading packages"
-apk update || exit 1
-apk upgrade || exit 1
+apk update
+apk upgrade
 
 echo "Installing .julie-alpine-base"
 apk add --virtual .julie-alpine-base \
@@ -41,14 +42,14 @@ apk add --virtual .julie-alpine-base \
   neovim neovim-doc \
   openntpd openntpd-doc \
   openrc-doc \
+  openssh openssh-doc \
   shadow shadow-doc \
   starship \
   tzdata tzdata-doc \
-  zsh zsh-doc || exit 1
+  zsh zsh-doc
 
-echo "Configuring openntpd"
-rc-update add openntpd || exit 1
-rc-service openntpd start || exit 1
+_enable_service openntpd
+_enable_service sshd
 
 echo "Configuring doas"
 echo "permit persist :wheel" > /etc/doas.d/julie-wheel.conf
@@ -58,6 +59,6 @@ echo "export TZ='${_julie_tz}'" > /etc/profile.d/julie-timezone.sh
 
 if test -n "${_julie_user}"; then
   echo "Changing ${_julie_user}'s shell to ${_julie_shell}"
-  usermod --shell "${_julie_shell}" "${_julie_user}"  || exit 1
+  usermod --shell "${_julie_shell}" "${_julie_user}" 
 fi
 
