@@ -6,14 +6,18 @@ cd $(dirname $0)
 _target_user="$(../lib/get-target-user)"
 
 apk add --virtual .julie-desktop \
+  capitaine-cursors \
   chromium \
   eudev eudev-doc \
+  firefox \
   foot foot-doc \
+  less less-doc \
   libinput libinput-doc \
   mesa-dri-gallium \
-  river river-doc \
+  pm-utils pm-utils-doc \
   seatd seatd-doc \
   sway sway-doc \
+  waybar waybar-doc \
   wlr-randr \
   xwayland xwayland-doc \
   || exit 1

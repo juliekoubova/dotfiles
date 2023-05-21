@@ -3,6 +3,11 @@ _julie_shell=/bin/zsh
 _julie_tz=Europe/Prague
 _julie_groups="wheel"
 
+if test `id -u` != "0"; then
+  echo "Must be root" >&2
+  exit 1
+fi
+
 _julie_user="${DOAS_USER:-${SUDO_USER}}"
 if test -z "${_julie_user}"; then
   echo "DOAS_USER nor SUDO_USER not set, skipping user config." >&2
@@ -27,8 +32,10 @@ apk add --virtual .julie-alpine-base \
   chezmoi \
   curl curl-doc \
   doas doas-doc \
+  exa exa-doc \
   fzf fzf-doc \
   git git-doc \
+  htop htop-doc \
   man-pages \
   mandoc \
   neovim neovim-doc \
