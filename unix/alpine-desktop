@@ -1,11 +1,12 @@
 #!/bin/sh
 set -e
 cd $(dirname $0)
+. ./shared.sh
 
-./base
-./apk-edge
+_target_user=`_get_target_user`
 
-_target_user="$(../lib/get-target-user)"
+./alpine-base
+./alpine-edge
 
 apk add --virtual .julie-desktop \
   capitaine-cursors \
@@ -23,10 +24,9 @@ apk add --virtual .julie-desktop \
   wlr-randr \
   xwayland xwayland-doc 
 
-./fonts 
+./alpine-fonts 
 
-rc-update add seatd 
-rc-service seatd start 
+_openrc_enable seatd
 
 if test -n "${_target_user}"; then
   adduser "${_target_user}" audio

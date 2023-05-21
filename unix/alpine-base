@@ -1,27 +1,14 @@
 #!/bin/sh
 set -e
+cd $(dirname $0)
+. ./shared.sh
+
+_check_root
 
 _julie_shell=/bin/zsh
 _julie_tz=Europe/Prague
 _julie_groups="wheel"
-
-if test `id -u` != "0"; then
-  echo "Must be root" >&2
-  exit 1
-fi
-
-_julie_user="${DOAS_USER:-${SUDO_USER}}"
-if test -z "${_julie_user}"; then
-  echo "DOAS_USER nor SUDO_USER not set, skipping user config." >&2
-  echo "Make sure to run this script again using doas/sudo under your account." >&2
-  echo >&2
-fi
-
-function _enable_service() {
-  echo "Configuring $1"
-  rc-update add "$1"
-  rc-service "$1" start
-}
+_julie_user=`_get_target_user`
 
 echo "Upgrading packages"
 apk update
@@ -48,8 +35,8 @@ apk add --virtual .julie-alpine-base \
   tzdata tzdata-doc \
   zsh zsh-doc
 
-_enable_service openntpd
-_enable_service sshd
+_openrc_enable openntpd
+_openrc_enable sshd
 
 echo "Configuring doas"
 echo "permit persist :wheel" > /etc/doas.d/julie-wheel.conf
