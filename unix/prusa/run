@@ -5,10 +5,13 @@ if [ -z "$1" ]; then
 else
     CMD="$*"
 fi
-# xhost +si:localuser:"$USER"
-podman run --rm -it --userns=keep-id -v "$HOME/Downloads:/home/user/Downloads" \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--e "DISPLAY=unix$DISPLAY" \
-prusa-slicer "$CMD"
+
+podman run --rm -it \
+  --userns=keep-id \
+  --volume "$HOME/Downloads:/home/user/Downloads" \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix \
+  -e "DISPLAY=unix$DISPLAY" \
+  --device /dev/dri \
+  prusa-slicer "$CMD"
 # xhost -si:localuser:"$USER"
-# -v "$PWD/PrusaSlicer:/home/user/.config/PrusaSlicer" \
+
