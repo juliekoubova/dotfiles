@@ -1,0 +1,30 @@
+# Run Prusa Slicer in a container
+#
+# Based on Jessie Frazelle's post:
+# https://blog.jessfraz.com/post/docker-containers-on-the-desktop/
+FROM debian:latest
+LABEL maintainer "Brian C. Lane <bcl@brianlane.com>"
+
+RUN apt-get update && apt-get install -y \
+	prusa-slicer \
+	locales \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Update the locale
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen en_US.utf8 \
+    && /usr/sbin/update-locale LANG=en_US.UTF-8
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV HOME /home/user
+ENV USER user
+
+RUN groupadd -g 1000 user \
+	&& useradd -u 1000 -g 1000 --create-home --home-dir $HOME user \
+	&& chown -R user:user $HOME
+RUN passwd -d root
+
+WORKDIR $HOME
+USER user
+
