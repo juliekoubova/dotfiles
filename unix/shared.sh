@@ -1,13 +1,11 @@
-set -e
-
 function _append_line() {
   local _file _line
   _file=$1
   _line=$2
   if grep -qxF "${_line}" "${_file}"; then
-    echo "${_file} already contains ${_line}"
+    echo "${_file} already contains '${_line}'"
   else
-    echo "Adding ${_line} to ${_file}"
+    echo "Adding '${_line}' to ${_file}"
     echo "${_line}" >> "${_file}"
   fi
 }

@@ -11,18 +11,18 @@ _target_user=`_get_target_user`
 apk add --virtual .julie-desktop \
   capitaine-cursors \
   chromium \
-  eudev eudev-doc \
+  eudev \
   firefox \
-  foot foot-doc \
-  less less-doc \
-  libinput libinput-doc \
+  foot \
+  less \
+  libinput \
   mesa-dri-gallium \
-  pm-utils pm-utils-doc \
-  seatd seatd-doc \
-  sway sway-doc \
-  waybar waybar-doc \
+  pm-utils \
+  seatd \
+  sway \
+  waybar \
   wlr-randr \
-  xwayland xwayland-doc 
+  xwayland 
 
 ./alpine-fonts 
 
@@ -37,10 +37,10 @@ fi
 
 echo "Setting XDG_RUNTIME_DIR"
 cat << EOF > /etc/profile.d/julie-xdg-runtime-dir.sh
-if test -z "${XDG_RUNTIME_DIR}"; then
-  export XDG_RUNTIME_DIR="/tmp/$(id -u)-runtime-dir"
-  if ! test -d "${XDG_RUNTIME_DIR}"; then
-    mkdir -m 0700 "${XDG_RUNTIME_DIR}"
+if test -z "\${XDG_RUNTIME_DIR}"; then
+  export XDG_RUNTIME_DIR="/tmp/\$(id -u)-runtime-dir"
+  if ! test -d "\${XDG_RUNTIME_DIR}"; then
+    mkdir -m 0700 "\${XDG_RUNTIME_DIR}"
   fi
 fi
 EOF

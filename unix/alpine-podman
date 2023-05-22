@@ -20,9 +20,9 @@ fi
 # fuse needed for ZFS, hopefully won't be needed after OpenZFS 2.2
 echo "Adding podman, fuse, and fuse-overlayfs"
 apk add -t .julie-podman \
-  podman podman-doc \
-  fuse fuse-doc \
-  fuse-overlayfs fuse-overlayfs-doc
+  podman \
+  fuse \
+  fuse-overlayfs
 
 _openrc_enable cgroups
 _insert_mod fuse

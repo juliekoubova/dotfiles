@@ -16,24 +16,23 @@ apk upgrade
 
 echo "Installing .julie-alpine-base"
 apk add --virtual .julie-alpine-base \
-  apk-tools-doc \
   chezmoi \
-  curl curl-doc \
-  doas doas-doc \
-  exa exa-doc \
-  fzf fzf-doc \
-  git git-doc \
-  htop htop-doc \
+  curl \
+  doas \
+  docs \
+  exa \
+  fzf \
+  git \
+  htop \
   man-pages \
   mandoc \
-  neovim neovim-doc \
-  openntpd openntpd-doc \
-  openrc-doc \
-  openssh openssh-doc \
-  shadow shadow-doc \
+  neovim \
+  openntpd \
+  openssh \
+  shadow \
   starship \
-  tzdata tzdata-doc \
-  zsh zsh-doc
+  tzdata \
+  zsh 
 
 _openrc_enable openntpd
 _openrc_enable sshd
