@@ -42,8 +42,17 @@ elif julie_has_command vi; then
   export EDITOR=vi
 fi
 
+if julie_has_command exa; then
+  alias ls='exa'
+  alias ll='exa -l'
+  alias la='exa -la'
+else
+  alias ll='ls -l'
+  alias la='ls -la'
+fi
+
 if test -e "${HOME}/.cargo/env"; then
-  source "${HOME}/.cargo/env"
+  . "${HOME}/.cargo/env"
 fi
 
 unset -f julie_has_command

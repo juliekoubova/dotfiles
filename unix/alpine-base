@@ -7,7 +7,6 @@ _check_root
 
 _julie_shell=/bin/zsh
 _julie_tz=Europe/Prague
-_julie_groups="wheel"
 _julie_user=`_get_target_user`
 
 echo "Upgrading packages"
@@ -37,7 +36,7 @@ apk add --virtual .julie-alpine-base \
 _openrc_enable openntpd
 _openrc_enable sshd
 
-echo "Configuring doas"
+echo "Allow wheel to doas"
 echo "permit persist :wheel" > /etc/doas.d/julie-wheel.conf
 
 echo "Setting TZ to ${_julie_tz}"

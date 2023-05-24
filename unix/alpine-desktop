@@ -14,12 +14,16 @@ apk add --virtual .julie-desktop \
   eudev \
   firefox \
   foot \
+  imv \
   less \
   libinput \
   mesa-dri-gallium \
   pm-utils \
   seatd \
   sway \
+  swaybg \
+  swayidle \
+  swaylock \
   waybar \
   wlr-randr \
   xwayland 
@@ -27,6 +31,10 @@ apk add --virtual .julie-desktop \
 ./alpine-fonts 
 
 _openrc_enable seatd
+
+echo "Allow wheel to pm-suspend without password"
+echo "permit nopass :wheel as root cmd pm-suspend" > /etc/doas.d/julie-wheel-pm-suspend.conf
+
 
 if test -n "${_target_user}"; then
   adduser "${_target_user}" audio
