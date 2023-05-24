@@ -23,6 +23,7 @@ apk add --virtual .julie-alpine-base \
   fzf \
   git \
   htop \
+  jq \
   man-pages \
   mandoc \
   neovim \
