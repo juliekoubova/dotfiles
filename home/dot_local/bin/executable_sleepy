@@ -1,0 +1,8 @@
+#!/bin/sh
+
+swayidle=$(pgrep -o swayidle)
+if test -n "${swayidle}"; then
+  kill -SIGUSR1 "${swayidle}"
+fi
+
+exec doas pm-suspend 

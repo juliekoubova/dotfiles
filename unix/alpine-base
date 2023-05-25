@@ -37,11 +37,16 @@ apk add --virtual .julie-alpine-base \
 _openrc_enable openntpd
 _openrc_enable sshd
 
-echo "Allow wheel to doas"
-echo "permit persist :wheel" > /etc/doas.d/julie-wheel.conf
+_append_line /etc/conf.d/consolefont 'consolefont="ter-124b.psf.gz"'
+_openrc_enable consolefont boot
+
+_append_line /etc/doas.conf "permit persist :wheel" 
 
 echo "Setting TZ to ${_julie_tz}"
 echo "export TZ='${_julie_tz}'" > /etc/profile.d/julie-timezone.sh
+
+echo "Emptying /etc/motd"
+: > /etc/motd
 
 if test -n "${_julie_user}"; then
   echo "Changing ${_julie_user}'s shell to ${_julie_shell}"

@@ -37,8 +37,13 @@ function _insert_mod() {
 }
 
 function _openrc_enable() {
-  echo "Configuring $1"
-  rc-update add "$1"
+  if test -n "$2"; then
+    echo "Configuring $1 for bootlevel '$2'"
+    rc-update add "$1" "$2"
+  else
+    echo "Configuring $1 for default bootlevel"
+    rc-update add "$1"
+  fi
   rc-service "$1" start
 }
 

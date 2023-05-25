@@ -16,8 +16,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 output * background ~/.local/share/backgrounds/3351632.jpg fill
 
 
-seat * xcursor_theme capitaine-cursors-dark 24
-
 default_border pixel 5
 
 ### Key bindings

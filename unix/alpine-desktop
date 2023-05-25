@@ -25,6 +25,7 @@ apk add --virtual .julie-desktop \
   swayidle \
   swaylock \
   waybar \
+  wl-clipboard \
   wlr-randr \
   xwayland 
 
@@ -32,9 +33,7 @@ apk add --virtual .julie-desktop \
 
 _openrc_enable seatd
 
-echo "Allow wheel to pm-suspend without password"
-echo "permit nopass :wheel as root cmd pm-suspend" > /etc/doas.d/julie-wheel-pm-suspend.conf
-
+_append_line /etc/doas.conf "permit nopass :wheel cmd pm-suspend" 
 
 if test -n "${_target_user}"; then
   adduser "${_target_user}" audio
