@@ -1,0 +1,9 @@
+FROM alpine:edge
+
+RUN apk add --update-cache --upgrade --purge --no-interactive \
+        alpine-sdk \
+        cmake \
+        git \
+        meson \
+        scdoc \
+    && git clone --depth 1 https://gitlab.alpinelinux.org/alpine/aports

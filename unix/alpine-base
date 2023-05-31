@@ -7,11 +7,11 @@ _check_root
 
 _julie_shell=/bin/zsh
 _julie_tz=Europe/Prague
-_julie_user=`_get_target_user`
+_julie_user=`_get_target_user || echo ""`
 
 echo "Upgrading packages"
 apk update
-apk upgrade
+apk upgrade 
 
 echo "Installing .julie-alpine-base"
 apk add --virtual .julie-alpine-base \

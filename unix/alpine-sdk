@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+cd $(dirname $0)
+. ./shared.sh
+
+_check_root
+
+echo "Upgrading packages"
+apk update
+apk upgrade 
+
+echo "Installing .julie-alpine-sdk"
+apk add --virtual .julie-alpine-sdk \
+  alpine-sdk \
+  cmake \
+  git \
+  meson
+

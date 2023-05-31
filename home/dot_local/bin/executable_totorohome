@@ -1,0 +1,2 @@
+#!/bin/sh
+chromium-browser --app=https://home.totoro.family >/dev/null 2>&1 &

@@ -1,10 +1,20 @@
+# vi:ft=gotexttmpl
+{{ $is_linux := (eq .chezmoi.os "linux") }}
 {{ 
   $is_wsl := (and 
-    (eq .chezmoi.os "linux") 
+    $is_linux
     (.chezmoi.kernel.osrelease | lower | contains "microsoft") 
   )
 }}
-{{ if not $is_wsl }}
+
+{{ if ($is_wsl) }}
+chrome
+ff
+sleepy
+teams
+totorohome
+{{ else }}
 ssh
 winpwsh
 {{ end }}
+

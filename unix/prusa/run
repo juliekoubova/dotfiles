@@ -2,31 +2,24 @@
 set -e
 cd "$(dirname $0)"
 
-# Constants
 PODMAN_IMAGE_NAME="prusa-slicer"
 
-# Check if curl is installed
 if ! command -v curl >/dev/null 2>&1; then
     echo "curl is not installed. Please install curl and try again."
     exit 1
 fi
 
-# Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
     echo "jq is not installed. Please install jq and try again."
     exit 1
 fi
 
-# Check if podman is installed
 if ! command -v podman >/dev/null 2>&1; then
     echo "podman is not installed. Please install podman and try again."
     exit 1
 fi
 
-# Fetch the latest pre-release information from the GitHub API
 release_info=$(curl -s "https://api.github.com/repos/prusa3d/PrusaSlicer/releases?per_page=1")
-
-# Extract the release tag for the latest pre-release version
 tag_name=$(echo "$release_info" | jq -r '.[0].tag_name')
 
 # Check if the Podman image with the tag exists

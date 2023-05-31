@@ -18,6 +18,7 @@ apk add --virtual .julie-desktop \
   less \
   libinput \
   mesa-dri-gallium \
+  mesa-va-gallium \
   pm-utils \
   seatd \
   sway \

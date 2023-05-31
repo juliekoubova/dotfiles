@@ -9,4 +9,4 @@ set $swaylock 'swaylock -f --ignore-empty-password \
 exec swayidle -w \
      timeout  300 $swaylock \
      timeout  600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     timeout 3600 'sleepy' 
+     #timeout 3600 'sleepy' 

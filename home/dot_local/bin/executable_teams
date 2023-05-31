@@ -1,0 +1,2 @@
+#!/bin/sh
+chromium-browser --app=https://teams.live.com >/dev/null 2>&1 &

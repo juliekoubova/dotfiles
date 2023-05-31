@@ -1,17 +1,16 @@
 call plug#begin()
-
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
+Plug 'fatih/vim-go'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'overcache/NeoSolarized'
 Plug 'sindrets/diffview.nvim'
-
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows

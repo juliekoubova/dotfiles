@@ -25,6 +25,7 @@ apk add -t .julie-podman \
   fuse-overlayfs
 
 _openrc_enable cgroups
+_openrc_enable modules
 _insert_mod fuse
 _insert_mod tun
 

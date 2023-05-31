@@ -1,0 +1,2 @@
+#!/bin/sh
+chromium-browser $* >/dev/null 2>&1 &

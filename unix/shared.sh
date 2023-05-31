@@ -17,6 +17,10 @@ function _check_root() {
   fi
 }
 
+function _is_container() { 
+  test -n "${container}"
+}
+
 function _get_target_user() {
   _target_user="${DOAS_USER:-${SUDO_USER}}"
   if test -z "${_target_user}"; then
