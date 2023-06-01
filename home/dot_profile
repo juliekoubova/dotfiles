@@ -5,10 +5,20 @@ if command -v ssh-agent > /dev/null && test -z "${SSH_AGENT_PID}"; then
   eval $(ssh-agent)
 fi
 
-if test -z "${TMUX}" && command -v tmux > /dev/null; then
-  if tmux attach; then
-    exit
-  else
-    exec "${HOME}/dotfiles/tmux/main-session"
+if test "$TTY" = "/dev/tty1"; then
+  if test -z "${TMUX}" && command -v tmux > /dev/null; then
+    if tmux attach; then
+      exit
+    else
+      exec "${HOME}/dotfiles/tmux/main-session"
+    fi
+  fi
+
+  if command -v sway > /dev/null; then
+    if command -v dbus-run-session > /dev/null; then
+      exec dbus-run-session -- sway
+    else
+      exec sway
+    fi
   fi
 fi
