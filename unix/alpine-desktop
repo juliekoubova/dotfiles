@@ -15,6 +15,7 @@ apk add --virtual .julie-desktop \
   eudev \
   firefox \
   foot \
+  fuzzel \
   imv \
   less \
   libinput \
@@ -26,10 +27,12 @@ apk add --virtual .julie-desktop \
   swaybg \
   swayidle \
   swaylock \
+  thunar \
   waybar \
   wl-clipboard \
   wlr-randr \
-  xwayland 
+  xwayland \
+  ;
 
 ./alpine-fonts 
 

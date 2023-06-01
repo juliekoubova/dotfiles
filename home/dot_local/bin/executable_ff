@@ -4,4 +4,8 @@ if test -n "${WAYLAND_DISPLAY}"; then
   export MOZ_ENABLE_WAYLAND=1
 fi
 
-firefox > /dev/null 2>&1 &
+if test -t 0; then 
+  firefox > /dev/null 2>&1 &
+else
+  exec firefox
+fi
