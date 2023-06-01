@@ -5,6 +5,9 @@ set $down j
 set $up k
 set $right l
 
+set $output-left  DP-1
+set $output-right HDMI-A-1
+
 set $term footclient
 
 exec foot --server

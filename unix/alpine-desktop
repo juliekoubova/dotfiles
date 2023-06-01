@@ -11,6 +11,7 @@ _target_user=`_get_target_user`
 apk add --virtual .julie-desktop \
   capitaine-cursors \
   chromium \
+  dbus \
   eudev \
   firefox \
   foot \
@@ -32,6 +33,7 @@ apk add --virtual .julie-desktop \
 
 ./alpine-fonts 
 
+_openrc_enable dbus
 _openrc_enable seatd
 
 _append_line /etc/doas.conf "permit nopass :wheel cmd pm-suspend" 

@@ -1,0 +1,13 @@
+# vi:ft=swayconfig
+
+workspace 1 output $output-left
+workspace 2 output $output-left
+workspace 3 output $output-left
+workspace 4 output $output-left
+workspace 5 output $output-left
+
+workspace 6 output $output-right
+workspace 7 output $output-right
+workspace 8 output $output-right
+workspace 9 output $output-right
+workspace 0 output $output-right
