@@ -1,0 +1,13 @@
+#!/bin/sh
+
+thunar="$(which -a thunar | grep -vF /.local/bin/)"
+if test -z "$thunar"; then
+  echo Thunar not found >&2
+  exit 1
+fi
+
+if test -t 0; then 
+  "$thunar" "$@" > /dev/null 2>&1 &
+else
+  exec "$thunar" "$@"
+fi

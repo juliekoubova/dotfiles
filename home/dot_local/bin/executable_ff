@@ -5,7 +5,7 @@ if test -n "${WAYLAND_DISPLAY}"; then
 fi
 
 if test -t 0; then 
-  firefox > /dev/null 2>&1 &
+  firefox "$@" > /dev/null 2>&1 &
 else
-  exec firefox
+  exec firefox "$@"
 fi

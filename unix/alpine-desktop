@@ -27,11 +27,14 @@ apk add --virtual .julie-desktop \
   swaybg \
   swayidle \
   swaylock \
-  thunar \
   waybar \
   wl-clipboard \
   wlr-randr \
   xwayland \
+  ;
+
+apk add --virtual .julie-thunar \
+  thunar gvfs-smb \
   ;
 
 ./alpine-fonts 

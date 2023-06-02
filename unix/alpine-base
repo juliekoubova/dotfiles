@@ -32,10 +32,28 @@ apk add --virtual .julie-alpine-base \
   shadow \
   starship \
   tzdata \
-  zsh 
+  zsh \
+  ;
+
+echo "Installing .julie-alpine-samba"
+apk add --virtual .julie-alpine-samba \
+  samba \
+  wsdd \
+  ;
+
+echo "Disabling nmbd"
+echo 'daemon_list="smbd"' > /etc/conf.d/samba
+echo 'smbd_options="-D"' >> /etc/conf.d/samba
 
 _openrc_enable openntpd
+_openrc_enable samba
 _openrc_enable sshd
+_openrc_enable wsdd
+
+if ! pdbedit --list --user "${_julie_user}" 2> /dev/null; then
+  echo "Creating Samba user ${_julie_user}"
+  pdbedit --create --user "${_julie_user}"
+fi
 
 _append_line /etc/conf.d/consolefont 'consolefont="ter-124b.psf.gz"'
 _openrc_enable consolefont boot
