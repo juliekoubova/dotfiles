@@ -29,8 +29,9 @@ else
     # Extract the download URL for the Linux x64 GTK3 pre-release version with tar.bz2 extension
     download_url=$(echo "$release_info" | jq -r '.[0].assets[] | select(.name | test(".*linux.*x64.*GTK3.*\\.tar\\.bz2$")) | .browser_download_url')
 
-    # Create a Containerfile
-    cat <<EOF > Containerfile
+    # Build the Podman image using the Containerfile
+    echo "Building the '$PODMAN_IMAGE_NAME:$tag_name' image using Podman..."
+    podman build -t "$PODMAN_IMAGE_NAME:$tag_name" -f - <<EOF 
 FROM debian:unstable-slim
 LABEL name="$PODMAN_IMAGE_NAME" tag="$tag_name"
 
@@ -63,23 +64,25 @@ RUN curl -LO "$download_url" && \\
     tar xf "$(basename "$download_url")" -C "\$HOME/prusa-slicer-$tag_name" --strip-components=1 && \\
     rm "$(basename "$download_url")"
 EOF
-
-    # Build the Podman image using the Containerfile
-    echo "Building the '$PODMAN_IMAGE_NAME:$tag_name' image using Podman..."
-    podman build -t "$PODMAN_IMAGE_NAME:$tag_name" .
     echo "Podman image built successfully."
 fi
 
 CMD=""
-if [ -z "$1" ]; then
+if test -z "$1"; then
     CMD="/home/user/prusa-slicer-${tag_name}/prusa-slicer"
 else
     CMD="$*"
 fi
 
+mkdir -p "${HOME}/.config/PrusaSlicer"
+mkdir -p "${HOME}/.config/PrusaSlicer-beta"
+
 exec podman run --rm -it \
   --userns=keep-id \
   --volume "${HOME}/Downloads:/home/user/Downloads" \
+  --volume "${HOME}/.config/gtk-3.0:/home/user/.config/gtk-3.0:ro" \
+  --volume "${HOME}/.config/PrusaSlicer:/home/user/.config/PrusaSlicer" \
+  --volume "${HOME}/.config/PrusaSlicer-beta:/home/user/.config/PrusaSlicer-beta" \
   --volume /tmp/.X11-unix:/tmp/.X11-unix \
   -e "DISPLAY=unix${DISPLAY}" \
   --device /dev/dri \
