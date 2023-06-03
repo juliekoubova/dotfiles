@@ -48,6 +48,7 @@ echo 'smbd_options="-D"' >> /etc/conf.d/samba
 _openrc_enable openntpd
 _openrc_enable samba
 _openrc_enable sshd
+_openrc_enable syslog
 _openrc_enable wsdd
 
 if ! pdbedit --list --user "${_julie_user}" 2> /dev/null; then

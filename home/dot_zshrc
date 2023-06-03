@@ -1,8 +1,12 @@
 #!/usr/bin/env zsh
-#
+
 if command -v starship > /dev/null; then
   eval `starship init zsh`
   eval `starship completions zsh`
 fi
 
-. "${HOME}/.shrc"
+for file in ${HOME}/.zsh/*.zsh; do
+  source "${file}"
+done
+
+source "${HOME}/.shrc"
