@@ -1,3 +1,6 @@
+font            = "Noto Sans 12"
+monospaceFont   = "Noto Sans Mono 12"
+gtkTheme        = "Catppuccin-Mocha-Standard-Sapphire-Dark"
 unixCursorTheme = "capitaine-cursors-light"
 unixCursorSize  = "48"
 

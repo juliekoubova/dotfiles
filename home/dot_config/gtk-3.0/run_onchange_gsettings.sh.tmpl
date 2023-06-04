@@ -4,5 +4,8 @@ set -e
 if command -v gsettings >/dev/null; then
   gsettings set org.gnome.desktop.interface cursor-theme "{{ .unixCursorTheme }}"
   gsettings set org.gnome.desktop.interface cursor-size  "{{ .unixCursorSize }}"
+  gsettings set org.gnome.desktop.interface gtk-theme  "{{ .gtkTheme }}"
+  gsettings set org.gnome.desktop.interface font-name  "{{ .font }}"
+  gsettings set org.gnome.desktop.interface monospace-font-name  "{{ .monospaceFont }}"
 fi
 
