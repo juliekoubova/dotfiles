@@ -83,12 +83,8 @@ exec podman run --rm -it \
   --volume "${HOME}/.config/gtk-3.0:/home/user/.config/gtk-3.0:ro" \
   --volume "${HOME}/.config/PrusaSlicer:/home/user/.config/PrusaSlicer" \
   --volume "${HOME}/.config/PrusaSlicer-beta:/home/user/.config/PrusaSlicer-beta" \
-  --env "XDG_RUNTIME_DIR=/tmp" \
-  --env "GDK_BACKEND=wayland" \
-  --env "WAYLAND_DISPLAY=${WAYLAND_DISPLAY}" \
-  --volume "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/${WAYLAND_DISPLAY}" \
   --device /dev/dri \
   --volume /tmp/.X11-unix:/tmp/.X11-unix \
-  -e "DISPLAY=unix${DISPLAY}" \
+  --env "DISPLAY=unix${DISPLAY}" \
   "${PODMAN_IMAGE_NAME}:${tag_name}" "$CMD"
 
