@@ -1,5 +1,3 @@
-$DotFiles = Split-Path -Parent $PSScriptRoot
-
 If ($IsWindows -And (Get-Command vs -ea SilentlyContinue)) {
     $VSPath = @(vs where preview -prop=InstallationPath)[-1]
     Import-Module (Join-Path $VSPath Common7\Tools\Microsoft.VisualStudio.DevShell.dll)
@@ -21,6 +19,5 @@ If (Get-Command nvim -ea SilentlyContinue) {
 }
 
 If (Get-Command starship -ea SilentlyContinue) {
-  $Env:STARSHIP_CONFIG = "${DotFiles}/starship.toml"
   Invoke-Expression "$(& starship init powershell --print-full-init | Out-String)"
 }

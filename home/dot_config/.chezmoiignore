@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "windows" }}
+foot
+gtk-3.0
+sway
+waybar
+{{ end }}
