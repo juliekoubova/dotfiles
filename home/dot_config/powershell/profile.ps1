@@ -21,3 +21,8 @@ If (Get-Command nvim -ea SilentlyContinue) {
 If (Get-Command starship -ea SilentlyContinue) {
   Invoke-Expression "$(& starship init powershell --print-full-init | Out-String)"
 }
+
+Set-Alias ls Get-ChildItem
+Set-Alias ll Get-ChildItem
+Set-Alias la Get-ChildItem
+
