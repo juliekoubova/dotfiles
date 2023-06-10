@@ -1,7 +1,17 @@
-If ($IsWindows -And (Get-Command vs -ea SilentlyContinue)) {
+If ($IsWindows) {
+  If (Get-Command vs -ea SilentlyContinue) {
     $VSPath = @(vs where preview -prop=InstallationPath)[-1]
     Import-Module (Join-Path $VSPath Common7\Tools\Microsoft.VisualStudio.DevShell.dll)
     $Null = Enter-VsDevShell -VsInstallPath $VSPath -StartInPath (Get-Location) 
+  }
+
+  If (Get-Command python -ea SilentlyContinue) {
+    $Paths = @($Env:PATH -split ';')
+    $Scripts = (Join-Path $(python -m site --user-site) ..\Scripts -Resolve)
+    If ($Scripts) {
+      $Env:PATH = ($Paths + $Scripts) -join ';'
+    }
+  }
 }
 
 Set-PSReadLineOption -EditMode Vi
@@ -16,13 +26,29 @@ If (Get-Command code-insiders -ea SilentlyContinue) {
 If (Get-Command nvim -ea SilentlyContinue) {
   $Env:EDITOR = 'nvim'
   Set-Alias vim nvim
+  Set-Alias vi  nvim
 }
 
 If (Get-Command starship -ea SilentlyContinue) {
-  Invoke-Expression "$(& starship init powershell --print-full-init | Out-String)"
+  Invoke-Expression "$(starship init powershell --print-full-init | Out-String)"
 }
 
 Set-Alias ls Get-ChildItem
 Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 
+Remove-Alias rm -ea SilentlyContinue
+
+Function rm {
+  Param (
+    [Alias('r')]
+    [Switch]$Recurse,
+    [Alias('f')]
+    [Switch]$Force,
+    [Switch]$rf
+  )
+  Remove-Item `
+    -Path $args `
+    -Recurse:($Recurse -or $rf) `
+    -Force:($Force -or $rf)
+}

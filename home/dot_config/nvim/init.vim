@@ -4,6 +4,9 @@ Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
 Plug 'fatih/vim-go'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
+Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim'
