@@ -52,12 +52,14 @@ noremap <leader>bl :GitBlameToggle<CR>
 
 " Telescope
 noremap <leader>ff <cmd>Telescope find_files<CR>
+noremap <leader>fg <cmd>Telescope live_grep<CR>
 noremap <leader>fb <cmd>Telescope buffers<CR>
-
 noremap <leader>h  <cmd>DiffviewFileHistory<CR>
 noremap <leader>g  <cmd>DiffviewOpen
+noremap <leader>v  <cmd>echomsg system('curl -s -m 3 https://vtip.43z.one')<CR>
 
 noremap <C-P>   <cmd>Telescope find_files<CR>
+noremap <C-S-F> <cmd>Telescope live_grep<CR>
 noremap <C-A-L> <cmd>NvimTreeFindFileToggle<CR>
 
 " Clear search with <Esc>

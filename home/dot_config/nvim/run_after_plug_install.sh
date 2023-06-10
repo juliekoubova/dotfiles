@@ -1,2 +1,4 @@
 #!/bin/sh
-exec nvim +PlugInstall +qall
+if command -v nvim >/dev/null; then
+  exec nvim +PlugInstall +qall
+fi

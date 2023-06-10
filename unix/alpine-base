@@ -29,6 +29,7 @@ apk add --virtual .julie-alpine-base \
   neovim \
   openntpd \
   openssh \
+  ripgrep \
   shadow \
   starship \
   tzdata \
