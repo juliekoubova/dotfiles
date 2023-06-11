@@ -1,13 +1,13 @@
 ### Alpine
 ```console
 # apk add chezmoi
-# chezmoi init --apply juliekoubova --source ~/dotfiles
+$ chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
 
 ### FreeBSD
 ```console
 # pkg install chezmoi
-# chezmoi init --apply juliekoubova --source ~/dotfiles
+$ chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
 
 ### Windows
