@@ -164,9 +164,11 @@ include config.d/*
 
 exec foot --server
 
-workspace 1
-exec $term
-exec $term
-workspace 6
+workspace 1 
+  # sleep to wait for foot server to start
+  exec 'sleep 1; $term'
+  exec 'sleep 1; $term'
+
+workspace 2
 exec $browser
 
