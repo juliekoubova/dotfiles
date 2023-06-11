@@ -1,10 +1,8 @@
-{{/*
-vi:ft=gotexttmpl 
-*/}}
+{{/* vim:ft=gotexttmpl */}}
 {{ if ne .chezmoi.hostname "raptorek" }}
 **/*-raptorek*
 {{ end }}
-{{ if eq .chezmoi.os "windows" }}
+{{ if .os.windows }}
 .cshrc
 .icons/
 .profile
@@ -15,4 +13,8 @@ vi:ft=gotexttmpl
 .zshrc
 {{ else }}
 Documents
+{{ end }}
+{{ if .os.container }}
+.icons/
+.themes/
 {{ end }}

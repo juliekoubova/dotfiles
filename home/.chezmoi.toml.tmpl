@@ -1,0 +1,16 @@
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+[data]
+[data.os]
+  container = {{ (and
+    (eq .chezmoi.os "linux")
+    (output "sh" "-c" "echo $container" | trim)
+  ) | not | not }}
+  freebsd = {{ (eq .chezmoi.os "freebsd") }}
+  linux = {{ (eq .chezmoi.os "linux") }}
+  windows = {{ (eq .chezmoi.os "windows") }}
+  wsl = {{ (and
+    (eq .chezmoi.os "linux") 
+    (.chezmoi.kernel.osrelease | lower | contains "microsoft")
+  ) | not | not }}
+

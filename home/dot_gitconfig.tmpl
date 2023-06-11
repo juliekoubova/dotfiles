@@ -17,9 +17,7 @@ rebase = true
 [diff]
 colorMoved = "zebra"
 
-{{ if eq .chezmoi.os "linux" }}
-{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if .os.wsl }}
 [credential]
 helper = "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
-{{   end }}
 {{ end }}
