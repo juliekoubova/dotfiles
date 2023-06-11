@@ -1,11 +1,15 @@
 #!/bin/sh
 set -e
 
-if command -v gsettings >/dev/null; then
-  gsettings set org.gnome.desktop.interface cursor-theme "{{ .unixCursorTheme }}"
-  gsettings set org.gnome.desktop.interface cursor-size  "{{ .unixCursorSize }}"
-  gsettings set org.gnome.desktop.interface gtk-theme  "{{ .gtkTheme }}"
-  gsettings set org.gnome.desktop.interface font-name  "{{ .font }}"
-  gsettings set org.gnome.desktop.interface monospace-font-name  "{{ .monospaceFont }}"
+if ! command -v gsettings >/dev/null; then
+  exit
 fi
 
+_interface="org.gnome.desktop.interface"
+if gsettings list-keys "${_interface}" >/dev/null 2>&1; then
+  gsettings set "${_interface}" cursor-theme         "{{ .unixCursorTheme }}"
+  gsettings set "${_interface}" cursor-size          "{{ .unixCursorSize }}"
+  gsettings set "${_interface}" gtk-theme            "{{ .gtkTheme }}"
+  gsettings set "${_interface}" font-name            "{{ .font }}"
+  gsettings set "${_interface}" monospace-font-name  "{{ .monospaceFont }}"
+fi
