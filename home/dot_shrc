@@ -21,6 +21,8 @@ julie_has_command() {
   command -v $1 > /dev/null
 }
 
+set -o vi
+
 export PATH="${HOME}/.local/bin${PATH:+:${PATH}}"
 
 if julie_has_command doas && ! julie_has_command sudo; then
