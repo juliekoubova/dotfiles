@@ -1,6 +1,7 @@
-{{ if eq .chezmoi.os "windows" }}
-foot
-gtk-3.0
-sway
-waybar
+{{ if .os.windows }}
+foot/
+gtk-3.0/
+sway/
+sway_reload.sh
+waybar/
 {{ end }}
