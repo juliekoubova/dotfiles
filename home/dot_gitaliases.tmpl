@@ -1,0 +1,4 @@
+alias g='git'
+{{ range $alias, $command := .gitaliases -}}
+alias g{{ $alias }}='git {{ $command }}'
+{{ end -}}

@@ -1,5 +1,7 @@
 #!/bin/sh
 export ENV="${HOME}/.shrc"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 if test `uname` = "FreeBSD" && test "${TERM}" = "foot"; then
   export TERM="xterm-256color"

@@ -17,7 +17,13 @@ rebase = true
 [diff]
 colorMoved = "zebra"
 
+[alias]
+{{ range $alias, $command := .gitaliases -}}
+{{ $alias }} = {{ $command }}
+{{ end -}}
+
 {{ if .os.wsl }}
 [credential]
 helper = "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
 {{ end }}
+

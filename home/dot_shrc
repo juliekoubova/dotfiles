@@ -24,6 +24,9 @@ julie_has_command() {
 set -o vi
 
 export PATH="${HOME}/.local/bin${PATH:+:${PATH}}"
+export HISTFILE="${HOME}/.history"
+export HISTSIZE=10000
+export SAVESIZE=10000
 
 if julie_has_command doas && ! julie_has_command sudo; then
   alias sudo=doas
@@ -46,12 +49,15 @@ fi
 
 if julie_has_command exa; then
   alias ls='exa'
-  alias ll='exa -l'
-  alias la='exa -la'
+  alias ll='exa -l --git'
+  alias la='exa -la --git'
+  alias tree='exa -Tla --git'
 else
   alias ll='ls -l'
   alias la='ls -la'
 fi
+
+. ~/.gitaliases
 
 if test -e "${HOME}/.cargo/env"; then
   . "${HOME}/.cargo/env"
