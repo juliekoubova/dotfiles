@@ -303,6 +303,10 @@ case "${1:-`hostname`}" in
     _alpine_samba
     _alpine_podman
     _alpine_sway
+    _apk_virtual_add .firmware \
+      linux-firmware-amdgpu \
+      linux-firmware-intel \
+      ;
     ;;
   *)
     echo "Unknown host: ${_host_name}" >&2
