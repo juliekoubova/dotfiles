@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 autoload -U compinit; compinit
+_comp_options+=(globdots) 
 
 if command -v starship > /dev/null; then
   eval `starship init zsh`
