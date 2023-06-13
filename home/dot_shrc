@@ -17,7 +17,7 @@ if uname -r | grep -q microsoft; then
   julie_fix_wsl_interop
 fi
 
-julie_has_command() {
+has() {
   command -v $1 > /dev/null
 }
 
@@ -28,26 +28,26 @@ export HISTFILE="${HOME}/.history"
 export HISTSIZE=10000
 export SAVESIZE=10000
 
-if julie_has_command doas && ! julie_has_command sudo; then
+if has doas && ! has sudo; then
   alias sudo=doas
-elif julie_has_command sudo && ! julie_has_command doas; then
+elif has sudo && ! has doas; then
   alias doas=sudo
 fi
 
-if julie_has_command nvim; then
+if has nvim; then
   alias vim=nvim
   export MANPAGER='nvim +Man!'
   export EDITOR=nvim
-elif julie_has_command vim; then
+elif has vim; then
   alias nvim=vim
   export EDITOR=vim
-elif julie_has_command vi; then
+elif has vi; then
   alias nvim=vi
   alias vim=vi
   export EDITOR=vi
 fi
 
-if julie_has_command exa; then
+if has exa; then
   alias ls='exa'
   alias ll='exa -l --git'
   alias la='exa -la --git'
@@ -63,4 +63,3 @@ if test -e "${HOME}/.cargo/env"; then
   . "${HOME}/.cargo/env"
 fi
 
-unset -f julie_has_command

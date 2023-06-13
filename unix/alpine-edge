@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-
-echo "Switching to Alpine Edge"
-cat << EOF > /etc/apk/repositories 
-https://dl-cdn.alpinelinux.org/alpine/edge/main
-https://dl-cdn.alpinelinux.org/alpine/edge/community
-https://dl-cdn.alpinelinux.org/alpine/edge/testing
-EOF

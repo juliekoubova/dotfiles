@@ -1,5 +1,6 @@
 #!/bin/sh
 export ENV="${HOME}/.shrc"
+export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
@@ -14,9 +15,11 @@ fi
 if test "$TTY" = "/dev/tty1"; then
   if command -v sway > /dev/null; then
     if command -v dbus-run-session > /dev/null; then
-      exec dbus-run-session -- sway
+       dbus-run-session -- sway > /var/log/sway.log 2>&1
+       exec clear
     else
-      exec sway
+      sway > /var/log/sway.log 2>&1
+      exec clear
     fi
   fi
 fi

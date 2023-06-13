@@ -1,0 +1,311 @@
+#!/bin/sh
+set -e
+
+function _append_line() {
+  local _file _line
+  _file=$1
+  _line=$2
+  if grep -qxF "${_line}" "${_file}"; then
+    echo "${_file} already contains '${_line}'"
+  else
+    echo "Adding '${_line}' to ${_file}"
+    echo "${_line}" >> "${_file}"
+  fi
+}
+
+function _insert_mod() {
+  echo "Enabling $1"
+  modprobe "$1"
+  _append_line /etc/modules "$1"
+}
+
+function _openrc_enable() {
+  if test -n "$2"; then
+    echo "Configuring $1 for bootlevel '$2'"
+    rc-update add "$1" "$2"
+  else
+    echo "Configuring $1 for default bootlevel"
+    rc-update add "$1"
+  fi
+  rc-service --ifnotstarted "$1" start
+}
+
+function _set_tz() {
+  echo "Setting TZ to $1"
+  echo "export TZ='$1'" > /etc/profile.d/julie-timezone.sh
+}
+
+function _set_shell() {
+  echo "Changing $1's shell to $2"
+  usermod --shell "$2" "$1" 
+}
+
+function _apk_virtual_add() {
+  local _virtual
+  _virtual="$1"
+  shift
+  echo "Installing ${_virtual} packages"
+  apk add --virtual "${_virtual}" "$@"
+}
+
+function _alpine_edge() {
+  echo "Switching to Alpine Edge"
+  cat > /etc/apk/repositories <<EOF 
+https://dl-cdn.alpinelinux.org/alpine/edge/main
+https://dl-cdn.alpinelinux.org/alpine/edge/community
+https://dl-cdn.alpinelinux.org/alpine/edge/testing
+EOF
+}
+
+function _alpine_base() {
+  apk update
+  apk upgrade
+
+  _apk_virtual_add .base \
+    chezmoi \
+    curl \
+    doas \
+    docs \
+    exa \
+    fzf \
+    git \
+    htop \
+    jq \
+    man-pages \
+    mandoc \
+    neovim \
+    ripgrep \
+    shadow \
+    starship \
+    strace \
+    tzdata \
+    zsh \
+    ;
+
+  _append_line /etc/doas.conf "permit persist :wheel" 
+  _set_tz Europe/Prague
+
+  if test -n "${_target_user}"; then
+    _set_shell "${_target_user}" /bin/zsh
+  fi
+
+  echo "Emptying /etc/motd"
+  : > /etc/motd
+}
+
+function _alpine_physical() {
+  _apk_virtual_add .physical \
+    dosfstools \
+    efibootmgr \
+    gptfdisk \
+    lm-sensors \
+    mingetty \
+    openntpd \
+    openssh \
+    pm-utils \
+    zfs \
+    zfs-lts \
+    ;
+
+  _openrc_enable consolefont boot
+  _openrc_enable openntpd
+  _openrc_enable sshd
+  _openrc_enable syslog
+
+  _append_line /etc/conf.d/consolefont 'consolefont="ter-124b.psf.gz"'
+  _append_line /etc/doas.conf "permit nopass :wheel cmd pm-suspend" 
+
+  echo "Replacing BusyBox getty with mingetty"
+  cat > /etc/inittab <<EOF
+# /etc/inittab from @juliekoubova/dotfiles
+
+::sysinit:/sbin/openrc sysinit
+::sysinit:/sbin/openrc boot
+::wait:/sbin/openrc default
+
+# Set up a couple of mingetty's
+tty1::respawn:/sbin/mingetty tty1
+tty2::respawn:/sbin/mingetty tty2
+tty3::respawn:/sbin/mingetty tty3
+tty4::respawn:/sbin/mingetty tty4
+tty5::respawn:/sbin/mingetty tty5
+tty6::respawn:/sbin/mingetty tty6
+
+# Put a getty on the serial port
+#ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100
+
+# Stuff to do for the 3-finger salute
+::ctrlaltdel:/sbin/reboot
+
+# Stuff to do before rebooting
+::shutdown:/sbin/openrc shutdown
+EOF
+}
+
+function _alpine_podman() {
+  local _uid
+  _uid="${_target_uid}"
+  if test "${_uid}" = "0"; then
+    echo "Target user is root, skipping user config." >&2
+    unset _uid
+  elif test "${_uid}" -lt 1000 || test "${_target_uid}" -gt 9999; then
+    echo "Target user has a weird uid, skipping user config." >&2
+    unset _uid
+  fi
+
+  # fuse needed for ZFS, hopefully won't be needed after OpenZFS 2.2
+  _apk_virtual_add .podman \
+    fuse \
+    fuse-overlayfs \
+    podman \
+    ;
+
+  _openrc_enable cgroups
+  _openrc_enable modules
+  _insert_mod fuse
+  _insert_mod tun
+
+  _append_line /etc/rc.conf \
+    "rc_cgroup_mode=\"hybrid\" # @juliekoubova/dotfiles alpine-podman"
+
+  if test -z "${_uid}"; then
+    return
+  fi
+
+  _first=$(( ${_uid} * 100000 ))
+  _last=$(( ( (${_uid}+1) * 100000 ) - 1 ))
+
+  echo "Adding subuids and subgids for ${_target_user}"
+  usermod --add-subuids "${_first}-${_last}" \
+          --add-subgids "${_first}-${_last}" \
+          "${_target_user}"
+}
+
+function _alpine_sdk() {
+  _apk_virtual_add .sdk \
+    alpine-sdk \
+    cmake \
+    git \
+    meson \
+    ;
+}
+
+function _alpine_samba() {
+  _apk_virtual_add .samba \
+    samba \
+    wsdd \
+    ;
+
+  echo "Disabling nmbd"
+  echo 'daemon_list="smbd"' > /etc/conf.d/samba
+  echo 'smbd_options="-D"' >> /etc/conf.d/samba
+
+  _openrc_enable samba
+  _openrc_enable wsdd
+
+  if test -z "${_target_user}"; then
+    return
+  fi
+
+  if ! pdbedit --list --user "${_target_user}" 2>/dev/null; then
+    echo "Creating Samba user ${_target_user}"
+    pdbedit --create --user "${_target_user}"
+  fi
+}
+
+function _alpine_sway() {
+  _apk_virtual_add .sway \
+    capitaine-cursors \
+    chromium \
+    dbus \
+    eudev \
+    firefox \
+    foot \
+    fuzzel \
+    gimp \
+    imv \
+    less \
+    libinput \
+    mesa-dri-gallium \
+    mesa-va-gallium \
+    seatd \
+    sway \
+    swaybg \
+    swayidle \
+    swaylock \
+    waybar \
+    wl-clipboard \
+    wlr-randr \
+    xwayland \
+    ;
+
+  _apk_virtual_add .thunar \
+    thunar gvfs-smb \
+    ;
+
+  _apk_virtual_add .fonts \
+    font-awesome \
+    font-cascadia-code-nerd \
+    font-dejavu \
+    font-inconsolata \
+    font-noto \
+    font-noto-cjk  \
+    font-noto-emoji \
+    font-noto-extra \
+    font-terminus \
+    ;
+
+  _openrc_enable dbus
+  _openrc_enable seatd
+
+  if test -n "${_target_user}"; then
+    adduser "${_target_user}" audio
+    adduser "${_target_user}" input
+    adduser "${_target_user}" seat
+    adduser "${_target_user}" video
+  fi
+
+  echo "Setting XDG_RUNTIME_DIR"
+  cat > /etc/profile.d/julie-xdg-runtime-dir.sh <<EOF 
+if test -z "\${XDG_RUNTIME_DIR}"; then
+  export XDG_RUNTIME_DIR="/tmp/\$(id -u)-runtime-dir"
+  if ! test -d "\${XDG_RUNTIME_DIR}"; then
+    mkdir -m 0700 "\${XDG_RUNTIME_DIR}"
+  fi
+fi
+EOF
+}
+
+###############################################################################
+# Let's go
+###############################################################################
+
+if test `id -u` != "0"; then
+  echo "Must be root" >&2
+  exit 1
+fi
+
+_target_user="${DOAS_USER:-${SUDO_USER}}"
+
+if test -z "${_target_user}"; then
+  echo "DOAS_USER nor SUDO_USER set, skipping user config." >&2
+  echo "Make sure to run this script again using doas/sudo." >&2
+  echo >&2
+fi
+
+_target_uid=`id -u "${_target_user}"`
+
+case "${1:-`hostname`}" in
+  raptorek)
+    _alpine_edge
+    _alpine_base
+    _alpine_physical
+    _alpine_samba
+    _alpine_podman
+    _alpine_sway
+    ;;
+  *)
+    echo "Unknown host: ${_host_name}" >&2
+    exit 1
+    ;;
+esac

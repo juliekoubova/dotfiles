@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
 autoload -U compinit; compinit
-_comp_options+=(globdots) 
 
 if command -v starship > /dev/null; then
   eval `starship init zsh`
@@ -10,4 +9,15 @@ fi
 
 source "${HOME}/.shrc"
 
-setopt HIST_SAVE_NO_DUPS
+setopt append_history
+setopt auto_cd
+setopt auto_pushd
+setopt globdots
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt interactivecomments
+setopt no_beep
+
+bindkey -v
+bindkey -M vicmd k vi-up-line-or-history
+bindkey -M vicmd j vi-down-line-or-history
