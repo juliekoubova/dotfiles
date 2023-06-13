@@ -1,0 +1,16 @@
+#!/usr/bin/env pwsh
+
+Function ForceAlias($Alias, $Command) {
+  Remove-Alias $Alias -Force -Scope Global -ea SilentlyContinue
+  Invoke-Expression "Function Global:${Alias} { $Command @args }"
+}
+
+ForceAlias 'g' 'git'
+{{ range $alias, $command := .gitaliases -}}
+ForceAlias 'g{{ $alias }}' 'git {{ $command }}'
+{{ end -}}
+
+{{ range $alias, $command := .aliases -}}
+ForceAlias '{{ $alias }}' '{{ $command }}'
+{{ end -}}
+

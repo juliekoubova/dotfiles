@@ -57,7 +57,7 @@ else
   alias la='ls -la'
 fi
 
-. ~/.gitaliases
+. "${HOME}/.aliases"
 
 if test -e "${HOME}/.cargo/env"; then
   . "${HOME}/.cargo/env"

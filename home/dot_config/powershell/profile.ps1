@@ -37,7 +37,7 @@ Set-Alias ls Get-ChildItem
 Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 
-Remove-Alias rm -ea SilentlyContinue
+Remove-Alias rm -Force -ea SilentlyContinue
 
 Function rm {
   Param (
@@ -52,3 +52,5 @@ Function rm {
     -Recurse:($Recurse -or $rf) `
     -Force:($Force -or $rf)
 }
+
+. "${PSScriptRoot}/aliases.ps1"
