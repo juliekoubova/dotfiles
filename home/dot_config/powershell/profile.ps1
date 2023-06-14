@@ -33,9 +33,14 @@ If (Get-Command starship -ea SilentlyContinue) {
   Invoke-Expression "$(starship init powershell --print-full-init | Out-String)"
 }
 
+If (Get-Command chezmoi -ea SilentlyContinue) {
+  Invoke-Expression "$(chezmoi completion powershell)"
+}
+
 Set-Alias ls Get-ChildItem
 Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
+Set-Alias which Get-Command
 
 Remove-Alias rm -Force -ea SilentlyContinue
 
