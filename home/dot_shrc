@@ -63,3 +63,6 @@ if test -e "${HOME}/.cargo/env"; then
   . "${HOME}/.cargo/env"
 fi
 
+if has apk; then
+  apk list --upgradeable
+fi

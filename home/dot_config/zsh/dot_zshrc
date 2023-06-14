@@ -8,6 +8,7 @@ if command -v starship > /dev/null; then
 fi
 
 source "${HOME}/.shrc"
+export HISTFILE="${ZDOTDIR}/.history"
 
 setopt append_history
 setopt auto_cd
