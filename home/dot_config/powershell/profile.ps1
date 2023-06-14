@@ -26,15 +26,14 @@ If (Get-Command code-insiders -ea SilentlyContinue) {
 If (Get-Command nvim -ea SilentlyContinue) {
   $Env:EDITOR = 'nvim'
   Set-Alias vim nvim
-  Set-Alias vi  nvim
 }
 
 If (Get-Command starship -ea SilentlyContinue) {
-  Invoke-Expression "$(starship init powershell --print-full-init | Out-String)"
+  starship init powershell --print-full-init | Out-String | Invoke-Expression
 }
 
 If (Get-Command chezmoi -ea SilentlyContinue) {
-  Invoke-Expression "$(chezmoi completion powershell)"
+  chezmoi completion powershell | Out-String | Invoke-Expression
 }
 
 Set-Alias ls Get-ChildItem
