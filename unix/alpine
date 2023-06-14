@@ -308,6 +308,10 @@ case "${1:-`hostname`}" in
       linux-firmware-intel \
       ;
     ;;
+  julie-adell)
+    _alpine_edge
+    _alpine_base
+    ;;
   *)
     echo "Unknown host: ${_host_name}" >&2
     exit 1
