@@ -1,20 +1,22 @@
-{{/* vim:ft=gotexttmpl */}}
-{{ if ne .chezmoi.hostname "raptorek" }}
+{{/*
+vim:ft=gotexttmpl
+*/}}
+{{- if ne .chezmoi.hostname "raptorek" }}
 **/*-raptorek*
 {{ end }}
-{{ if .os.windows }}
+
+{{- if .os.windows }}
 .cshrc
-.icons/
 .profile
 .shrc
-.themes/
 .zprofile
 .zsh/
 .zshrc
 {{ else }}
 Documents
 {{ end }}
-{{ if .os.container }}
+
+{{- if (or .os.container .os.windows .os.wsl) }}
 .icons/
 .themes/
 {{ end }}
