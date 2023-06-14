@@ -4,4 +4,5 @@ gtk-3.0/
 sway/
 sway_reload.sh
 waybar/
+zsh/
 {{ end }}

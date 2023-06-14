@@ -9,10 +9,8 @@ vim:ft=gotexttmpl
 .cshrc
 .profile
 .shrc
-.zprofile
-.zsh/
-.zshrc
 {{ else }}
+AppData
 Documents
 {{ end }}
 
