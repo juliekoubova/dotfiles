@@ -2,7 +2,10 @@
 export ENV="${HOME}/.shrc"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_STATE_HOME="${HOME}/.local/state"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+
+mkdir -p "${XDG_STATE_HOME}"
 
 if test `uname` = "FreeBSD" && test "${TERM}" = "foot"; then
   export TERM="xterm-256color"
@@ -15,11 +18,9 @@ fi
 if test "$TTY" = "/dev/tty1"; then
   if command -v sway > /dev/null; then
     if command -v dbus-run-session > /dev/null; then
-       dbus-run-session -- sway > /var/log/sway.log 2>&1
-       exec clear
+      exec dbus-run-session -- sway > "${XDG_STATE_HOME}/sway.log" 2>&1
     else
-      sway > /var/log/sway.log 2>&1
-      exec clear
+      exec sway > "${XDG_STATE_HOME}/sway.log" 2>&1
     fi
   fi
 fi

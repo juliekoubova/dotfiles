@@ -4,11 +4,10 @@ autoload -U compinit; compinit
 
 if command -v starship > /dev/null; then
   eval `starship init zsh`
-  eval `starship completions zsh`
 fi
 
 source "${HOME}/.shrc"
-export HISTFILE="${ZDOTDIR}/.history"
+export HISTFILE="${HOME}/.zsh_history"
 
 setopt append_history
 setopt auto_cd
