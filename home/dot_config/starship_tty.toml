@@ -12,17 +12,12 @@ $character"""
 style = "blue"
 
 [character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+success_symbol = "[>](purple)"
+error_symbol = "[>](red)"
+vimcmd_symbol = "[<](green)"
 
 [os]
-disabled = false
-
-[os.symbols]
-Alpine = "🐧"
-FreeBSD = "😈"
-Windows = "🪟"
+disabled = true
 
 [username]
 show_always = true
@@ -45,7 +40,7 @@ modified = " \b"
 staged = " \b"
 renamed = " \b"
 deleted = " \b"
-stashed = "≡"
+stashed = "///"
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
