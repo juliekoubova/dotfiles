@@ -1,6 +1,5 @@
 format = """
 $username@$hostname \
-$os \
 $directory\
 $git_branch\
 $git_state\
@@ -15,9 +14,6 @@ style = "blue"
 success_symbol = "[>](purple)"
 error_symbol = "[>](red)"
 vimcmd_symbol = "[<](green)"
-
-[os]
-disabled = true
 
 [username]
 show_always = true
@@ -41,6 +37,9 @@ staged = " \b"
 renamed = " \b"
 deleted = " \b"
 stashed = "///"
+ahead = "^"
+behind = "\\/"
+diverged = "<>"
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
