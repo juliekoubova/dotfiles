@@ -111,6 +111,7 @@ function _alpine_physical() {
   _openrc_enable openntpd
   _openrc_enable sshd
   _openrc_enable syslog
+  _openrc_enable zfs-mount sysinit
 
   _append_line /etc/conf.d/consolefont 'consolefont="ter-124b.psf.gz"'
   _append_line /etc/doas.conf "permit nopass :wheel cmd pm-suspend" 
@@ -276,6 +277,15 @@ fi
 EOF
 }
 
+function _alpine_qemu() {
+  _apk_virtual_add .qemu \
+    qemu-img \
+    qemu-openrc \
+    qemu-system-`uname -m` \
+    ;
+  _insert_mod tun
+}
+
 ###############################################################################
 # Let's go
 ###############################################################################
@@ -300,13 +310,21 @@ case "${1:-`hostname`}" in
     _alpine_edge
     _alpine_base
     _alpine_physical
-    _alpine_samba
-    _alpine_podman
-    _alpine_sway
+
     _apk_virtual_add .firmware \
       linux-firmware-amdgpu \
       linux-firmware-intel \
       ;
+
+    echo "Updating mkinitfs.conf"
+    echo >/etc/mkinitfs/mkinitfs.conf <<EOF
+features="base keymap kms nvme usb zfs zfshost"
+EOF
+
+    _alpine_podman
+    _alpine_qemu
+    _alpine_samba
+    _alpine_sway
     ;;
   julie-adell)
     _alpine_edge
