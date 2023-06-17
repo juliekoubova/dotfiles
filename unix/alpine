@@ -279,6 +279,7 @@ EOF
 
 function _alpine_qemu() {
   _apk_virtual_add .qemu \
+    ovmf \
     qemu-img \
     qemu-openrc \
     qemu-system-`uname -m` \
