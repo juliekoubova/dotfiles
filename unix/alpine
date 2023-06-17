@@ -103,6 +103,7 @@ function _alpine_physical() {
     openntpd \
     openssh \
     pm-utils \
+    sfdisk \
     zfs \
     zfs-lts \
     ;
