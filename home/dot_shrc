@@ -66,10 +66,10 @@ fi
 
 . "${HOME}/.aliases"
 
-if test -e "${HOME}/.cargo/env"; then
-  . "${HOME}/.cargo/env"
-fi
+[ -r "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
 if has apk; then
-  apk list --upgradeable
+  upgradeable=`apk list --upgradeable | wc -l`
+  [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n" 
+  unset upgradeable
 fi
