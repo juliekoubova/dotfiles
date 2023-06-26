@@ -3,32 +3,23 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
-        { "command": "unbound", "keys": "win+`" },
-        { "command": "unbound", "keys": "alt+down" },
-        { "command": "unbound", "keys": "alt+left" },
-        { "command": "unbound", "keys": "alt+right" },
-        { "command": "unbound", "keys": "alt+up" },
+        { "command": { "action": "resizePane", "direction": "left" }, "keys": "alt+shift+h" },
+        { "command": { "action": "resizePane", "direction": "down" }, "keys": "alt+shift+j" },
+        { "command": { "action": "resizePane", "direction": "up" }, "keys": "alt+shift+k" },
+        { "command": { "action": "resizePane", "direction": "right" }, "keys": "alt+shift+l" },
         {
-            "command": { "action": "splitPane", "split": "auto", "splitMode": "duplicate" },
-            "keys": "alt+shift+d"
+          "command": { "action": "splitPane", "split": "auto", "splitMode": "duplicate" },
+          "keys": "alt+enter"
         },
-        {
-            "command": "find",
-            "keys": "ctrl+shift+r"
-        },
-        {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+shift+c"
-        },
-        { "command": { "action": "moveFocus", "direction": "down" }, "keys": "alt+j" },
+        { "command": "find", "keys": "ctrl+shift+r" },
         { "command": "paste", "keys": "ctrl+shift+v" },
-        { "command": { "action": "moveFocus", "direction": "left" }, "keys": "alt+h" }, 
+        { "command": { "action": "copy", "singleLine": false }, "keys": "ctrl+shift+c" },
+        { "command": { "action": "moveFocus", "direction": "left" }, "keys": "alt+h" },
+        { "command": { "action": "moveFocus", "direction": "down" }, "keys": "alt+j" },
+        { "command": { "action": "moveFocus", "direction": "up" }, "keys": "alt+k" },
         { "command": { "action": "moveFocus", "direction": "right" }, "keys": "alt+l" },
-        { "command": { "action": "moveFocus", "direction": "up" }, "keys": "alt+k" }
+        { "command": "scrollDownPage", "keys": "ctrl+alt+f" },
+        { "command": "scrollUpPage", "keys": "ctrl+alt+b" },
     ],
     "alwaysShowNotificationIcon": false,
     "alwaysShowTabs": true,
@@ -84,7 +75,7 @@
                 "guid": "{96150a7c-9d4e-4f74-b351-feed48f5ed0c}",
                 "hidden": false,
                 "historySize": 0,
-                "icon": "C:\\src\\dotfiles\\Windows\\Terminal\\neovim.ico",
+                "icon": "%LocalAppData%\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\neovim.ico",
                 "name": "Neovim",
                 "padding": "0"
             },
@@ -104,14 +95,14 @@
                 "commandline": "%SystemRoot%\\System32\\OpenSSH\\ssh.exe bydlenka",
                 "guid": "{da67a221-a91f-4170-aaf4-b71731986225}",
                 "hidden": false,
-                "icon": "C:\\src\\dotfiles\\Windows\\Terminal\\freebsd.png",
+                "icon": "%LocalAppData%\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\freebsd.png",
                 "name": "Bydlenka"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\OpenSSH\\ssh.exe raptorek",
                 "guid": "{f9834eae-d6a9-4f21-9a12-8006b9df5a4d}",
                 "hidden": false,
-                "icon": "C:\\src\\dotfiles\\Windows\\Terminal\\freebsd.png",
+                "icon": "%LocalAppData%\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\freebsd.png",
                 "name": "Raptorek"
             }
         ]
