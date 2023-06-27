@@ -68,8 +68,27 @@ fi
 
 [ -r "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
+if has swayidle && has zzz; then
+  alias zzz=swayzzz
+fi
+
 if has apk; then
+
+  whichapk() {
+    if [ -f "${1}" ]; then 
+      file="${1}"
+    else
+      file=`which "${1}"`
+    fi
+    apk info -W "${file}"
+  }
+
   upgradeable=`apk list --upgradeable | wc -l`
   [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n" 
   unset upgradeable
 fi
+
+whichcat() {
+  file=`which "${1}"` || return 1
+  cat "${file}"
+}
