@@ -1,3 +1,4 @@
 # vi:ft=swayconfig
 output DSI-1 scale 1.5 transform 270
-
+input type:touch       map_to_output DSI-1
+input type:tablet_tool map_to_output DSI-1
