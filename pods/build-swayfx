@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-cd $(dirname $0)
-
-podman build -t alpine-sdk -f Containerfile.alpine-sdk
-podman build -t swayfx -f Containerfile.swayfx
-
-podman run --rm -it swayfx /bin/sh
