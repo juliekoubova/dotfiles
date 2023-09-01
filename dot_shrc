@@ -56,9 +56,9 @@ fi
 
 if has exa; then
   alias ls='exa'
-  alias ll='exa -l --git'
-  alias la='exa -la --git'
-  alias tree='exa -Tla --git'
+  alias ll='exa -lg --git'
+  alias la='exa -lag --git'
+  alias tree='exa -Tlag --git'
 else
   alias ll='ls -l'
   alias la='ls -la'
@@ -88,7 +88,7 @@ if has apk; then
   unset upgradeable
 fi
 
-whichcat() {
+catwhich() {
   file=`which "${1}"` || return 1
   cat "${file}"
 }
