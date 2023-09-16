@@ -1,0 +1,74 @@
+#!/bin/sh
+
+if [ `id -u` != 0 ]; then
+  echo must be root >&2
+  exit 1
+fi
+
+if ! command -v apk > /dev/null; then
+  echo apk not found >&2
+  exit 1
+fi
+
+: ${APKUPGRADE_KEEP_SNAPS:=4}
+
+apk update || exit 1
+
+upgradeable=`apk list --upgradeable` || exit 1
+upgradeable_count=`echo $upgradeable | wc -l`
+
+echo "${upgradeable_count} upgradeable package(s) found" >&2
+[ "${upgradeable_count}" -gt 0 ] || exit 0
+
+root_dataset=`mount | grep ' on / type zfs' | awk '{print $1}'`
+
+prune_snaps() {
+  if [ -z "${1}" ]; then
+    return 1
+  fi
+
+  local snaps=` \
+    zfs list -t snapshot -o name -S creation "${1}" \
+    | uniq \
+    | grep '@apkupgrade-'`
+
+  local num_snaps=`echo "$snaps" | wc -l`
+  local num_prune_snaps=$(( num_snaps - APKUPGRADE_KEEP_SNAPS ))
+
+  if [ $num_prune_snaps -le 0 ]; then
+    echo "no snapshots to prune" >&2
+    return 0
+  fi
+
+  echo "${num_prune_snaps} snapshot(s) to prune" >&2
+
+  if [ $num_prune_snaps -ge $num_snaps ]; then
+    echo "won't prune all snapshots" >&2
+    return 0
+  fi
+
+  for snap in `echo "$snaps" | tail -n $num_prune_snaps`; do
+    zfs destroy -v "${snap}" || exit 1
+  done
+
+  return 0
+}
+
+create_snap() {
+  if [ -z "${1}" ]; then
+    return 1
+  fi
+  local snap="${1}@apkupgrade-$(date +'%Y-%m-%d-%H%M')"
+  echo "creating snapshot ${snap}" >&2
+  zfs snapshot "${snap}" || return 1
+}
+
+if [ -n "$root_dataset" ]; then
+  prune_snaps "${root_dataset}" || exit 1
+  create_snap "${root_dataset}" || exit 1
+else
+  echo "root is not ZFS, not making a snapshot" >&2
+fi
+
+echo "upgrading packages" >&2
+exec apk --update-cache upgrade 
