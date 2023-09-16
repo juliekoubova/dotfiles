@@ -8,6 +8,7 @@
 }}
 
 {{ if ($is_wsl) }}
+apkupgrade
 chrome
 ff
 sleepy
