@@ -1,4 +1,5 @@
-These are my dotfiles. There are many like them, but these are mine.
+These are my dotfiles. There are many like them, but these are mine. 
+Without [chezmoi](https://www.chezmoi.io/), they are useless.
 
 ### Alpine
 ```console
