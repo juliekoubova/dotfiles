@@ -59,6 +59,11 @@ if has eza; then
   alias ll='eza -lg --git'
   alias la='eza -lag --git'
   alias tree='eza -Tlag --git'
+elif has exa; then
+  alias ls='exa'
+  alias ll='exa -lg --git'
+  alias la='exa -lag --git'
+  alias tree='exa -Tlag --git'
 else
   alias ll='ls -l'
   alias la='ls -la'
