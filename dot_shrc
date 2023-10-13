@@ -54,11 +54,11 @@ elif has vi; then
   export EDITOR=vi
 fi
 
-if has exa; then
-  alias ls='exa'
-  alias ll='exa -lg --git'
-  alias la='exa -lag --git'
-  alias tree='exa -Tlag --git'
+if has eza; then
+  alias ls='eza'
+  alias ll='eza -lg --git'
+  alias la='eza -lag --git'
+  alias tree='eza -Tlag --git'
 else
   alias ll='ls -l'
   alias la='ls -la'
@@ -68,12 +68,16 @@ fi
 
 [ -r "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
-if has swayidle && has zzz; then
+if has swayidle && has zzz && has swayzzz; then
   alias zzz=swayzzz
 fi
 
-if has apk; then
+if [ `id -u` != 0 ] && has doas; then
+  alias poweroff='doas poweroff'
+  alias reboot='doas reboot'
+fi
 
+if has apk; then
   whichapk() {
     if [ -f "${1}" ]; then 
       file="${1}"

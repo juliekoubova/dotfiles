@@ -69,4 +69,3 @@ inoremap <Esc> <Cmd>noh<CR><Esc>
 
 " Disable Ctrl+Z
 nnoremap <C-z> <nop>
-
