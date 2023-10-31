@@ -12,7 +12,12 @@ $ chezmoi init --apply juliekoubova --source ~/dotfiles
 # pkg install chezmoi
 $ chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
-
+### MacOS
+```
+% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+% brew install chezmoi
+% chezmoi init --apply juliekoubova --source ~/dotfiles
+```
 ### Windows
 ```
 C:\src\> winget install --id twpayne.chezmoi
