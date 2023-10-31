@@ -17,6 +17,7 @@ vim:ft=gotexttmpl
 {{ else }}
 AppData
 Documents
+OneDrive - Microsoft
 {{ end -}}
 
 {{- if (or .os.container .os.windows .os.wsl) }}

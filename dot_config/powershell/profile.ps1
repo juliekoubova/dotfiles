@@ -6,10 +6,14 @@ If ($IsWindows) {
   }
 
   If (Get-Command python -ea SilentlyContinue) {
-    $Paths = @($Env:PATH -split ';')
-    $Scripts = (Join-Path $(python -m site --user-site) ..\Scripts -Resolve)
-    If ($Scripts) {
-      $Env:PATH = ($Paths + $Scripts) -join ';'
+    # Windows has a python stub exe that launches Microsoft Store
+    python --version 2>&1 >$null
+    If ($LastExitCode -eq 0) {
+      $Paths = @($Env:PATH -split ';')
+      $Scripts = (Join-Path $(python -m site --user-site) ..\Scripts -Resolve)
+      If ($Scripts) {
+        $Env:PATH = ($Paths + $Scripts) -join ';'
+      }
     }
   }
 }
