@@ -29,7 +29,7 @@ C:\src\> chezmoi init --apply juliekoubova --source C:\src\dotfiles
 ## Write Access
 1. Generate an SSH key if there isn't one yet.
 
-    ```shell
+    ```
     # ssh-keygen -t ed25519
     # cat ~/.ssh/id_ed25519.pub | wlcopy
     ```
@@ -37,6 +37,6 @@ C:\src\> chezmoi init --apply juliekoubova --source C:\src\dotfiles
    
 3. Change the repo's `origin` remote to use SSH:
 
-    ```shell
+    ```
     # git remote set-url origin git@github.com:juliekoubova/dotfiles.git
     ```
