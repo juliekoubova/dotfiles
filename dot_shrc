@@ -106,6 +106,9 @@ if has brew; then
   source_if_has "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" 
 fi
 
+has pbcopy && alias wlcopy=pbcopy
+has pbpaste && alias wlpaste=pbpaste
+
 catwhich() {
   file=`which "${1}"` || return 1
   cat "${file}"
