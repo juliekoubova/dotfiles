@@ -1,12 +1,18 @@
 #!/usr/bin/env zsh
 
-autoload -U compinit; compinit
+source "${HOME}/.shrc"
 
-if command -v starship > /dev/null; then
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+if has starship; then
   eval `starship init zsh`
 fi
 
-source "${HOME}/.shrc"
+if has brew; then
+  source_if_has "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" 
+fi
+
 export HISTFILE="${HOME}/.zsh_history"
 
 setopt append_history

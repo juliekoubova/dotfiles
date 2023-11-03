@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-if test -r "${HOME}/.profile"; then
+if [ -s "${HOME}/.profile" ]; then
   . "${HOME}/.profile"
 fi
