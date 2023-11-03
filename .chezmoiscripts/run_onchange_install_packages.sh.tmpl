@@ -1,0 +1,29 @@
+#!/bin/sh
+{{ if eq .chezmoi.os "darwin" }}
+if command -v brew >/dev/null 2>&1; then
+  echo Homebrew already installed >&2
+else
+  echo Installing Homebrew >&2
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew tap homebrew/cask-fonts
+
+brew install \
+  chezmoi \
+  git \
+  git-delta \
+  eza \
+  font-caskaydia-cove-nerd-font \
+  fzf \
+  htop \
+  iterm2 \
+  jq \
+  less \
+  neovim \
+  ripgrep \
+  rsync \
+  starship \
+  ;
+
+{{ end }}

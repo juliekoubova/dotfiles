@@ -97,6 +97,10 @@ if has apk; then
   unset upgradeable
 fi
 
+if has brew; then
+  eval "$(brew shellenv)"
+fi
+
 catwhich() {
   file=`which "${1}"` || return 1
   cat "${file}"
