@@ -1,8 +1,10 @@
-{{ if .os.windows }}
+{{ if not .os.linux }}
 foot/
 gtk-3.0/
 sway/
 sway_reload.sh
 waybar/
+{{ end }}
+{{ if .os.windows }}
 zsh/
 {{ end }}
