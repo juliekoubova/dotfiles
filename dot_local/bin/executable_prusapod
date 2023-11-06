@@ -75,6 +75,7 @@ else
 fi
 
 mkdir -p "${HOME}/.config/PrusaSlicer"
+mkdir -p "${HOME}/.config/PrusaSlicer-alpha"
 mkdir -p "${HOME}/.config/PrusaSlicer-beta"
 
 exec podman run --rm -it \
@@ -82,6 +83,7 @@ exec podman run --rm -it \
   --volume "${HOME}/Downloads:/home/user/Downloads" \
   --volume "${HOME}/.config/gtk-3.0:/home/user/.config/gtk-3.0:ro" \
   --volume "${HOME}/.config/PrusaSlicer:/home/user/.config/PrusaSlicer" \
+  --volume "${HOME}/.config/PrusaSlicer-alpha:/home/user/.config/PrusaSlicer-alpha" \
   --volume "${HOME}/.config/PrusaSlicer-beta:/home/user/.config/PrusaSlicer-beta" \
   --device /dev/dri \
   --volume /tmp/.X11-unix:/tmp/.X11-unix \
