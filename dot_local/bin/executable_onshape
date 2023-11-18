@@ -1,2 +1,2 @@
 #!/bin/sh
-chromium-browser --app=https://cad.onshape.com/ >/dev/null 2>&1 &
+chromium-browser --app=https://cad.onshape.com/ --new-window >/dev/null 2>&1 &
