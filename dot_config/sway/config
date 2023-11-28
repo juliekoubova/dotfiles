@@ -12,14 +12,9 @@ set $browser ~/.local/bin/ff
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu fuzzel
+set $menu rofi -show drun
 
 output * background ~/.local/share/backgrounds/3351632.jpg fill
-
-input type:keyboard {
-  xkb_layout  us,cz(qwerty)
-  xkb_options grp:alt_shift_toggle
-}
 
 default_border pixel 5
 
