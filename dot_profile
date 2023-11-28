@@ -1,11 +1,9 @@
 #!/bin/sh
 export ENV="${HOME}/.shrc"
-export NVM_DIR="${HOME}/.nvm"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_STATE_HOME="${HOME}/.local/state"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-export BC_ENV_ARGS="${XDG_CONFIG_HOME}/bc"
 
 mkdir -p "${XDG_STATE_HOME}"
 
@@ -19,6 +17,9 @@ fi
 
 if test "$TTY" = "/dev/tty1"; then
   if command -v sway > /dev/null; then
+    export MOZ_ENABLE_WAYLAND="1"
+    export QT_QPA_PLATFORM="wayland-egl"
+    export XDG_CURRENT_DESKTOP="sway"
     if command -v dbus-run-session > /dev/null; then
       exec dbus-run-session -- sway > "${XDG_STATE_HOME}/sway.log" 2>&1
     else

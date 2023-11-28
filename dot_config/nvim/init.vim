@@ -3,7 +3,7 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
 Plug 'fatih/vim-go'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
 Plug 'neovim/nvim-lspconfig'
@@ -69,3 +69,8 @@ inoremap <Esc> <Cmd>noh<CR><Esc>
 
 " Disable Ctrl+Z
 nnoremap <C-z> <nop>
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:completion_enable_fuzzy_match = 1
+set completeopt=menuone,noinsert,noselect
