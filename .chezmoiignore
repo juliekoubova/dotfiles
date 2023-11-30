@@ -11,9 +11,11 @@ vim:ft=gotexttmpl
 {{ end -}}
 
 {{- if .os.windows }}
+.aliases
 .cshrc
 .profile
 .shrc
+.zprofile
 {{ else }}
 AppData
 Documents
