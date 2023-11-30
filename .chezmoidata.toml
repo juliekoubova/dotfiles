@@ -7,6 +7,7 @@ unixCursorSize  = "48"
 [aliases]
 cza = "chezmoi apply"
 czu = "chezmoi update"
+lg  = "lazygit"
 
 [gitaliases]
 ca   = "commit --amend --no-edit"
