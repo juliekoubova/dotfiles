@@ -9,8 +9,6 @@ cza = "chezmoi apply"
 czu = "chezmoi update"
 
 [gitaliases]
-a    = "add"
-all  = "add --all"
 ca   = "commit --amend --no-edit"
 cb   = "checkout -b"
 cm   = "commit -m"

@@ -50,6 +50,11 @@ Set-Alias which Get-Command
 
 Remove-Alias rm -Force -ea SilentlyContinue
 
+Function ga {
+  Param ([String]$Path = '--all')
+  git add $Path
+}
+
 Function rm {
   Param (
     [Alias('r')]

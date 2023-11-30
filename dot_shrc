@@ -119,3 +119,8 @@ catwhich() {
   file=`which "${1}"` || return 1
   cat "${file}"
 }
+
+ga() {
+  local arg="${1:---all}"
+  git add $arg
+}
