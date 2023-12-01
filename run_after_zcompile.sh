@@ -1,4 +1,3 @@
-{{ if not .os.windows -}}
 #!/bin/sh
 if command -v zsh >/dev/null 2>&1; then
   exec zsh -c "
@@ -10,4 +9,3 @@ zcompile ~/.shrc
 zcompile ~/.zprofile
 "
 fi
-{{ end }}
