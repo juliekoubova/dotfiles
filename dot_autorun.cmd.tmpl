@@ -1,0 +1,9 @@
+@echo off
+
+doskey g=git
+{{ range $alias, $command := .gitaliases -}}
+doskey g{{ $alias }}=git {{ $command }}
+{{ end -}}
+{{ range $alias, $command := .aliases -}}
+doskey {{ $alias }}={{ $command }}
+{{ end -}}
