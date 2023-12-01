@@ -11,6 +11,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'kylechui/nvim-surround'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
@@ -47,7 +48,7 @@ set shortmess=I
 let g:mapleader = ","
 
 " git-blame
-let g:gitblame_enabled = 0
+let g:gitblame_enabled = 1
 let g:gitblame_date_format = '%r'
 noremap <leader>bl :GitBlameToggle<CR>
 
