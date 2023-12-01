@@ -21,6 +21,8 @@ If ($IsWindows) {
   }
 }
 
+$Env:LESS = '--mouse'
+
 Set-PSReadLineOption -EditMode Vi
 
 # Use Ctrl+[ to exit insert mode

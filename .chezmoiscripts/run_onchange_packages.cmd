@@ -3,6 +3,8 @@
 call :install BurntSushi.ripgrep.MSVC
 call :install Git.Git
 call :install JesseDuffield.lazygit
+call :install Microsoft.PowerShell
+call :install Microsoft.VisualStudioCode.Insiders
 call :install Microsoft.WindowsTerminal.Preview
 call :install Mozilla.Firefox
 call :install Neovim.Neovim
