@@ -2,27 +2,41 @@
 vim:ft=gotexttmpl
 */ -}}
 
-{{- if ne .chezmoi.hostname "antigone" }}
+{{ if ne .chezmoi.hostname "antigone" }}
 **/*_antigone*
-{{ end -}}
+{{ end }}
 
-{{- if ne .chezmoi.hostname "raptorek" }}
+{{ if ne .chezmoi.hostname "raptorek" }}
 **/*_raptorek*
-{{ end -}}
+{{ end }}
 
-{{- if .os.windows }}
+{{ if not .os.darwin }}
+**/*_darwin.sh
+{{ end }}
+
+{{ if not .os.linux }}
+**/*_linux.sh
+{{ end }}
+
+{{ if not .os.unix }}
+**/*.sh
 .aliases
 .cshrc
 .profile
 .shrc
 .zprofile
-{{ else }}
+{{ end }}
+
+{{ if not .os.windows }}
+**/*.cmd
 AppData
 Documents
 OneDrive - Microsoft
-{{ end -}}
+{{ end }}
 
-{{- if (or .os.container .os.windows .os.wsl) }}
+{{ if (or .os.container .os.darwin .os.windows .os.wsl) }}
 .icons/
 .themes/
 {{ end }}
+
+README.md

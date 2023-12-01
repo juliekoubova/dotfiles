@@ -1,4 +1,5 @@
 #!/bin/sh
 if command -v nvim >/dev/null; then
-  exec nvim +PlugInstall +qall
+  echo Installing Neovim plugins
+  exec nvim -i NONE -c PlugInstall -c qa
 fi

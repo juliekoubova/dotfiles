@@ -1,17 +1,18 @@
 call plug#begin()
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
 Plug 'fatih/vim-go'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
+Plug 'kylechui/nvim-surround'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'kylechui/nvim-surround'
-Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
@@ -33,6 +34,8 @@ set encoding=utf-8
 set ruler
 set nowrap
 set number
+
+set mousemoveevent
 
 set incsearch ignorecase smartcase
 
@@ -73,5 +76,6 @@ nnoremap <C-z> <nop>
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 let g:completion_enable_fuzzy_match = 1
 set completeopt=menuone,noinsert,noselect

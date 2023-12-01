@@ -5,6 +5,6 @@ sway/
 sway_reload.sh
 waybar/
 {{ end }}
-{{ if .os.windows }}
+{{ if not .os.unix }}
 zsh/
 {{ end }}

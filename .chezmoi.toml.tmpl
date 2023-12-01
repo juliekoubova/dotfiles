@@ -6,8 +6,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
     (eq .chezmoi.os "linux")
     (output "sh" "-c" "echo $container" | trim)
   ) | not | not }}
+  darwin = {{ (eq .chezmoi.os "darwin") }}
   freebsd = {{ (eq .chezmoi.os "freebsd") }}
   linux = {{ (eq .chezmoi.os "linux") }}
+  unix = {{ (eq .chezmoi.os "darwin" "freebsd" "linux") }}
   windows = {{ (eq .chezmoi.os "windows") }}
   wsl = {{ (and
     (eq .chezmoi.os "linux") 
