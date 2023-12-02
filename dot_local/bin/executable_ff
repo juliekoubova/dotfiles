@@ -1,10 +1,37 @@
 #!/bin/sh
 
-if test -n "${WAYLAND_DISPLAY}"; then
+patch_widevine_for_musl() {
+  local _gcompat="/lib/libgcompat.so.0"
+  local _widevine="libwidevinecdm.so"
+
+  echo "Running on Musl Linux, attempting to patch widevinecdm" >&2
+  if [ ! -e "${_gcompat}" ]; then
+    echo "${_gcompat} not found, try \`apk add gcompat\`" >&2
+    return 1
+  fi
+
+  if ! command -v patchelf >/dev/null; then
+    echo 'patchelf not found, try `apk add patchelf`' >&2
+    return 1
+  fi
+
+  find ~/.mozilla/firefox -name "${_widevine}" | while read lib; do
+    echo "Patching $lib"
+    patchelf --add-needed "${_gcompat}" "${lib}"
+    export MOZ_DISABLE_GMP_SANDBOX=1
+  done
+
+}
+
+if [ -n "${WAYLAND_DISPLAY}" ]; then
   export MOZ_ENABLE_WAYLAND=1
 fi
 
-if test -t 0; then 
+if [ `uname` = "Linux" ] && ldd --version 2>&1 | grep -q musl; then
+  patch_widevine_for_musl
+fi
+
+if [ -t 0 ]; then 
   firefox "$@" > /dev/null 2>&1 &
 else
   exec firefox "$@"
