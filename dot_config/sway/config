@@ -5,7 +5,7 @@ set $down j
 set $up k
 set $right l
 
-set $term    footclient
+set $term    kitty --single-instance
 set $browser ~/.local/bin/ff
 
 # Your preferred application launcher
@@ -153,8 +153,6 @@ bindsym $mod+r mode "resize"
 
 include /etc/sway/config.d/*
 include config.d/*
-
-exec foot --server
 
 workspace 1 
   # sleep to wait for foot server to start

@@ -1,22 +1,25 @@
 call plug#begin()
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'alker0/chezmoi.vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'f-person/git-blame.nvim'
 Plug 'fatih/vim-go'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'kylechui/nvim-surround'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'overcache/NeoSolarized'
 Plug 'sindrets/diffview.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
@@ -32,6 +35,7 @@ set autoread
 set cursorline
 set encoding=utf-8
 set ruler
+set noswapfile
 set nowrap
 set number
 
