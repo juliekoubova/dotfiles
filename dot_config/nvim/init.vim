@@ -7,7 +7,6 @@ Plug 'f-person/git-blame.nvim'
 Plug 'fatih/vim-go'
 Plug 'hrsh7th/cmp-nvim-lsp' " LSP source for nvim-cmp
 Plug 'hrsh7th/nvim-cmp' " Autocompletion plugin
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'kylechui/nvim-surround'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -61,10 +60,11 @@ noremap <leader>bl :GitBlameToggle<CR>
 
 " Telescope
 noremap <leader>ff <cmd>Telescope find_files<CR>
-noremap <leader>fg <cmd>Telescope live_grep<CR>
 noremap <leader>fb <cmd>Telescope buffers<CR>
+noremap <leader>fs <cmd>Telescope live_grep<CR>
+noremap <leader>gs <cmd>Telescope git_status<CR>
 noremap <leader>h  <cmd>DiffviewFileHistory<CR>
-noremap <leader>g  <cmd>DiffviewOpen
+noremap <leader>g  <cmd>DiffviewOpen<CR>
 noremap <leader>v  <cmd>echomsg system('curl -s -m 3 https://vtip.43z.one')<CR>
 
 noremap <C-P>   <cmd>Telescope find_files<CR>
