@@ -1,0 +1,25 @@
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("options")
+require("keymap")
+require("lazy").setup({ import = "plugins" })
+
+vim.cmd [[
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
+
+filetype plugin on
+
+let g:completion_enable_fuzzy_match = 1
+set completeopt=menuone,noinsert,noselect
+]]
