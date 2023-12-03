@@ -44,6 +44,7 @@ alpine = [
   "htop",
   "jq",
   "lazygit",
+  "lua-language-server@testing",
   "less",
   "python3",
   "neovim",
