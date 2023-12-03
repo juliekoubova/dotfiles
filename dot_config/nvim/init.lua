@@ -15,11 +15,11 @@ require("options")
 require("keymap")
 require("lazy").setup({ import = "plugins" })
 
-vim.cmd [[
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
-
-filetype plugin on
-
-let g:completion_enable_fuzzy_match = 1
-set completeopt=menuone,noinsert,noselect
-]]
+-- vim.cmd [[
+-- let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
+-- 
+-- filetype plugin on
+-- 
+-- syntax on
+-- 
+-- ]]

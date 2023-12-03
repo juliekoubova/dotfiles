@@ -12,6 +12,7 @@ return {
         },
       },
       git = { enable = false },
+      renderer = { group_empty = true },
       update_focused_file = { enable = true }
     })
 

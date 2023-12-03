@@ -7,6 +7,7 @@ vim.o.shiftwidth = 2
 vim.o.autoread = true
 vim.o.encoding = "utf-8"
 vim.o.swapfile = false
+vim.o.undofile = true
 
 vim.o.cursorline = true
 vim.o.shortmess = 'aI'
@@ -30,3 +31,10 @@ vim.o.textwidth = 80
 -- gitblame
 vim.g.gitblame_enabled = 1
 vim.g.gitblame_date_format = '%r'
+
+-- Completion
+vim.g.completeopt = { "menuone", "noinsert", "noselect" }
+
+-- Disable nterw for nvim-tree
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
