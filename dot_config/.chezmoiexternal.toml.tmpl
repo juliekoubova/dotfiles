@@ -1,0 +1,6 @@
+{{ if .os.unix }}
+["nvm"]
+url = "https://github.com/nvm-sh/nvm.git"
+type = "git-repo"
+pull.args = [ "--depth 1" ]
+{{ end }}

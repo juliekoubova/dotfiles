@@ -5,9 +5,11 @@ unixCursorTheme = "capitaine-cursors-light"
 unixCursorSize  = "48"
 
 [aliases]
+cz  = "chezmoi"
 cza = "chezmoi apply"
 czu = "chezmoi update"
 lg  = "lazygit"
+ff  = "firefox"
 
 [gitaliases]
 ca   = "commit --amend --no-edit"

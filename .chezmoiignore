@@ -10,6 +10,10 @@ vim:ft=gotexttmpl
 **/*_raptorek*
 {{ end }}
 
+{{ if not .os.alpine }}
+**/*_alpine.sh
+{{ end }}
+
 {{ if not .os.darwin }}
 **/*_darwin.sh
 {{ end }}

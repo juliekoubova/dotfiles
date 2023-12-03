@@ -1,10 +1,15 @@
 {{ if not .os.linux }}
 foot/
 gtk-3.0/
+kitty
+rofi/
 sway/
 sway_reload.sh
 waybar/
 {{ end }}
+
 {{ if not .os.unix }}
+bc/
+htop/
 zsh/
 {{ end }}

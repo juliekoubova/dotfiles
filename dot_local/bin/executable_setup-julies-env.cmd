@@ -12,7 +12,6 @@ call :install Starship.Starship
 call :install dandavison.delta
 call :install gsass1.NTop
 call :install jftuga.less
-call :install junegunn.fzf
 call :install voidtools.Everything
 exit 0
 

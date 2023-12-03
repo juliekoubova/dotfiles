@@ -154,6 +154,8 @@ bindsym $mod+r mode "resize"
 include /etc/sway/config.d/*
 include config.d/*
 
+exec mako
+
 workspace 1 
   # sleep to wait for foot server to start
   exec 'sleep 1; $term'

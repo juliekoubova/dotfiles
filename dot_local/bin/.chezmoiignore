@@ -1,21 +1,15 @@
-# vi:ft=gotexttmpl
-{{ $is_linux := (eq .chezmoi.os "linux") }}
-{{ 
-  $is_wsl := (and 
-    $is_linux
-    (.chezmoi.kernel.osrelease | lower | contains "microsoft") 
-  )
-}}
-
-{{ if ($is_wsl) }}
-apkupgrade
-chrome
-ff
-sleepy
-teams
-totorohome
-{{ else }}
+{{ if not .os.wsl }}
 ssh
 winpwsh
 {{ end }}
 
+{{ if not .os.alpine }}
+apkupgrade
+{{ end }}
+
+{{ if not .os.linux }}
+chrome
+ff
+teams
+totorohome
+{{ end }}
