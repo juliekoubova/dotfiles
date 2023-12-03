@@ -32,3 +32,32 @@ ra   = "rebase --abort"
 rc   = "rebase --continue"
 s    = "status --short"
 soft = "reset --soft"
+
+[setup]
+alpine = [
+  "delta",
+  "drill",
+  "exa",
+  "git",
+  "git-crypt",
+  "go",
+  "htop",
+  "jq",
+  "lazygit",
+  "less",
+  "python3",
+  "neovim",
+  "ripgrep",
+  "rsync",
+  "starship",
+  "strace",
+  "tcpdump",
+  "tree-sitter",
+  "unzip",
+]
+
+[setupAnsible]
+alpine = [
+  "ansible",
+  "ansible-lint"
+]

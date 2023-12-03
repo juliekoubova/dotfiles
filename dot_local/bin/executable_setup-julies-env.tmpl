@@ -1,6 +1,0 @@
-{{- if .os.alpine -}}
-{{- include "dot_local/bin/.setup-julies-env_alpine.sh" -}}
-{{- else if .os.darwin -}}
-{{- include "dot_local/bin/.setup-julies-env_darwin.sh" -}}
-{{- end -}}
-

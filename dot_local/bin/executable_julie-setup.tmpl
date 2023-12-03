@@ -1,5 +1,8 @@
+{{- if .os.alpine -}}
 #!/bin/sh
-#
+{{ template "setup_alpine" .setup }}
+{{- else if .os.darwin -}}
+
 if command -v brew >/dev/null 2>&1; then
   echo Homebrew already installed >&2
 else
@@ -10,7 +13,6 @@ fi
 brew tap homebrew/cask-fonts
 
 brew install \
-  chezmoi \
   git \
   git-delta \
   eza \
@@ -25,3 +27,5 @@ brew install \
   rsync \
   starship \
   ;
+
+{{- end }}

@@ -13,3 +13,8 @@ ff
 teams
 totorohome
 {{ end }}
+
+{{ if not .os.unix }}
+julie-setup
+julie-setup-ansible
+{{ end }}
