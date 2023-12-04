@@ -5,7 +5,11 @@ container = {{ (and
   (eq .chezmoi.os "linux")
   (output "sh" "-c" "echo $container" | trim)
 ) | not | not }}
-alpine = {{ (eq .chezmoi.osRelease.id "alpine") }}
+alpine = {{ and 
+  (eq .chezmoi.os "linux") 
+  (.chezmoi.osRelease.id)
+  (eq (.chezmoi.osRelease.id) "alpine"
+) }}
 darwin = {{ (eq .chezmoi.os "darwin") }}
 freebsd = {{ (eq .chezmoi.os "freebsd") }}
 linux = {{ (eq .chezmoi.os "linux") }}
