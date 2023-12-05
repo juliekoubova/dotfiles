@@ -8,7 +8,7 @@ If ($IsWindows) {
     }
   }
 
-  $Paths = @($Env:PATH -split ';')
+  [Collections.ArrayList] $Paths = @($Env:PATH -split ';')
 
   If (Get-Command python -ea SilentlyContinue) {
     # Windows has a python stub exe that launches Microsoft Store
@@ -21,6 +21,7 @@ If ($IsWindows) {
     }
   }
 
+  $Paths.Insert(0,  "${Env:UserProfile}\.local\bin")
   $Paths = $Paths | Resolve-Path -ea SilentlyContinue | Select-Object -Unique
   $Env:PATH = ($Paths -join ';')
 }
