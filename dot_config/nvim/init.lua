@@ -14,12 +14,3 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 require("keymap")
 require("lazy").setup({ import = "plugins" })
-
--- vim.cmd [[
--- let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " needed on Windows
--- 
--- filetype plugin on
--- 
--- syntax on
--- 
--- ]]
