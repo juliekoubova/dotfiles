@@ -33,9 +33,10 @@ vim:ft=gotexttmpl
 
 {{ if not .os.windows }}
 **/*.cmd
-AppData
-Documents
-OneDrive - Microsoft
+AppData/
+Documents/
+OneDrive - Microsoft/
+.vsvimrc
 {{ end }}
 
 {{ if (or .os.container .os.darwin .os.windows .os.wsl) }}

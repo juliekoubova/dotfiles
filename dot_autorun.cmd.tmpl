@@ -1,4 +1,5 @@
 @echo off
+set PATH=%USERPROFILE%\.local\bin;%PATH%
 
 doskey g=git
 {{ range $alias, $command := .gitaliases -}}

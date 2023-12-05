@@ -1,0 +1,10 @@
+let mapleader="\<space>"
+
+vnoremap <Leader>c :vsc Edit.CommentSelection<CR>
+nnoremap <Leader>c :vsc Edit.CommentSelection<CR>
+
+vnoremap <Leader>u :vsc Edit.UncommentSelection<CR>
+nnoremap <Leader>u :vsc Edit.UncommentSelection<CR>
+
+vnoremap <Leader>ff :vsc Edit.GoToFile<CR>
+nnoremap <Leader>ff :vsc Edit.GoToFile<CR>
