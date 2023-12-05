@@ -1,7 +1,10 @@
 alias g='git'
+alias tailmsg='tail /var/log/messages'
+
 {{ range $alias, $command := .gitaliases -}}
 alias g{{ $alias }}='git {{ $command }}'
 {{ end -}}
+
 {{ range $alias, $command := .aliases -}}
 alias {{ $alias }}='{{ $command }}'
 {{ end -}}
