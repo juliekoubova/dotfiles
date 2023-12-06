@@ -4,7 +4,12 @@ If ($IsWindows) {
     $VSPath = @(& $VSWhere -latest -prerelease -property InstallationPath 2>$null)[-1]
     If ($VSPath) {
       Import-Module (Join-Path $VSPath Common7\Tools\Microsoft.VisualStudio.DevShell.dll)
-      $Null = Enter-VsDevShell -VsInstallPath $VSPath -StartInPath (Get-Location) 
+      Write-Host "Entering VS Dev Shell..."
+      $Null = Enter-VsDevShell `
+        -Arch amd64 `
+        -VsInstallPath $VSPath `
+        -StartInPath (Get-Location)
+      Clear-Host
     }
   }
 

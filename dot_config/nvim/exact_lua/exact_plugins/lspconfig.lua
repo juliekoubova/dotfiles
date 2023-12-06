@@ -30,6 +30,7 @@ return {
 
     lsp.pylsp.setup { capabilities = capabilities }
     lsp.tsserver.setup { capabilities = capabilities }
+    lsp.clangd.setup { capabilities = capabilities }
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
