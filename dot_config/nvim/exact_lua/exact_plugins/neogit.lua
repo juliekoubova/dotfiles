@@ -4,7 +4,10 @@ return {
     "nvim-lua/plenary.nvim",         -- required
     "nvim-telescope/telescope.nvim", -- optional
     "sindrets/diffview.nvim",        -- optional
-    "ibhagwan/fzf-lua",              -- optional
   },
-  config = true
+  cond = not (vim.g.started_by_firenvim or vim.g.vscode),
+  config = true,
+  keys = {
+    { '<Leader>gs', '<Cmd>Neogit<CR>', desc = 'Neogit' },
+  },
 }
