@@ -7,7 +7,11 @@ return {
     "catppuccin/nvim",
   },
   cond = not (vim.g.started_by_firenvim or vim.g.vscode),
-  config = true,
+  opts = {
+    disable_hint = true,
+    disable_insert_on_commit = false,
+    graph_style = 'unicode',
+  },
   keys = {
     { '<Leader>gs', '<Cmd>Neogit<CR>', desc = 'Neogit' },
   },
