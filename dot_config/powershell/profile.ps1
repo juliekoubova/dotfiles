@@ -26,6 +26,11 @@ If ($IsWindows) {
     }
   }
 
+  $LuaLSDir =  "${Env:LocalAppData}\Microsoft\WinGet\Packages\LuaLS.lua-language-server_Microsoft.Winget.Source_8wekyb3d8bbwe\bin"
+  If (Test-Path "${LuaLSDir}\lua-language-server.exe") {
+    $Paths.Insert(0,  "${LuaLSDir}")
+  }
+
   $Paths.Insert(0,  "${Env:UserProfile}\.local\bin")
   $Paths = $Paths | Resolve-Path -ea SilentlyContinue | Select-Object -Unique
   $Env:PATH = ($Paths -join ';')
