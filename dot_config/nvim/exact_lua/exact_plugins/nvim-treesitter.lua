@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  enabled = not vim.g.vscode,
   config = function()
     if vim.fn.has('windows') then
       -- MSVC results in "foo.so is not a valid Win32 application"
