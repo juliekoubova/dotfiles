@@ -13,11 +13,13 @@ return {
         },
       },
       git = { enable = false },
-      renderer = { group_empty = true },
+      renderer = { group_empty = true, indent_markers = { enable = true } },
       update_focused_file = { enable = true }
     })
 
-    vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = function(data)
+    vim.api.nvim_create_autocmd(
+    { "VimEnter" },
+    { callback = function(data)
       if vim.fn.isdirectory(data.file) == 1 then
         vim.cmd.cd(data.file)
         vim.cmd.enew()
