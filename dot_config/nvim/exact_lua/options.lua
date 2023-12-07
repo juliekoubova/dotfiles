@@ -38,3 +38,15 @@ vim.g.completeopt = { "menuone", "noinsert", "noselect" }
 -- Disable nterw for nvim-tree
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.api.nvim_create_autocmd('InsertEnter', {
+  callback = function()
+    vim.wo.relativenumber = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('InsertLeave', {
+  callback = function()
+    vim.wo.relativenumber = false
+  end,
+})
