@@ -1,46 +1,50 @@
 -- Indenting
-vim.o.autoindent = true
-vim.o.expandtab = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+vim.o.autoindent           = true
+vim.o.expandtab            = true
+vim.o.tabstop              = 2
+vim.o.shiftwidth           = 2
 
-vim.o.autoread = true
-vim.o.encoding = "utf-8"
-vim.o.swapfile = false
-vim.o.undofile = true
+vim.o.autoread             = true
+vim.o.encoding             = "utf-8"
+vim.o.swapfile             = false
+vim.o.undofile             = true
 
-vim.o.cursorline = true
-vim.o.shortmess = 'aI'
-vim.o.wrap = false
-vim.o.number = true
-vim.o.ruler = true
-vim.o.list = true
-vim.o.showmode = false
-vim.o.termguicolors = true
-vim.o.mousemoveevent = true
+vim.o.cursorline           = true
+vim.o.shortmess            = 'aI'
+vim.o.wrap                 = false
+vim.o.number               = true
+vim.o.ruler                = true
+vim.o.list                 = true
+vim.o.showmode             = false
+vim.o.termguicolors        = true
+vim.o.mousemoveevent       = true
 
 -- Search
-vim.o.incsearch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.incsearch            = true
+vim.o.ignorecase           = true
+vim.o.smartcase            = true
 
 -- Text width
-vim.o.colorcolumn = 80
-vim.o.textwidth = 80
+vim.o.colorcolumn          = 80
+vim.o.textwidth            = 80
 
 -- gitblame
-vim.g.gitblame_enabled = 1
+vim.g.gitblame_enabled     = 1
 vim.g.gitblame_date_format = '%r'
 
 -- Completion
-vim.g.completeopt = { "menuone", "noinsert", "noselect" }
+vim.g.completeopt          = { "menuone", "noinsert", "noselect" }
 
 -- Disable nterw for nvim-tree
-vim.g.loaded_netrw       = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw         = 1
+vim.g.loaded_netrwPlugin   = 1
 
 vim.api.nvim_create_autocmd('InsertEnter', {
   callback = function()
+    local buftype = vim.bo.buftype
+    if buftype == "prompt" or buftype == "nofile" then
+      return
+    end
     vim.wo.relativenumber = true
   end,
 })

@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 
 if vim.g.vscode then
   vim.keymap.set('n', '<leader>ff', function() require('vscode-neovim').call('workbench.action.quickOpen') end)
+  vim.keymap.set('n', '<leader>fb', function() require('vscode-neovim').call('workbench.action.openPreviousEditorFromHistory') end)
+  vim.keymap.set('n', '<leader>ft', function() require('vscode-neovim').call('workbench.view.explorer') end)
 else
   -- Telescope
   vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
@@ -17,4 +19,10 @@ else
 
   -- Disable Ctrl+Z
   vim.keymap.set('n', '<C-z>', '<nop>')
+
+  -- NeoGit
+  vim.keymap.set('n', '<leader>gs', '<cmd>Neogit<CR>')
+  vim.keymap.set('n', '<leader>gl', function()
+    require('neogit').action('log', 'log_current')()
+  end)
 end

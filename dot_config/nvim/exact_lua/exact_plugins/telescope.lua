@@ -1,7 +1,7 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    enabled      = not vim.g.started_by_firenvim,
+    enabled      = not (vim.g.started_by_firenvim or vim.g.vscode),
     dependencies = { "nvim-lua/plenary.nvim" },
     config       = function()
       local telescope = require('telescope')
