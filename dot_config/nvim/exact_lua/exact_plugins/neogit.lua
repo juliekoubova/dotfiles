@@ -9,8 +9,12 @@ return {
   cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   cmd = { "Neogit" },
   opts = {
-    disable_hint = true,
+    disable_hint             = true,
     disable_insert_on_commit = false,
-    graph_style = 'unicode',
+    graph_style              = 'unicode',
+    signs                    = {
+      section = { "", "" },
+      item    = { "", "" },
+    },
   },
 }
