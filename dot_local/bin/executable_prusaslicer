@@ -1,0 +1,37 @@
+#!/bin/sh
+if ! command -v flatpak >/dev/null; then
+  echo flatpak not available >&2
+  read
+  exit 1
+fi
+
+if command -v gsettings >/dev/null; then
+  get_gsetting() {
+    result=`gsettings get org.gnome.desktop.interface "$1"`
+    result="${result%\'}"
+    result="${result#\'}"
+    echo "${result}"
+  }
+  gtk_theme=`get_gsetting gtk-theme`
+  icon_theme=`get_gsetting icon-theme`
+else
+  echo gsettings not available >&2
+fi
+
+flatpak_id="com.prusa3d.PrusaSlicer"
+
+if ! flatpak info --user "$flatpak_id" >/dev/null 2>&1; then
+  flatpak install --user "$flatpak_id" || exit 1
+fi
+
+flatpak run \
+  --branch=stable \
+  --command=entrypoint \
+  --env=GTK_THEME=$gtk_theme \
+  --env=ICON_THEME=$icon_theme \
+  --filesystem="${HOME}/.themes" \
+  --filesystem="${HOME}/.icons" \
+  "$flatpak_id" -- \
+  "$@" \
+  >/dev/null 2>&1
+
