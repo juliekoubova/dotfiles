@@ -1,7 +1,8 @@
 {{ if not .os.linux }}
+alcaritty/
 foot/
 gtk-3.0/
-kitty
+kitty/
 rofi/
 sway/
 sway_reload.sh
