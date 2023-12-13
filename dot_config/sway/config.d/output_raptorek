@@ -1,13 +1,14 @@
 # vi:ft=swayconfig
 
-output * mode  2560x1440@74.968Hz 
-output * scale 1.25
+output * mode  3840x2160@60Hz
+output * scale 1.5
 
 set $output_left  DP-1
 set $output_right HDMI-A-1
 
+# position has to be scaled
 output $output_left  position 0    0
-output $output_right position 2048 0
+output $output_right position 2560 0
 
 workspace 1 output $output_left
 workspace 2 output $output_right
