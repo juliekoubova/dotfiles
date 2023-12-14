@@ -13,6 +13,7 @@ vim.o.cursorline           = true
 vim.o.shortmess            = 'aI'
 vim.o.wrap                 = false
 vim.o.number               = true
+vim.o.numberwidth          = 4
 vim.o.ruler                = true
 vim.o.list                 = true
 vim.o.showmode             = false

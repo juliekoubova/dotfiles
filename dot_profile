@@ -11,19 +11,32 @@ if [ -n "${SSH_CLIENT}" -a "${TERM}" = "foot" ]; then
   export TERM="xterm-256color"
 fi
 
-if command -v ssh-agent > /dev/null && test -z "${SSH_AGENT_PID}"; then
+has() {
+  command -v "$1" 1>/dev/null
+}
+
+if has ssh-agent && [ -z "${SSH_AGENT_PID}" ]; then
   eval $(ssh-agent)
 fi
 
-if test "$TTY" = "/dev/tty1"; then
-  if command -v sway > /dev/null; then
-    export MOZ_ENABLE_WAYLAND="1"
-    export QT_QPA_PLATFORM="wayland-egl"
-    export XDG_CURRENT_DESKTOP="sway"
-    if command -v dbus-run-session > /dev/null; then
-      exec dbus-run-session -- sway > "${XDG_STATE_HOME}/sway.log" 2>&1
-    else
-      exec sway > "${XDG_STATE_HOME}/sway.log" 2>&1
-    fi
+try_exec_dbus() {
+  local _cmd=$1; shift
+  local _log="${XDG_STATE_HOME}/${_cmd}.log"
+
+  if has dbus-run-session; then
+    exec dbus-run-session -- "$_cmd" "$@" 1>"$_log" 2>&1
+  else
+    exec "$_cmd" "$@" 1>"$_log" 2>&1
   fi
-fi
+}
+
+exec_sway() {
+  export MOZ_ENABLE_WAYLAND="1"
+  export QT_QPA_PLATFORM="wayland-egl"
+  export XDG_CURRENT_DESKTOP="sway"
+  try_exec_dbus sway
+}
+
+case "$TTY" in
+  "/dev/tty1") has sway && exec_sway;;
+esac
