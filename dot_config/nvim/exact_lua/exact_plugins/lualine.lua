@@ -2,11 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   config = function()
     -- Based on Eviline config for lualine
-    -- Author: shadmansaleh
-    -- Credit: glepnir
 
-    -- Color table for highlights
-    -- stylua: ignore
     local colors = {
       yellow   = '#ECBE7B',
       cyan     = '#008080',
@@ -80,6 +76,7 @@ return {
           },
           {
             'fileformat',
+            cond = conditions.hide_in_width,
             fmt = string.lower,
             icons_enabled = false,
             color = { fg = colors.green, gui = 'bold' },
