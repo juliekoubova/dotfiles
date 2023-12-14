@@ -1,4 +1,6 @@
 #!/bin/sh
-if command -v swaymsg >/dev/null && test -n "${SWAYSOCK}"; then
-  swaymsg reload
-fi
+command -v swaymsg >/dev/null || exit
+[ -n "${SWAYSOCK}" ] || exit
+
+echo "Reloading sway" >&2
+exec swaymsg reload
