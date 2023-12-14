@@ -5,11 +5,17 @@ if ! command -v gsettings >/dev/null; then
   exit
 fi
 
+gsettings_set() {
+  echo Setting $1/$2 to "$3" >&2
+  gsettings set "$1" "$2" "$3"
+}
+
 _interface="org.gnome.desktop.interface"
 if gsettings list-keys "${_interface}" >/dev/null 2>&1; then
-  gsettings set "${_interface}" cursor-theme         "{{ .unixCursorTheme }}"
-  gsettings set "${_interface}" cursor-size          "{{ .unixCursorSize }}"
-  gsettings set "${_interface}" gtk-theme            "{{ .gtkTheme }}"
-  gsettings set "${_interface}" font-name            "{{ .font }}"
-  gsettings set "${_interface}" monospace-font-name  "{{ .monospaceFont }}"
+  gsettings_set "${_interface}" cursor-theme         "{{ .unixCursorTheme }}"
+  gsettings_set "${_interface}" cursor-size          "{{ .unixCursorSize }}"
+  gsettings_set "${_interface}" gtk-theme            "{{ .gtkTheme }}"
+  gsettings_set "${_interface}" icon-theme           "{{ .iconTheme }}"
+  gsettings_set "${_interface}" font-name            "{{ .font }}"
+  gsettings_set "${_interface}" monospace-font-name  "{{ .monospaceFont }}"
 fi
