@@ -39,7 +39,7 @@
         "defaults": 
         {
             "backgroundImageOpacity": 0.23,
-            "colorScheme": "Catppuccin Mocha",
+            "colorScheme": { "dark": "Catppuccin Mocha", "light":"Catppuccin Latte" },
             "experimental.retroTerminalEffect": false,
             "font": 
             {
@@ -119,7 +119,33 @@
             "selectionBackground": "#585B70",
             "white": "#BAC2DE",
             "yellow": "#F9E2AF"
-        }
+        }, {
+  "name": "Catppuccin Latte",
+
+  "cursorColor": "#DC8A78",
+  "selectionBackground": "#ACB0BE",
+
+  "background": "#EFF1F5",
+  "foreground": "#4C4F69",
+
+  "black": "#5C5F77",
+  "red": "#D20F39",
+  "green": "#40A02B",
+  "yellow": "#DF8E1D",
+  "blue": "#1E66F5",
+  "purple": "#EA76CB",
+  "cyan": "#179299",
+  "white": "#ACB0BE",
+
+  "brightBlack": "#ACB0BE",
+  "brightRed": "#D20F39",
+  "brightGreen": "#40A02B",
+  "brightYellow": "#DF8E1D",
+  "brightBlue": "#1E66F5",
+  "brightPurple": "#EA76CB",
+  "brightCyan": "#179299",
+  "brightWhite": "#BCC0CC"
+}
     ],
     "showTabsInTitlebar": true,
     "snapToGridOnResize": true,
@@ -145,7 +171,21 @@
                 "applicationTheme": "dark",
                 "useMica": true
             }
-        }
+        }, {
+  "name": "Catppuccin Latte",
+  "tab": {
+    "background": "#EFF1F5FF",
+    "showCloseButton": "always",
+    "unfocusedBackground": null
+  },
+  "tabRow": {
+    "background": "#E6E9EFFF",
+    "unfocusedBackground": "#DCE0E8FF"
+  },
+  "window": {
+    "applicationTheme": "light"
+  }
+}
     ],
     "useAcrylicInTabRow": false,
     "windowingBehavior": "useNew"
