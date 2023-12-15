@@ -8,3 +8,7 @@ nnoremap <Leader>u :vsc Edit.UncommentSelection<CR>
 
 vnoremap <Leader>ff :vsc Edit.GoToFile<CR>
 nnoremap <Leader>ff :vsc Edit.GoToFile<CR>
+
+vnoremap <Leader>fo :vsc Edit.FormatSelection<CR>
+nnoremap <Leader>fo :vsc Edit.FormatDocument<CR>
+
