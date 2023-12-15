@@ -1,6 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  enabled = not vim.g.started_by_firenvim,
+  cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   lazy = false,
   opts = {
     current_line_blame = true,

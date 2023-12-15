@@ -1,8 +1,13 @@
 return {
   "folke/noice.nvim",
+  cond = not (vim.g.vscode),
   event = "VeryLazy",
   opts = {
-    -- add any options here
+    lsp = {
+    },
+    presets = {
+      bottom_search = true,
+    },
   },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries

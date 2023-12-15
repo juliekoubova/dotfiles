@@ -18,7 +18,6 @@ vim.o.numberwidth        = 4
 vim.o.ruler              = true
 vim.o.shortmess          = 'aFIW'
 vim.o.showmode           = false
-vim.o.spell              = true
 vim.o.termguicolors      = true
 vim.o.wrap               = false
 

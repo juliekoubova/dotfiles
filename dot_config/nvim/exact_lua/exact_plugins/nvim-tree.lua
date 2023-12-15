@@ -1,6 +1,6 @@
 return {
   "nvim-tree/nvim-tree.lua",
-  cond = not vim.g.started_by_firenvim and not vim.g.vscode,
+  cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   dependencies = { "nvim-tree/nvim-web-devicons" },
   hijack_directories = { enable = true },
   lazy = false,

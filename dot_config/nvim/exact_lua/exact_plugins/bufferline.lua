@@ -1,6 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
-  enabled = not vim.g.started_by_firenvim,
+  cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("bufferline").setup({
