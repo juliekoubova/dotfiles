@@ -3,7 +3,7 @@
 output * mode  3840x2160@60Hz
 output * scale 1.75
 
-set $output_left  DP-1
+set $output_left  DP-2
 set $output_right HDMI-A-1
 
 # position has to be scaled
