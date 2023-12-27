@@ -1,6 +1,6 @@
 return {
   "folke/noice.nvim",
-  cond = not (vim.g.vscode),
+  cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   event = "VeryLazy",
   opts = {
     lsp = {
