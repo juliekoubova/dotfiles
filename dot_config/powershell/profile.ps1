@@ -8,7 +8,7 @@ Set-PSReadLineOption -EditMode Vi
 Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
 
 If (Get-Command code-insiders -ea SilentlyContinue) {
-    Set-Alias code code-insiders
+  Set-Alias code code-insiders
 }
 
 If (Get-Command nvim -ea SilentlyContinue) {
@@ -34,6 +34,22 @@ Remove-Alias rm -Force -ea SilentlyContinue
 Function ga {
   Param ([String]$Path = '--all')
   git add $Path
+}
+
+Function gco {
+  Param ($Branch)
+
+  If (-Not $Branch) {
+    If (Get-Command fzf -ea SilentlyContinue) {
+      $Branch = git branch | fzf
+    }
+    Else {
+      Throw "fzf not available"
+    }
+  }
+  If ($Branch) {
+    & git checkout $Branch
+  }
 }
 
 Function rm {

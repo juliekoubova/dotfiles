@@ -69,6 +69,7 @@ return {
         vim.keymap.set('n', '<Leader>fo', function()
           vim.lsp.buf.format { async = true }
         end, opts)
+        vim.keymap.set('n', '<Leader>gh', '<Cmd>ClangdSwitchSourceHeader<CR>', opts)
       end,
     })
   end
