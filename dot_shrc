@@ -112,8 +112,23 @@ elif [ `uname` = "Linux" ]; then
   source_if_has "${NVM_DIR}/nvm.sh"
 fi
 
-has pbcopy && alias wlcopy=pbcopy
-has pbpaste && alias wlpaste=pbpaste
+if [ -n "$WAYLAND_DISPLAY" ] && has wl-copy && has wl-paste; then
+  clip() {
+    if [ -t 0 ]; then # stdin is TTY, we have no input
+      wl-paste
+    else
+      cat | wl-copy
+    fi
+  }
+elif has pbcopy && has pbpaste; then
+  clip() {
+    if [ -t 0 ]; then # stdin is TTY, we have no input
+      pbcopy
+    else
+      cat | pbpaste
+    fi
+  }
+fi
 
 catwhich() {
   file=`which "${1}"` || return 1
