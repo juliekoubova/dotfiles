@@ -3,7 +3,6 @@
 command_timeout = 750
 format = """
 $username@$hostname \
-$os \
 $directory\
 $git_branch\
 $git_state\
@@ -20,7 +19,7 @@ error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
 [os]
-disabled = false
+disabled = true
 
 [os.symbols]
 Alpine = "🐧"
