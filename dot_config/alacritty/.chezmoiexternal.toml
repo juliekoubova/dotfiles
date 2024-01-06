@@ -1,4 +1,4 @@
-["catppuccin-mocha.yml"]
+["catppuccin-mocha.toml"]
 type = "file"
-url = "https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-mocha.yml"
+url = "https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-mocha.toml"
 

@@ -10,4 +10,4 @@ set $swaylock 'swaylock -f --ignore-empty-password \
 exec swayidle -w \
      timeout  300 $swaylock \
      timeout  600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     timeout 3600 'sh -c "swaymsg \"output * power off\"; doas zzz-if-no-ssh"' resume 'swaymsg "output * power on"'
+     timeout 3600 'sh -c "swaymsg \"output * power off\";' resume 'swaymsg "output * power on"'

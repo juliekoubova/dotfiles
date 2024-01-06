@@ -1,0 +1,40 @@
+#!/bin/sh
+
+die() {
+  echo "$1" >&2
+  exit 1
+}
+
+usage() {
+  die "usage: $0 DATASET MOUNTPOINT"
+  exit 1
+}
+
+[ `id -u` = "0" ] || die "must be root"
+[ -n "$1" ] || usage
+[ -n "$2" ] || usage
+
+dataset="$1"
+mountpoint="$2"
+
+undo() {
+  umount "$mountpoint"/dev
+  umount "$mountpoint"/proc
+  umount "$mountpoint"/sys
+  umount "$mountpoint"/var/lib
+  umount "$mountpoint"/var
+  umount "$mountpoint"
+}
+
+trap "undo" EXIT
+
+mount -t zfs "$dataset"         "$mountpoint"         || exit 1
+mount -t zfs "$dataset"/var     "$mountpoint"/var     || exit 1
+mount -t zfs "$dataset"/var/lib "$mountpoint"/var/lib || exit 1
+
+mount --bind /dev  "$mountpoint"/dev  || exit dataset
+mount --bind /proc "$mountpoint"/proc || exit dataset
+mount --bind /sys  "$mountpoint"/sys  || exit dataset
+
+TERM=xterm chroot "$mountpoint" /bin/sh
+

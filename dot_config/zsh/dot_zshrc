@@ -6,7 +6,7 @@ autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
 if has starship; then
-  eval `starship init zsh`
+  eval "$(starship init zsh)"
 fi
 
 if has brew; then
