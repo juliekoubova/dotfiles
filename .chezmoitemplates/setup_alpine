@@ -6,8 +6,8 @@ fi
 echo "Updating APK..." >&2
 apk update || exit 1
 
+echo "Installing packages" >&2
+exec apk add \
 {{- range .alpine }}
-echo "Installing {{ . }}" >&2
-apk add {{ . | quote }} || exit 1
+{{ . | quote }} \
 {{- end }}
-

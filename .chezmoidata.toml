@@ -54,7 +54,7 @@ alpine = [
   "starship",
   "strace",
   "tcpdump",
-  "tree-sitter",
+  "tree-sitter-cli",
   "unzip",
 ]
 

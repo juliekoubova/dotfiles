@@ -9,7 +9,10 @@ return {
   },
   opts = {
     actions = {
-      open_file = { quit_on_open = false },
+      open_file = {
+        quit_on_open = false,
+        resize_window = false,
+      },
     },
     filters = {
       custom = {

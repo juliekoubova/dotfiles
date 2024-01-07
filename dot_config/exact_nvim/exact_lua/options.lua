@@ -39,11 +39,9 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.api.nvim_create_autocmd('InsertEnter', {
   callback = function()
-    local buftype = vim.bo.buftype
-    if buftype == "prompt" or buftype == "nofile" then
-      return
+    if vim.wo.number then
+      vim.wo.relativenumber = true
     end
-    vim.wo.relativenumber = true
   end,
 })
 
