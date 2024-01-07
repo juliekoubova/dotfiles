@@ -16,7 +16,7 @@ has() {
 }
 
 if has ssh-agent && [ -z "${SSH_AGENT_PID}" ]; then
-  eval $(ssh-agent)
+  eval "$(ssh-agent -s)" > /dev/null
 fi
 
 try_exec_dbus() {
