@@ -7,6 +7,7 @@ Without [chezmoi](https://www.chezmoi.io/), they are useless.
 ```
 # apk add chezmoi
 $ chezmoi init --apply juliekoubova --source ~/dotfiles
+# julie-setup
 ```
 
 ### FreeBSD
