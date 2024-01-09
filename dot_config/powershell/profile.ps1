@@ -37,11 +37,19 @@ Function ga {
 }
 
 Function gco {
-  Param ($Branch)
+  Param ([String]$Branch)
 
   If (-Not $Branch) {
     If (Get-Command fzf -ea SilentlyContinue) {
-      $Branch = git branch | fzf
+      $Branches = $(
+        git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'
+        git for-each-ref --sort=-committerdate refs/remotes/ --format='%(refname:short)'
+      ) | Select-Object -Unique
+      If ($LastExitCode -Ne 0 -Or -Not $Branches) {
+        Return
+      }
+      $Branch = $Branches | fzf
+      $Branch = ($Branch -Or "").Trim()
     }
     Else {
       Throw "fzf not available"
