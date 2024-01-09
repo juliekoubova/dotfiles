@@ -41,15 +41,11 @@ Function gco {
 
   If (-Not $Branch) {
     If (Get-Command fzf -ea SilentlyContinue) {
-      $Branches = $(
+      $Branch = $(
         git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'
         git for-each-ref --sort=-committerdate refs/remotes/ --format='%(refname:short)'
-      ) | Select-Object -Unique
-      If ($LastExitCode -Ne 0 -Or -Not $Branches) {
-        Return
-      }
-      $Branch = $Branches | fzf
-      $Branch = ($Branch -Or "").Trim()
+      ) | Select-Object -Unique | fzf
+      $Branch = ("$Branch").Trim()
     }
     Else {
       Throw "fzf not available"
