@@ -3,6 +3,7 @@ If ($IsWindows) {
 }
 
 Set-PSReadLineOption -EditMode Vi
+Set-PSReadLineOption -ViModeIndicator Cursor
 
 # Use Ctrl+[ to exit insert mode
 Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
