@@ -15,6 +15,11 @@ If (Get-Command code-insiders -ea SilentlyContinue) {
 If (Get-Command nvim -ea SilentlyContinue) {
   $Env:EDITOR = 'nvim'
   Set-Alias vim nvim
+  Set-Alias vi nvim
+}
+
+If (Get-Command less -ea SilentlyContinue) {
+  $Env:PAGER = 'less'
 }
 
 If (Get-Command starship -ea SilentlyContinue) {
