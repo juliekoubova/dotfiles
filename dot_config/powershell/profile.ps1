@@ -41,10 +41,11 @@ Function gco {
 
   If (-Not $Branch) {
     If (Get-Command fzf -ea SilentlyContinue) {
-      $Branch = $(
-        git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'
-        git for-each-ref --sort=-committerdate refs/remotes/ --format='%(refname:short)'
-      ) | Select-Object -Unique | fzf
+      $Branch =
+        git for-each-ref refs/heads/ `
+          --sort=-committerdate `
+          --format='%(refname:short)' `
+        | fzf
       $Branch = ("$Branch").Trim()
     }
     Else {
