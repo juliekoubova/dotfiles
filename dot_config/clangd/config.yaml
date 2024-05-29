@@ -1,0 +1,4 @@
+If:
+  PathMatch: /qmk_userspace/.*
+  CompileFlags:
+    Add: [ -I~/qmk_firmware ]
