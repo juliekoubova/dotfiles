@@ -139,3 +139,20 @@ ga() {
   local arg="${1:---all}"
   git add $arg
 }
+
+gco() {
+  local branch="$1"
+  if [ -z "${branch}" ]; then
+    if ! has fzf; then
+      echo "fzf not available"
+      return 1
+    fi
+    branch=$(git for-each-ref refs/heads \
+      --sort=-committerdate \
+      --format='%(refname:short)' \
+      | fzf | awk '{$1=$1};1')
+  fi
+  if [ -n "${branch}" ]; then
+    git checkout "${branch}"
+  fi
+}
