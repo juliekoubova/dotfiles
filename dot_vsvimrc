@@ -12,3 +12,7 @@ nnoremap <Leader>ff :vsc Edit.GoToFile<CR>
 vnoremap <Leader>fo :vsc Edit.FormatSelection<CR>
 nnoremap <Leader>fo :vsc Edit.FormatDocument<CR>
 
+vnoremap <Leader>gh :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+nnoremap <Leader>gh :vsc EditorContextMenus.CodeWindow.ToggleHeaderCodeFile<CR>
+
+
