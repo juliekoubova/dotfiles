@@ -44,22 +44,34 @@ Function ga {
 
 Function gco {
   Param ([String]$Branch)
-
-  If (-Not $Branch) {
+  Function Read-BranchName($Query) {
     If (Get-Command fzf -ea SilentlyContinue) {
-      $Branch =
+      $FzfParams = @()
+      If ($Query) {
+        $FzfParams = @('-q', $Query)
+      }
+      $Result =
         git for-each-ref refs/heads/ `
           --sort=-committerdate `
           --format='%(refname:short)' `
-        | fzf
-      $Branch = ("$Branch").Trim()
+        | fzf @FzfParams
+      Return ("$Result").Trim()
     }
     Else {
       Throw "fzf not available"
     }
+
   }
-  If ($Branch) {
+  If (-Not $Branch) {
+    $Branch = Read-BranchName
+  }
+  While ($Branch) {
     & git checkout $Branch
+    If ($LastExitCode) {
+      $Branch = Read-BranchName -Query $Branch
+    } Else {
+      $Branch = $Null
+    }
   }
 }
 
