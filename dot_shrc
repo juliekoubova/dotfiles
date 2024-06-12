@@ -123,9 +123,9 @@ if [ -n "$WAYLAND_DISPLAY" ] && has wl-copy && has wl-paste; then
 elif has pbcopy && has pbpaste; then
   clip() {
     if [ -t 0 ]; then # stdin is TTY, we have no input
-      pbcopy
+      pbpaste
     else
-      cat | pbpaste
+      cat | pbcopy
     fi
   }
 fi
