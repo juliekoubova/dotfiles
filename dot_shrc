@@ -142,17 +142,27 @@ ga() {
 
 gco() {
   local branch="$1"
-  if [ -z "${branch}" ]; then
+  read_branch_name() {
+    local query="$1"
+    [ -n "${query}" ] && local q="-q"
     if ! has fzf; then
       echo "fzf not available"
       return 1
     fi
-    branch=$(git for-each-ref refs/heads \
+    git for-each-ref refs/heads \
       --sort=-committerdate \
       --format='%(refname:short)' \
-      | fzf | awk '{$1=$1};1')
+      | fzf $q "${query}" | awk '{$1=$1};1'
+  }
+
+  if [ -z "${branch}" ]; then
+    branch=$(read_branch_name)
   fi
-  if [ -n "${branch}" ]; then
-    git checkout "${branch}"
-  fi
+  while [ -n "${branch}" ]; do
+    if git checkout "${branch}"; then
+      branch=
+    else
+      branch="$(read_branch_name "${branch}")"
+    fi
+  done
 }
