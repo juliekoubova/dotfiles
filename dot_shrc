@@ -142,9 +142,7 @@ ga() {
 
 gco() {
   local branch="$1"
-  read_branch_name() {
-    local query="$1"
-    [ -n "${query}" ] && local q="-q"
+  read_branch() {
     if ! has fzf; then
       echo "fzf not available"
       return 1
@@ -152,17 +150,42 @@ gco() {
     git for-each-ref refs/heads \
       --sort=-committerdate \
       --format='%(refname:short)' \
-      | fzf $q "${query}" | awk '{$1=$1};1'
+      | fzf ${1:+-q "$1"} | awk '{$1=$1};1'
   }
-
   if [ -z "${branch}" ]; then
-    branch=$(read_branch_name)
+    branch=$(read_branch)
   fi
   while [ -n "${branch}" ]; do
     if git checkout "${branch}"; then
       branch=
     else
-      branch="$(read_branch_name "${branch}")"
+      branch="$(read_branch "${branch}")"
+    fi
+  done
+}
+
+gsoft() {
+  local commit="$1"
+  read_commit() {
+    if ! has fzf; then
+      echo "fzf not available"
+      return 1
+    fi
+    PAGER= git log \
+      --pretty='format:%C(auto)%h %ad %s' \
+      --date=short \
+      --color \
+      --max-count=200 \
+      | fzf --ansi ${1:+-q "$1"} | awk '{$1=$1};1'
+  }
+  if [ -z "${commit}" ]; then
+    commit=$(read_commit)
+  fi
+  while [ -n "${commit}" ]; do
+    if git reset --soft "${commit}"; then
+      commit=
+    else
+      commit="$(read_commit "${commit}")"
     fi
   done
 }

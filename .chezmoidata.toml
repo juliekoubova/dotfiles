@@ -31,7 +31,6 @@ r    = "rebase"
 ra   = "rebase --abort"
 rc   = "rebase --continue"
 s    = "status --short"
-soft = "reset --soft"
 
 [setup]
 alpine = [
