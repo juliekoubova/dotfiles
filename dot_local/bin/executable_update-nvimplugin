@@ -1,0 +1,3 @@
+#!/bin/sh
+nvim -i NONE -c "lua require('lazy').update({ wait = true })" -c qa \
+  && exec chezmoi add ~/.config/nvim/lazy-lock.json
