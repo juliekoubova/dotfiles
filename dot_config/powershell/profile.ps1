@@ -75,6 +75,45 @@ Function gco {
   }
 }
 
+Function gsoft {
+  Param ([String]$Commit)
+  Function Read-CommitName($Query) {
+    If (Get-Command fzf -ea SilentlyContinue) {
+      $FzfParams = @()
+      If ($Query) {
+        $FzfParams = @('-q', $Query)
+      }
+      $Result = Start-Process `
+        -FilePath git `
+        -ArgumentList @(
+          'log',
+          '--pretty=''format:%C(auto)%h %ad %s''',
+          '--date=short',
+          '--color',
+          '--max-count=200'
+          ) `
+        -Environment @{ 'PAGER' = '' } `
+        -Wait | fzf @FzfParams
+      Return ("$Result" -split ' ')[0]
+    }
+    Else {
+      Throw "fzf not available"
+    }
+  }
+  If (-Not $Commit) {
+    $Commit = Read-CommitName
+  }
+  While ($Commit) {
+    & git reset --soft $Commit
+    If ($LastExitCode) {
+      $Commit = Read-CommitName -Query $Commit
+    } Else {
+      $Commit = $Null
+    }
+  }
+}
+
+
 Function rm {
   Param (
     [Alias('r')]
