@@ -176,7 +176,7 @@ gsoft() {
       --date=short \
       --color \
       --max-count=200 \
-      | fzf --ansi ${1:+-q "$1"} | awk '{$1=$1};1'
+      | fzf --ansi ${1:+-q "$1"} | awk '{print $1}'
   }
   if [ -z "${commit}" ]; then
     commit=$(read_commit)
