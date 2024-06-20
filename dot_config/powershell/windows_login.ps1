@@ -4,21 +4,40 @@ If (Test-Path Env:JulieWindowsLogin) {
 
 $Env:JulieWindowsLogin = 1
 
-$VSWhere = "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-If (Get-Command $VSWhere -ea SilentlyContinue) {
-  $VSPath = @(& $VSWhere -latest -prerelease -property InstallationPath 2>$null)[-1]
-  If ($VSPath) {
-    Import-Module (Join-Path $VSPath Common7\Tools\Microsoft.VisualStudio.DevShell.dll)
-    Write-Host "Entering VS Dev Shell..."
-    $Null = Enter-VsDevShell `
-      -Arch amd64 `
-      -VsInstallPath $VSPath `
-      -StartInPath (Get-Location)
-    Clear-Host
+[Collections.ArrayList] $Paths = @($Env:PATH -split ';')
+$Paths.Reverse()
+
+Function AddPathIfExists([String]$Path) {
+  If ($Path -And (Test-Path $Path)) {
+    $Null = $Paths.Add($Path)
   }
 }
 
-[Collections.ArrayList] $Paths = @($Env:PATH -split ';')
+Function FindLastItem($Path) {
+  Get-Item -Path $Path -ea SilentlyContinue `
+    | Sort-Object FullName -Descending `
+    | ForEach-Object FullName `
+    | Select-Object -First 1
+}
+
+Function FindVisualStudio() {
+  $VSWhere = "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+  If (Get-Command $VSWhere -ea SilentlyContinue) {
+    $Global:VSPath = @(& $VSWhere -latest -prerelease -property InstallationPath 2>$null)[-1]
+  }
+  If (-Not $VSPath) {
+    Return
+  }
+  AddPathIfExists (FindLastItem "${VSPath}\VC\Tools\MSVC\*\bin\Hostx64\x64")
+  AddPathIfExists "${VSPath}\Common7\IDE"
+  AddPathIfExists "${VSPath}\Common7\Tools"
+  AddPathIfExists "${VSPath}\MSBuild\Current\Bin\amd64"
+  AddPathIfExists "${VSPath}\MSBuild\Current\bin\Roslyn"
+}
+
+Function FindWindowsSDK() {
+  AddPathIfExists (FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64")
+}
 
 If (Get-Command python -ea SilentlyContinue) {
   # Windows has a python stub exe that launches Microsoft Store
@@ -26,17 +45,21 @@ If (Get-Command python -ea SilentlyContinue) {
   If ($LastExitCode -eq 0) {
     $Scripts = (Join-Path $(python -m site --user-site) ..\Scripts -Resolve)
     If ($Scripts) {
-      $Null = $Paths.Add($Scripts)
+      AddPathIfExists $Scripts
     }
   }
 }
 
-$LuaLSDir =  "${Env:LocalAppData}\Microsoft\WinGet\Packages\LuaLS.lua-language-server_Microsoft.Winget.Source_8wekyb3d8bbwe\bin"
-If (Test-Path "${LuaLSDir}\lua-language-server.exe") {
-  $Paths.Insert(0,  "${LuaLSDir}")
-}
+FindWindowsSDK
+FindVisualStudio
 
-$Paths.Insert(0,  "${Env:UserProfile}\.local\bin")
+AddPathIfExists "${Env:LocalAppData}\Microsoft\WinGet\Packages\LuaLS.lua-language-server_Microsoft.Winget.Source_8wekyb3d8bbwe\bin"
+AddPathIfExists "${Env:ProgramFiles}\CMake\bin"
+AddPathIfExists "${Env:ProgramFiles}\LLVM\bin"
+AddPathIfExists "${Env:UserProfile}\.local\bin"
+AddPathIfExists 
+$Paths.Reverse()
 $Paths = $Paths | Resolve-Path -ea SilentlyContinue | Select-Object -Unique
 $Env:PATH = ($Paths -join ';')
+
 $Env:LESS = '--mouse'
