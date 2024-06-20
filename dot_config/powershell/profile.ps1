@@ -2,12 +2,6 @@ If ($IsWindows) {
   & "${PSScriptRoot}/windows_login.ps1"
 }
 
-Set-PSReadLineOption -EditMode Vi
-Set-PSReadLineOption -ViModeIndicator Cursor
-
-# Use Ctrl+[ to exit insert mode
-Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
-
 If (Get-Command code-insiders -ea SilentlyContinue) {
   Set-Alias code code-insiders
 }
@@ -29,6 +23,16 @@ If (Get-Command starship -ea SilentlyContinue) {
 If (Get-Command chezmoi -ea SilentlyContinue) {
   chezmoi completion powershell | Out-String | Invoke-Expression
 }
+
+# Use Ctrl+[ to exit insert mode
+Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
+
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadLineOption -EditMode Vi
+
+# override starship indicator, it's fucking slow
+Set-PSReadLineOption -ViModeIndicator Cursor
 
 Set-Alias ls Get-ChildItem
 Set-Alias ll Get-ChildItem
