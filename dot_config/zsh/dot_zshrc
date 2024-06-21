@@ -26,8 +26,9 @@ setopt hist_save_no_dups
 setopt interactivecomments
 setopt no_beep
 
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
 bindkey -v
 bindkey -M vicmd k up-line-or-beginning-search
 bindkey -M vicmd j down-line-or-beginning-search
-bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search 
-bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search 
