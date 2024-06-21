@@ -4,6 +4,8 @@ source "${HOME}/.shrc"
 
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
 
 if has starship; then
   eval "$(starship init zsh)"
@@ -25,5 +27,7 @@ setopt interactivecomments
 setopt no_beep
 
 bindkey -v
-bindkey -M vicmd k vi-up-line-or-history
-bindkey -M vicmd j vi-down-line-or-history
+bindkey -M vicmd k up-line-or-beginning-search
+bindkey -M vicmd j down-line-or-beginning-search
+bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search 
+bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search 

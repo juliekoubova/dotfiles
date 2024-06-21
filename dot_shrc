@@ -51,6 +51,7 @@ fi
 if has nvim; then
   alias vim=nvim
   export MANPAGER='nvim +Man!'
+  export MANWIDTH=100
   export EDITOR=nvim
 elif has vim; then
   alias nvim=vim
