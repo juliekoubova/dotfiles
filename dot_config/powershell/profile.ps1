@@ -1,3 +1,5 @@
+Using Module './git.psm1'
+
 If ($IsWindows) {
   & "${PSScriptRoot}/windows_login.ps1"
 }
@@ -39,79 +41,14 @@ Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 Set-Alias which Get-Command
 
+Set-Alias ga   GitAdd
+Set-Alias gacp GitAddCommitPush
+Set-Alias gco  GitCheckout
+
+Function gsoft($Commit) { GitReset -Commit $Commit }
+Function ghard($Commit) { GitReset -Commit $Commit -Hard }
+
 Remove-Alias rm -Force -ea SilentlyContinue
-
-Function ga {
-  Param ([String]$Path = '--all')
-  git add $Path
-}
-
-Function gco {
-  Param ([String]$Branch)
-  Function Read-BranchName($Query) {
-    If (Get-Command fzf -ea SilentlyContinue) {
-      $FzfParams = @()
-      If ($Query) {
-        $FzfParams = @('-q', $Query)
-      }
-      $Result =
-        git for-each-ref refs/heads/ `
-          --sort=-committerdate `
-          --format='%(refname:short)' `
-        | fzf @FzfParams
-      Return ("$Result").Trim()
-    }
-    Else {
-      Throw "fzf not available"
-    }
-
-  }
-  If (-Not $Branch) {
-    $Branch = Read-BranchName
-  }
-  While ($Branch) {
-    & git checkout $Branch
-    If ($LastExitCode) {
-      $Branch = Read-BranchName -Query $Branch
-    } Else {
-      $Branch = $Null
-    }
-  }
-}
-
-Function gsoft {
-  Param ([String]$Commit)
-  Function Read-CommitName($Query) {
-    If (Get-Command fzf -ea SilentlyContinue) {
-      $FzfParams = @()
-      If ($Query) {
-        $FzfParams = @('-q', $Query)
-      }
-      $Result = git --no-pager log `
-          --pretty="format:%C(auto)%h %ad %s" `
-          --date=short `
-          --color `
-          --max-count=200 `
-        | fzf --ansi @FzfParams
-      Return ("$Result" -split ' ')[0]
-    }
-    Else {
-      Throw "fzf not available"
-    }
-  }
-  If (-Not $Commit) {
-    $Commit = Read-CommitName
-  }
-  While ($Commit) {
-    & git reset --soft $Commit
-    If ($LastExitCode) {
-      $Commit = Read-CommitName -Query $Commit
-    } Else {
-      $Commit = $Null
-    }
-  }
-}
-
 
 Function rm {
   Param (
@@ -125,6 +62,17 @@ Function rm {
     -Path $args `
     -Recurse:($Recurse -or $rf) `
     -Force:($Force -or $rf)
+}
+
+Function touch {
+  Param ($LiteralPath)
+  $Item = Get-Item -LiteralPath $LiteralPath -ea SilentlyContinue
+  If ($Item) {
+    $Item.LastWriteTime = Get-Date
+    $Item
+  } Else {
+    New-Item -Path $LiteralPath -ItemType File
+  }
 }
 
 . "${PSScriptRoot}/aliases.ps1"
