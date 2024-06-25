@@ -87,17 +87,12 @@ Function gsoft {
       If ($Query) {
         $FzfParams = @('-q', $Query)
       }
-      $Result = Start-Process `
-        -FilePath git `
-        -ArgumentList @(
-          'log',
-          '--pretty=''format:%C(auto)%h %ad %s''',
-          '--date=short',
-          '--color',
-          '--max-count=200'
-          ) `
-        -Environment @{ 'PAGER' = '' } `
-        -Wait | fzf @FzfParams
+      $Result = git --no-pager log `
+          --pretty="format:%C(auto)%h %ad %s" `
+          --date=short `
+          --color `
+          --max-count=200 `
+        | fzf --ansi @FzfParams
       Return ("$Result" -split ' ')[0]
     }
     Else {
