@@ -15,7 +15,6 @@ ff  = "firefox"
 [gitaliases]
 ca   = "commit --amend --no-edit"
 cb   = "checkout -b"
-cm   = "commit -m"
 d    = "diff"
 dc   = "diff --cached"
 dcs  = "diff --cached --stat"

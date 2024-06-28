@@ -4,6 +4,8 @@ If ($IsWindows) {
   & "${PSScriptRoot}/windows_login.ps1"
 }
 
+. "${PSScriptRoot}/aliases.ps1"
+
 If (Get-Command code-insiders -ea SilentlyContinue) {
   Set-Alias code code-insiders
 }
@@ -41,17 +43,20 @@ Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 Set-Alias which Get-Command
 
+Remove-Alias gcm -Force -ea 0
+Remove-Alias rm -Force -ea 0
+
 Set-Alias ga    GitAdd
 Set-Alias gacm  GitAddCommit
 Set-Alias gacmp GitAddCommitPush
 Set-Alias gco   GitCheckout
+Set-Alias gcm   GitCommit
 Set-Alias gua   GitUnAdd
 
 Function gres($Commit)  { GitReset -Commit $Commit }
 Function gsoft($Commit) { GitReset -Commit $Commit -Soft }
 Function ghard($Commit) { GitReset -Commit $Commit -Hard }
 
-Remove-Alias rm -Force -ea SilentlyContinue
 
 Function rm {
   Param (
@@ -78,4 +83,3 @@ Function touch {
   }
 }
 
-. "${PSScriptRoot}/aliases.ps1"

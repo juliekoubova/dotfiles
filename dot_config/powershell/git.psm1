@@ -43,12 +43,16 @@ Function GitAdd {
   git add $Path @args
 }
 
+Function GitCommit {
+  git commit -m "${args}"
+}
+
 Function GitAddCommit {
-  GitAdd && git commit -m "${args}"
+  GitAdd && GitCommit @args
 }
 
 Function GitAddCommitPush {
-  GitAdd && git commit -m "${args}" && git push
+  GitAdd && GitCommit @args && git push
 }
 
 Function GitCheckout {

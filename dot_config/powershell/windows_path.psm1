@@ -1,10 +1,3 @@
-Function FindLastItem($Path) {
-  Get-Item -Path $Path -ea SilentlyContinue `
-    | Sort-Object FullName -Descending `
-    | ForEach-Object FullName `
-    | Select-Object -First 1
-}
-
 Function PrependPath {
   Param (
     [ScriptBlock] $Script,
