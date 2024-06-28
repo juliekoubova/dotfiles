@@ -57,7 +57,7 @@ AddPathIfExists "${Env:LocalAppData}\Microsoft\WinGet\Packages\LuaLS.lua-languag
 AddPathIfExists "${Env:ProgramFiles}\CMake\bin"
 AddPathIfExists "${Env:ProgramFiles}\LLVM\bin"
 AddPathIfExists "${Env:UserProfile}\.local\bin"
-AddPathIfExists 
+
 $Paths.Reverse()
 $Paths = $Paths | Resolve-Path -ea SilentlyContinue | Select-Object -Unique
 $Env:PATH = ($Paths -join ';')
