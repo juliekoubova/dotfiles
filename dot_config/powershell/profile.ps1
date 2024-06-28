@@ -41,11 +41,14 @@ Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 Set-Alias which Get-Command
 
-Set-Alias ga   GitAdd
-Set-Alias gacp GitAddCommitPush
-Set-Alias gco  GitCheckout
+Set-Alias ga    GitAdd
+Set-Alias gacm  GitAddCommit
+Set-Alias gacmp GitAddCommitPush
+Set-Alias gco   GitCheckout
+Set-Alias gua   GitUnAdd
 
-Function gsoft($Commit) { GitReset -Commit $Commit }
+Function gres($Commit)  { GitReset -Commit $Commit }
+Function gsoft($Commit) { GitReset -Commit $Commit -Soft }
 Function ghard($Commit) { GitReset -Commit $Commit -Hard }
 
 Remove-Alias rm -Force -ea SilentlyContinue
