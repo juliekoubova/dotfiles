@@ -4,6 +4,7 @@ gtkTheme        = "Catppuccin-Mocha-Standard-Sapphire-Dark"
 iconTheme       = "Adwaita"
 unixCursorTheme = "capitaine-cursors-light"
 unixCursorSize  = "48"
+gitLogPretty    = "format:%C(auto)%h (%Cblue%al%Creset)%C(auto)%d %s"
 
 [aliases]
 cz  = "chezmoi"

@@ -136,57 +136,79 @@ catwhich() {
   cat "${file}"
 }
 
+select_git_branch() {
+  if ! has fzf; then
+    echo "fzf not available"
+    return 1
+  fi
+  git for-each-ref refs/heads \
+    --sort=-committerdate \
+    --format='%(refname:short)' \
+    | fzf ${1:+-q "$1"} | awk '{$1=$1};1'
+}
+
+select_git_commit() {
+  if ! has fzf; then
+    echo "fzf not available"
+    return 1
+  fi
+  PAGER= git log \
+    --color \
+    --max-count=200 \
+    | fzf --ansi ${1:+-q "$1"} | awk '{print $1}'
+}
+
+git_reset() {
+  case "$1" in
+    --soft|--hard)
+      local type="$1"
+      shift
+      ;;
+  esac
+  local commit="$1"
+  if [ -z "${commit}" ]; then
+    commit=$(select_git_commit)
+  fi
+  while [ -n "${commit}" ]; do
+    if git reset $type "${commit}"; then
+      commit=
+    else
+      commit="$(select_git_commit "${commit}")"
+    fi
+  done
+}
+
 ga() {
   local arg="${1:---all}"
-  git add $arg
+  git add $arg "$@"
+}
+
+gcm() {
+  git commit -m "$*"
+}
+
+gacm() {
+  git add --all && git commit -m "$*"
+}
+
+gacmp() {
+  git add --all && git commit -m "$*" && git push
 }
 
 gco() {
   local branch="$1"
-  read_branch() {
-    if ! has fzf; then
-      echo "fzf not available"
-      return 1
-    fi
-    git for-each-ref refs/heads \
-      --sort=-committerdate \
-      --format='%(refname:short)' \
-      | fzf ${1:+-q "$1"} | awk '{$1=$1};1'
-  }
   if [ -z "${branch}" ]; then
-    branch=$(read_branch)
+    branch=$(select_git_branch)
   fi
   while [ -n "${branch}" ]; do
     if git checkout "${branch}"; then
       branch=
     else
-      branch="$(read_branch "${branch}")"
+      branch="$(select_git_branch "${branch}")"
     fi
   done
 }
 
-gsoft() {
-  local commit="$1"
-  read_commit() {
-    if ! has fzf; then
-      echo "fzf not available"
-      return 1
-    fi
-    PAGER= git log \
-      --pretty='format:%C(auto)%h %ad %s' \
-      --date=short \
-      --color \
-      --max-count=200 \
-      | fzf --ansi ${1:+-q "$1"} | awk '{print $1}'
-  }
-  if [ -z "${commit}" ]; then
-    commit=$(read_commit)
-  fi
-  while [ -n "${commit}" ]; do
-    if git reset --soft "${commit}"; then
-      commit=
-    else
-      commit="$(read_commit "${commit}")"
-    fi
-  done
-}
+alias gres='git_reset'
+alias ghard='git_reset --hard'
+alias gsoft='git_reset --soft'
