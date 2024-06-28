@@ -43,8 +43,8 @@ Set-Alias ll Get-ChildItem
 Set-Alias la Get-ChildItem
 Set-Alias which Get-Command
 
-Remove-Alias gcm -Force -ea 0
-Remove-Alias rm -Force -ea 0
+Remove-Alias gcm -Force -Scope Global -ea 0
+Remove-Alias rm -Force -Scope Global -ea 0
 
 Set-Alias ga    GitAdd
 Set-Alias gacm  GitAddCommit
@@ -56,7 +56,6 @@ Set-Alias gua   GitUnAdd
 Function gres($Commit)  { GitReset -Commit $Commit }
 Function gsoft($Commit) { GitReset -Commit $Commit -Soft }
 Function ghard($Commit) { GitReset -Commit $Commit -Hard }
-
 
 Function rm {
   Param (
