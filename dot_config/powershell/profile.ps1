@@ -49,8 +49,9 @@ Remove-Alias rm -Force -Scope Global -ea 0
 Set-Alias ga    GitAdd
 Set-Alias gacm  GitAddCommit
 Set-Alias gacmp GitAddCommitPush
-Set-Alias gco   GitCheckout
 Set-Alias gcm   GitCommit
+Set-Alias gco   GitCheckout
+Set-Alias gsq   GitSquash
 Set-Alias gua   GitUnAdd
 
 Function gres($Commit)  { GitReset -Commit $Commit }

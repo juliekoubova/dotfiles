@@ -110,13 +110,28 @@ Function GitUnAdd {
   git restore --staged @args
 }
 
+Function GitSquash {
+  Param ([String] $Commit = (Select-GitCommit))
+  While ($Commit) {
+    git reset --soft $Commit
+    If ($LastExitCode) {
+      $Commit = Select-GitCommit -Query $Commit
+    } Else {
+      $Commit = $Null
+      git commit -m squash
+    }
+  }
+}
+
 Export-ModuleMember -Function @(
   'GitAdd'
   'GitAddCommit'
   'GitAddCommitPush'
   'GitCheckout'
+  'GitCommit'
   'GitReset'
   'GitUnAdd'
+  'GitSquash'
   'Select-GitBranch'
   'Select-GitCommit'
 )
