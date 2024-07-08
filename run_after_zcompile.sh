@@ -1,5 +1,5 @@
 #!/bin/sh
-command -v zsh >/dev/null || exit
+command -v zsh >/dev/null || exit 0
 exec zsh <<'EOF'
 do_zcompile() {
   echo "ZSH compiling $1" >&2
