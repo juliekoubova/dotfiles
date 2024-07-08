@@ -1,9 +1,0 @@
-#!/bin/sh
-: \
-  && nvim -i NONE \
-          -c "lua require('lazy').update({ wait = true })" \
-          -c "Lazy build telescope-fzf-native.nvim" \
-          -c qa \
-  && \
-  && exec chezmoi add ~/.config/nvim/lazy-lock.json \
-  && :
