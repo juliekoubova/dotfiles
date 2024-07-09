@@ -9,8 +9,8 @@ gitLogPretty    = "format:%C(auto)%h (%Cblue%al%Creset)%C(auto)%d %s"
 [aliases]
 cz  = "chezmoi"
 cza = "chezmoi apply"
+cze = "chezmoi edit"
 czu = "chezmoi update"
-lg  = "lazygit"
 ff  = "firefox"
 
 [gitaliases]
