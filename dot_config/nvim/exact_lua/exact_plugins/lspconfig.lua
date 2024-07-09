@@ -32,7 +32,24 @@ return {
 
     lsp.pylsp.setup { capabilities = capabilities }
     lsp.tsserver.setup { capabilities = capabilities }
-    lsp.clangd.setup { capabilities = capabilities }
+
+    local clangd_opts = { capabilities = capabilities }
+    local idf_path = os.getenv("IDF_TOOLS_PATH")
+
+    if idf_path then
+      local clang_paths = vim.split(
+        vim.fn.glob(idf_path .. "/tools/esp-clang/*"),
+        '\n',
+        { trimempty = true }
+      )
+      if #clang_paths > 0 then
+        clangd_opts.cmd = {
+          clang_paths[#clang_paths] .. "/esp-clang/bin/clangd"
+        }
+      end
+    end
+
+    lsp.clangd.setup(clangd_opts)
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
