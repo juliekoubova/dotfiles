@@ -19,8 +19,11 @@ else
 
   vim.keymap.set('n', '<leader>v', '<cmd>echomsg system("curl -s -m 3 https://vtip.43z.one")<CR>')
 
-  -- Clear search with <Esc>
-  vim.keymap.set({'n', 'i'}, '<Esc>', '<Cmd>noh<CR><Esc>')
+  -- Clear search and notifications with <Esc>
+  vim.keymap.set({'n'}, '<Esc>', function()
+    require('notify').dismiss({ silent = true, pending = true })
+    vim.cmd.noh()
+  end)
 
   -- Disable Ctrl+Z
   vim.keymap.set('n', '<C-z>', '<nop>')

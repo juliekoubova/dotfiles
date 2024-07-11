@@ -20,7 +20,7 @@ return {
     },
     git = { enable = false },
     hijack_cursor = true,
-    hijack_directories = { enable = true },
+    hijack_directories = { enable = false },
     renderer = {
       group_empty = true,
       indent_markers = { enable = true },
