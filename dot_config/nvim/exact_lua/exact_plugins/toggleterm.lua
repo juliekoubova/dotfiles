@@ -1,7 +1,7 @@
 return {
   "akinsho/toggleterm.nvim",
   opts = {
-    open_mapping = { [[]], '<Leader>t' },
+    open_mapping = { [[]] },
     close_on_exit = true,
     insert_mappings = false,
     terminal_mappings = true,
