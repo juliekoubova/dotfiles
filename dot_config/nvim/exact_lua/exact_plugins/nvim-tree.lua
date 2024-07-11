@@ -4,7 +4,8 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   lazy = false,
   keys = {
-    { '<Leader>ft', '<Cmd>NvimTreeOpen<CR>', desc = 'NvimTree' },
+    { '<Leader>ft', '<Cmd>NvimTreeOpen<CR>' },
+    { '<C-L>', '<Cmd>NvimTreeFindFile<CR>' },
   },
   opts = {
     actions = {

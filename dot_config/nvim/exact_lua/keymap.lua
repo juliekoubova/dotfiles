@@ -10,11 +10,6 @@ if vim.g.vscode then
   vim.keymap.set('n', '<leader>ft', vsc('workbench.view.explorer'))
 else
   -- Telescope
-  vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
-  vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
-  vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<CR>')
-  vim.keymap.set('n', '<leader>fs', '<cmd>Telescope live_grep<CR>')
-  vim.keymap.set('n', '<leader>gb', '<cmd>Telescope git_branches<CR>')
 
 
   vim.keymap.set('n', '<leader>v', '<cmd>echomsg system("curl -s -m 3 https://vtip.43z.one")<CR>')

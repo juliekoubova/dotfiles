@@ -7,6 +7,7 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
     "hrsh7th/vim-vsnip",
   },
   config = function()
@@ -30,6 +31,7 @@ return {
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
         { name = 'buffer' },
+        { name = 'path' },
       }),
     })
   end,
