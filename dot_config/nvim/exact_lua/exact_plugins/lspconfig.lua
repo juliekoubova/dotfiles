@@ -32,6 +32,7 @@ return {
 
     lsp.pylsp.setup { capabilities = capabilities }
     lsp.tsserver.setup { capabilities = capabilities }
+    lsp.tailwindcss.set { capabilities = capabilities }
 
     local clangd_opts = { capabilities = capabilities }
     local idf_path = os.getenv("IDF_TOOLS_PATH")
