@@ -1,13 +1,5 @@
 # vi:ft=swayconfig
-
-set $swaylock 'swaylock -f --ignore-empty-password \
-                           --indicator-idle-visible \
-                           --color 000000 \
-                           # --timestr "%I:%M %p" \
-                           # --datestr "%Y-%m-%d"'
-
-
 exec swayidle -w \
      timeout  600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     timeout  630 $swaylock \
-     timeout 3600 'doas zzz-if-no-ssh'
+     timeout  630 ~/.local/bin/swaylock \
+     timeout 3600 'doas zzz-if-no-ssh' resume 'julie-download-bing-wp 2'

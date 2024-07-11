@@ -1,0 +1,43 @@
+#!/bin/sh
+
+command -v jq >/dev/null 2>&1 || {
+  echo >&2 "jq is required but it's not installed. Aborting."
+  exit 1
+}
+
+command -v swaymsg >/dev/null 2>&1 || {
+  echo >&2 "swaymsg is required but it's not installed. Aborting."
+  exit 1
+}
+
+outputs=$(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name')
+
+if [ -z "$outputs" ]; then
+  echo "No active outputs found."
+  exit 1
+fi
+
+num_outputs=$(echo "$outputs" | wc -l)
+dest_dir="${XDG_DATA_HOME:-$HOME/.local/share}/backgrounds/bing"
+base_url="https://www.bing.com"
+url="${base_url}/HPImageArchive.aspx?format=js&idx=0&n=${num_outputs}"
+
+mkdir -p "$dest_dir"
+
+response=$(curl -s "$url")
+
+i=0
+for output in $outputs; do
+  image_url=$(echo "$response" | jq -r ".images[$i].url")
+  image_hsh=$(echo "$response" | jq -r ".images[$i].hsh")
+  full_url="${base_url}${image_url}"
+  filename="${dest_dir}/${image_hsh}.jpg"
+  if [ ! -f "$filename" ]; then
+    curl -o "$filename" "$full_url"
+    echo "Downloaded wallpaper to $filename"
+  else
+    echo "Wallpaper $filename already exists, skipping download."
+  fi
+  swaymsg output "$output" background "$filename" fill
+  i=$((i + 1))
+done

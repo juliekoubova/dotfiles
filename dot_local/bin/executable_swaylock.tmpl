@@ -1,0 +1,4 @@
+#!/bin/sh
+swaymsg 'input type:keyboard xkb_layout "{{ .xkbLayoutLocked }}"'
+/usr/bin/swaylock "$@"
+swaymsg 'input type:keyboard xkb_layout "{{ .xkbLayout }}"'

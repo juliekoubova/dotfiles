@@ -5,6 +5,8 @@ iconTheme       = "Adwaita"
 unixCursorTheme = "capitaine-cursors-light"
 unixCursorSize  = "48"
 gitLogPretty    = "format:%C(auto)%h (%Cblue%al%Creset)%C(auto)%d %s"
+xkbLayout       = "us,cz(qwerty)"
+xkbLayoutLocked = "us"
 
 [aliases]
 cz  = "chezmoi"

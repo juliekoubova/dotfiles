@@ -14,7 +14,7 @@ set $browser ~/.local/bin/ff
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu rofi -show drun
 
-output * background ~/.local/share/backgrounds/3351632.jpg fill
+#output * background ~/.local/share/backgrounds/3351632.jpg fill
 
 default_border pixel 5
 
@@ -164,3 +164,4 @@ workspace 1
 workspace 2
 exec $browser
 
+exec julie-download-bing-wp
