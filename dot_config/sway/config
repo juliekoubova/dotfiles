@@ -155,6 +155,8 @@ include /etc/sway/config.d/*
 include config.d/*
 include ~/.local/share/backgrounds/bing/sway.config
 
+exec julie-download-bing-wp
+exec swayidle -w
 exec mako
 
 workspace 1 
