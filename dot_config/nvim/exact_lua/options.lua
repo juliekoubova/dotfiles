@@ -50,3 +50,14 @@ vim.api.nvim_create_autocmd('InsertLeave', {
     vim.wo.relativenumber = false
   end,
 })
+
+vim.cmd('autocmd TermOpen * setlocal nonumber')
+vim.cmd('autocmd TermEnter * setlocal signcolumn=no')
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+  callback = function()
+    if vim.o.buftype == 'terminal' then
+      vim.cmd.startinsert()
+    end
+  end,
+})
