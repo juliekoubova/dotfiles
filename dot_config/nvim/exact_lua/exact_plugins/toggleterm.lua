@@ -6,7 +6,7 @@ return {
     direction = 'vertical',
     hide_numbers = true,
     insert_mappings = false,
-    open_mapping = { '<Leader>t' },
+    open_mapping = { '<Leader>tt' },
     start_in_insert = true,
     terminal_mappings = false,
     float_opts = { border = 'rounded' },
