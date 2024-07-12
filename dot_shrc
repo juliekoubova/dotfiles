@@ -131,6 +131,23 @@ elif has pbcopy && has pbpaste; then
   }
 fi
 
+ii() {
+  if [ `uname` = "Darwin" ]; then
+    open "$@"
+    return
+  fi
+  if [ -d "$1" ] && has thunar; then
+    thunar "$@"
+    return
+  fi
+  if has xdg-open; then
+    xdg-open "$@" >/dev/null 2>&1 &
+    return
+  fi
+  echo >&2 "don't know how to ii"
+  return 1
+}
+
 catwhich() {
   file=`which "${1}"` || return 1
   cat "${file}"

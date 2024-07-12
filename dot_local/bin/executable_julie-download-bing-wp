@@ -25,6 +25,7 @@ url="${base_url}/HPImageArchive.aspx?format=js&idx=0&n=${num_outputs}"
 mkdir -p "$dest_dir"
 
 response=$(curl -s "$url")
+swaybg="swaybg "
 
 i=0
 for output in $outputs; do
@@ -38,6 +39,11 @@ for output in $outputs; do
   else
     echo "Wallpaper $filename already exists, skipping download."
   fi
-  swaymsg output "$output" background "$filename" fill
+  swaybg="${swaybg} -o ${output} -i ${filename} -m fill "
   i=$((i + 1))
 done
+
+existing_swaybg_pid=`pgrep --uid $(id -ur) swaybg`
+nohup $swaybg >/dev/null 2>&1 &
+sleep 1
+[ -n "${existing_swaybg_pid}" ] && kill $existing_swaybg_pid
