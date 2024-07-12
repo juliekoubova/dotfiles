@@ -1,0 +1,7 @@
+#!/bin/sh
+# {{ include "dot_config/swaylock/config.base" | sha256sum }}
+set -ex
+dir="${XDG_CONFIG_HOME:-$HOME/.config}/swaylock"
+base="$dir/config.base"
+target="$dir/config"
+exec cp "$base" "$target"

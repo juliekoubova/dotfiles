@@ -26,6 +26,11 @@ mkdir -p "$dest_dir"
 
 response=$(curl -s "$url")
 swaybg="swaybg "
+swayconf="${dest_dir}/sway.config"
+swaylockconf="${XDH_CONFIG_HOME:-$HOME/.config}/swaylock/config"
+
+truncate -s 0 "$swayconf"
+echo "$(grep -v '^image=' "$swaylockconf")" > $swaylockconf
 
 i=0
 for output in $outputs; do
@@ -40,6 +45,8 @@ for output in $outputs; do
     echo "Wallpaper $filename already exists, skipping download."
   fi
   swaybg="${swaybg} -o ${output} -i ${filename} -m fill "
+  echo "output ${output} background ${filename} fill" >> "${swayconf}"
+  echo "image=${output}:${filename}" >> "${swaylockconf}"
   i=$((i + 1))
 done
 
@@ -47,3 +54,4 @@ existing_swaybg_pid=`pgrep --uid $(id -ur) swaybg`
 nohup $swaybg >/dev/null 2>&1 &
 sleep 1
 [ -n "${existing_swaybg_pid}" ] && kill $existing_swaybg_pid
+

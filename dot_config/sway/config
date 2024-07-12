@@ -153,6 +153,7 @@ bindsym $mod+r mode "resize"
 
 include /etc/sway/config.d/*
 include config.d/*
+include ~/.local/share/backgrounds/bing/sway.config
 
 exec mako
 
