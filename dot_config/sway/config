@@ -17,6 +17,7 @@ set $menu rofi -show drun
 output * background ~/.local/share/backgrounds/3351632.jpg fill
 
 default_border pixel 5
+gaps inner 15
 
 ### Key bindings
 #
