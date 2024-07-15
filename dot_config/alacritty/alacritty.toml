@@ -1,9 +1,9 @@
 import = ["~/.config/alacritty/catppuccin-mocha.toml"]
 
 [window]
-opacity = 0.82
+opacity = 0.8
 blur = true
-padding = { x = 2, y = 0 }
+padding = { x = 4, y = 0 }
 
 [colors]
 transparent_background_colors = true
