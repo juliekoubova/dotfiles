@@ -22,29 +22,16 @@ $ chezmoi init --apply juliekoubova --source ~/dotfiles
 % chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
 ### Windows
-As Administrator in Windows PowerShell:
-```
+First, run this in an elevated PowerShell:
+```pwsh
 # Enable Developer Mode (needed for symlink privileges)
 New-Item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -ea 0
 Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense -Type DWord -Value 1
-
-# Windows Explorer
-Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "Hidden" 1
-Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "ShowSuperHidden" 1
-Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "HideFileExt" 0
-Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" "FullPath" 1
-
-# UAC
-Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "EnableLUA" 1
-Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "ConsentPromptBehaviorAdmin" 2
-Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "PromptOnSecureDesktop" 1
-
-# sudo
-sudo config --enable normal
 ```
-```
-C:\src\> winget install --id twpayne.chezmoi
-C:\src\> chezmoi init --apply juliekoubova --source C:\src\dotfiles
+Then reboot and execute this in a non-elevated PowerShell:
+```pwsh
+winget install --id twpayne.chezmoi
+chezmoi init --apply juliekoubova --source C:\src\dotfiles
 ```
 
 ## Write Access
