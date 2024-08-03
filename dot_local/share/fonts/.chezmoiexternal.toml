@@ -1,0 +1,5 @@
+["CascadiaCode"]
+  type = "archive"
+  stripComponents = 1
+  url = "https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip"
+  include = ["ttf/*.ttf"]
