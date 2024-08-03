@@ -1,0 +1,19 @@
+$Shell = New-Object -ComObject Shell.Application
+$SystemFonts = $Shell.Namespace(0x14)
+
+$SourcePath = Join-Path $Env:USERPROFILE '.local/share/fonts'
+$SourceFolder = $Shell.NameSpace($SourcePath)
+
+{{ $destDir := .chezmoi.config.destDir -}}
+{{ range $font := glob ".local/share/fonts/**/*.ttf" -}}
+# {{ include (joinPath $destDir $font) | sha256sum }}
+{{ end -}}
+
+ForEach ($Item In $SourceFolder.Items()) {
+  If (-Not $Item.IsFolder()) {
+    Continue
+  }
+  $ChildItems = $Item.GetFolder().Items()
+  $ChildItems.Filter(0x40, '*.ttf')
+  $SystemFonts.CopyHere($ChildItems, 0x16)
+}
