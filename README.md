@@ -27,13 +27,19 @@ First, run this in an elevated PowerShell:
 # Enable Developer Mode (needed for symlink privileges)
 New-Item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock -ea 0
 Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense -Type DWord -Value 1
+
+# Enable scripts in Windows PowerShell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+
+# Enable Sudo for Windows
+sudo config --enable normal
 ```
 Then reboot and execute this in a non-elevated PowerShell:
 ```pwsh
 winget install --id twpayne.chezmoi
 chezmoi init --apply juliekoubova --source C:\src\dotfiles
 ```
-
+Finally, open a n
 ## Write Access
 1. Generate an SSH key if there isn't one yet.
 
