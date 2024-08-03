@@ -1,0 +1,16 @@
+{{- if .os.windows -}}
+{{ template "packages_windows" .packages }}
+{{- end -}}
+
+$WindowsFeatures = @(
+  "Containers-DisposableClientVM"
+  "Microsoft-Hyper-V"
+  "Microsoft-Windows-Subsystem-Linux"
+  "VirtualMachinePlatform"
+)
+
+Enable-WindowsOptionalFeature `
+  -FeatureName $WindowsFeatures `
+  -All `
+  -Online `
+  -NoRestart

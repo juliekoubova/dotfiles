@@ -4,7 +4,7 @@ Function InstallPackage($Name) {
   Write-Output "Installing $Name"
   winget install `
     --accept-package-agreements `
-    --id "%1" `
+    --id $Name `
     --no-upgrade `
     --silent `
     --source winget
