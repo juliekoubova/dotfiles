@@ -1,4 +1,4 @@
 {{- if .os.alpine -}}
 #!/bin/sh
-{{ template "setup_alpine" .setupAnsible }}
+{{ template "packages_alpine" .setupAnsible }}
 {{- end -}}

@@ -34,7 +34,7 @@ rc   = "rebase --continue"
 rs   = "rebase --skip"
 s    = "status --short"
 
-[setup]
+[packages]
 alpine = [
   "delta",
   "drill",
@@ -56,6 +56,21 @@ alpine = [
   "tcpdump",
   "tree-sitter-cli",
   "unzip",
+]
+windows = [
+  "BurntSushi.ripgrep.MSVC",
+  "Git.Git",
+  "JesseDuffield.lazygit",
+  "Microsoft.PowerShell",
+  "Microsoft.VisualStudioCode.Insiders",
+  "Microsoft.WindowsTerminal.Preview",
+  "Mozilla.Firefox",
+  "Neovim.Neovim",
+  "Starship.Starship",
+  "dandavison.delta",
+  "gsass1.NTop",
+  "jftuga.less",
+  "voidtools.Everything",
 ]
 
 [setupAnsible]

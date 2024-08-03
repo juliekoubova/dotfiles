@@ -1,0 +1,16 @@
+#Requires -RunAsAdministrator
+
+Function InstallPackage($Name) {
+  Write-Output "Installing $Name"
+  winget install `
+    --accept-package-agreements `
+    --id "%1" `
+    --no-upgrade `
+    --silent `
+    --source winget
+}
+
+{{- range .windows }}
+InstallPackage {{ . | quote }}
+{{- end }}
+

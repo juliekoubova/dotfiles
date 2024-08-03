@@ -1,7 +1,7 @@
 {{- if .os.alpine -}}
-#!/bin/sh
-{{ template "setup_alpine" .setup }}
+{{ template "packages_alpine" .packages }}
 {{- else if .os.darwin -}}
+#!/bin/sh
 
 if command -v brew >/dev/null 2>&1; then
   echo Homebrew already installed >&2
