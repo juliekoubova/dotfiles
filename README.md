@@ -15,8 +15,14 @@ $ chezmoi init --apply juliekoubova --source ~/dotfiles
 # pkg install chezmoi
 $ chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
-### MacOS
+### macOS (Apple Silicon)
+```shell
+% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+% /opt/homebrew/bin/brew install chezmoi
+% /opt/homebrew/bin/chezmoi init --apply juliekoubova --source ~/dotfiles
 ```
+### macOS (Intel)
+```shell
 % /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 % brew install chezmoi
 % chezmoi init --apply juliekoubova --source ~/dotfiles
