@@ -78,6 +78,10 @@ else
   alias la='ls -la'
 fi
 
+if has loginctl; then
+  alias zzz='loginctl suspend'
+fi
+
 . "${HOME}/.aliases"
 
 [ -r "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
