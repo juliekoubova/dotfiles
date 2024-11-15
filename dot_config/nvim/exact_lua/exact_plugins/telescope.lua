@@ -1,4 +1,10 @@
 return {
+{
+  'nvim-telescope/telescope-fzf-native.nvim',
+  build =
+  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
+},
+
   {
     "nvim-telescope/telescope.nvim",
     enabled      = not (vim.g.started_by_firenvim or vim.g.vscode),
@@ -50,10 +56,5 @@ return {
     init         = function()
       require('telescope').load_extension('fzf')
     end
-  }, {
-  'nvim-telescope/telescope-fzf-native.nvim',
-  build =
-  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
-}
-
+  }
 }

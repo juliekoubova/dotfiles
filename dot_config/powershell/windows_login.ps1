@@ -25,9 +25,11 @@ Function FindVisualStudio() {
   If ($VSPath) {
     FindLastItem "${VSPath}\VC\Tools\MSVC\*\bin\Hostx64\x64"
     "${VSPath}\Common7\IDE"
+    "${VSPath}\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin"
     "${VSPath}\Common7\Tools"
     "${VSPath}\MSBuild\Current\Bin\amd64"
     "${VSPath}\MSBuild\Current\bin\Roslyn"
+
   }
 }
 
