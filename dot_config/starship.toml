@@ -2,7 +2,7 @@
 
 command_timeout = 750
 format = """
-$username@$hostname \
+$username$hostname \
 $directory\
 $git_branch\
 $git_state\
@@ -31,8 +31,7 @@ show_always = true
 format = "[$user]($style)"
 
 [hostname]
-format = "[$hostname]($style)"
-ssh_only = false
+format = "@[$hostname]($style)"
 
 [git_branch]
 format = "[$branch]($style)"

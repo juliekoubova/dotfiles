@@ -40,6 +40,7 @@ if has starship; then
       export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship_tty.toml"
       ;;
   esac
+  
 fi
 
 if has doas && ! has sudo; then

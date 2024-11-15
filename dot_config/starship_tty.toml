@@ -2,7 +2,7 @@
 
 command_timeout = 750
 format = """
-$username@$hostname \
+$username \
 $directory\
 $git_branch\
 $git_state\
@@ -21,10 +21,6 @@ vimcmd_symbol = "[<](green)"
 [username]
 show_always = true
 format = "[$user]($style)"
-
-[hostname]
-format = "[$hostname]($style)"
-ssh_only = false
 
 [git_branch]
 format = "[$branch]($style)"
