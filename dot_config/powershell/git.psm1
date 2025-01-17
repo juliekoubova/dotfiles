@@ -47,6 +47,10 @@ Function GitCommit {
   git commit -m "${args}"
 }
 
+Function GitCommitPush {
+  GitCommit @args && git push
+}
+
 Function GitAddCommit {
   GitAdd && GitCommit @args
 }

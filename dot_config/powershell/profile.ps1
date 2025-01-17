@@ -6,26 +6,38 @@ If ($IsWindows) {
 
 . "${PSScriptRoot}/aliases.ps1"
 
-If (Get-Command code-insiders -ea SilentlyContinue) {
+Function Script:Has($Command) {
+  Return [Boolean](Get-Command $Command -ea SilentlyContinue)
+}
+
+If (Has code-insiders) {
   Set-Alias code code-insiders
 }
 
-If (Get-Command nvim -ea SilentlyContinue) {
+If (Has nvim) {
   $Env:EDITOR = 'nvim'
   Set-Alias vim nvim
   Set-Alias vi nvim
 }
 
-If (Get-Command less -ea SilentlyContinue) {
+If (Has less) {
   $Env:PAGER = 'less'
 }
 
-If (Get-Command starship -ea SilentlyContinue) {
+If (Has starship) {
   starship init powershell --print-full-init | Out-String | Invoke-Expression
 }
 
-If (Get-Command chezmoi -ea SilentlyContinue) {
+If (Has chezmoi) {
   chezmoi completion powershell | Out-String | Invoke-Expression
+}
+
+If ((Has sudo) -And -Not (Has doas)) {
+  Set-Alias doas sudo
+}
+
+If ((Has doas) -And -Not (Has sudo)) {
+  Set-Alias sudo doas
 }
 
 # Use Ctrl+[ to exit insert mode
@@ -50,6 +62,7 @@ Set-Alias ga    GitAdd
 Set-Alias gacm  GitAddCommit
 Set-Alias gacmp GitAddCommitPush
 Set-Alias gcm   GitCommit
+Set-Alias gcmp  GitCommitPush
 Set-Alias gco   GitCheckout
 Set-Alias gsq   GitSquash
 Set-Alias gua   GitUnAdd
