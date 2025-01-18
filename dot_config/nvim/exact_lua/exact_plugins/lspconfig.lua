@@ -7,7 +7,7 @@ return {
 
     lsp.lua_ls.setup { capabilities = capabilities }
     lsp.pylsp.setup { capabilities = capabilities }
-    lsp.tsserver.setup { capabilities = capabilities }
+    lsp.ts_ls.setup { capabilities = capabilities }
     lsp.tailwindcss.setup { capabilities = capabilities }
 
     local clangd_opts = { capabilities = capabilities }
