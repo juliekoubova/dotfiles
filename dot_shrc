@@ -40,7 +40,6 @@ if has starship; then
       export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship_tty.toml"
       ;;
   esac
-  
 fi
 
 if has doas && ! has sudo; then
@@ -80,20 +79,16 @@ fi
 
 if has loginctl; then
   alias zzz='loginctl suspend'
+  alias reboot='loginctl reboot'
+  alias poweroff='loginctl poweroff'
+elif [ `id -u` != 0 ] && has doas; then
+  alias poweroff='doas poweroff'
+  alias reboot='doas reboot'
 fi
 
 . "${HOME}/.aliases"
 
 [ -r "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
-
-if has swayidle && has zzz && has swayzzz; then
-  alias zzz=swayzzz
-fi
-
-if [ `id -u` != 0 ] && has doas; then
-  alias poweroff='doas poweroff'
-  alias reboot='doas reboot'
-fi
 
 if has apk; then
   whichapk() {
@@ -158,9 +153,23 @@ catwhich() {
   cat "${file}"
 }
 
+invoke_git_ignore_input_error() {
+  local output # need to declare local first to capture exit code
+  output=$(git "$@" 2>&1)
+  if [ $? -eq 0 ]; then
+    return 0
+  fi
+  if echo "$output" | grep -Eq '^error: pathspec'; then
+    echo "$output"
+    return 2
+  fi
+  echo "$output" >&2
+  return 1
+}
+
 select_git_branch() {
   if ! has fzf; then
-    echo "fzf not available"
+    echo "fzf not available" >&2
     return 1
   fi
   git for-each-ref refs/heads \
@@ -171,7 +180,7 @@ select_git_branch() {
 
 select_git_commit() {
   if ! has fzf; then
-    echo "fzf not available"
+    echo "fzf not available" >&2
     return 1
   fi
   PAGER= git log \
@@ -217,20 +226,19 @@ gacmp() {
   git add --all && git commit -m "$*" && git push
 }
 
+gcmp() {
+  git commit -m "$*" && git push
+}
+
 gco() {
-  local branch="$1"
-  if [ -z "${branch}" ]; then
-    branch=$(select_git_branch)
+  if [ -n "$1" ]; then
+    invoke_git_ignore_input_error checkout "$1"
+    case $? in [01]) return $?;; esac
   fi
-  while [ -n "${branch}" ]; do
-    if git checkout "${branch}"; then
-      branch=
-    else
-      branch="$(select_git_branch "${branch}")"
-    fi
-  done
+  git checkout `select_git_branch "${1}"`
 }
 
 alias gres='git_reset'
 alias ghard='git_reset --hard'
 alias gsoft='git_reset --soft'
+alias lg=lazygit
