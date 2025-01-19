@@ -1,0 +1,22 @@
+#!/bin/sh
+
+has() {
+  command -v "$1" >/dev/null
+}
+
+has_flatpak() {
+  has flatpak || return 1
+  flatpak info "$1" >/dev/null 2>&1
+}
+
+_ref=org.mozilla.firefox
+if has_flatpak $_ref; then
+  _cmd="flatpak run $_ref"
+elif has firefox; then
+  _cmd='firefox'
+else
+  echo firefox not found, try \`flatpak install $_ref\` >&2
+  exit 1
+fi
+
+exec nohup $_cmd "$@" >/dev/null 2>&1 &
