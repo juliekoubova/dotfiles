@@ -214,6 +214,10 @@ ga() {
   git add $arg "$@"
 }
 
+gaca() {
+  ga "$@" && git commit --amend --no-edit
+}
+
 gcm() {
   git commit -m "$*"
 }
@@ -235,7 +239,19 @@ gco() {
     invoke_git_ignore_input_error checkout "$1"
     case $? in [01]) return $?;; esac
   fi
-  git checkout `select_git_branch "${1}"`
+  git checkout `select_git_branch "$1"`
+}
+
+gdiff() {
+  if [ -n "$1" ]; then
+    invoke_git_ignore_input_error diff "$1"
+    case $? in [01]) return $?;; esac
+  fi
+  git diff `select_git_commit "$1"`
+}
+
+ginitall() {
+  git init && git add --all && git commit -m "initial commit"
 }
 
 alias gres='git_reset'
