@@ -2,17 +2,13 @@ return {
   "neovim/nvim-lspconfig",
   enabled = not vim.g.vscode,
   config = function()
-    local lsp = require('lspconfig')
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    lsp.lua_ls.setup { capabilities = capabilities }
-    lsp.pylsp.setup { capabilities = capabilities }
-    lsp.ts_ls.setup { capabilities = capabilities }
-    lsp.tailwindcss.setup { capabilities = capabilities }
+    vim.lsp.config('*', {
+      capabilities = require('cmp_nvim_lsp').default_capabilities()
+    })
 
-    local clangd_opts = { capabilities = capabilities }
+    local clangd_opts = {}
     local idf_path = os.getenv("IDF_TOOLS_PATH")
-
     if idf_path then
       local clang_paths = vim.split(
         vim.fn.glob(idf_path .. "/tools/esp-clang/*"),
@@ -20,13 +16,19 @@ return {
         { trimempty = true }
       )
       if #clang_paths > 0 then
-        clangd_opts.cmd = {
-          clang_paths[#clang_paths] .. "/esp-clang/bin/clangd"
-        }
+        vim.lsp.config('clangd', {
+          cmd = {
+            clang_paths[#clang_paths] .. "/esp-clang/bin/clangd"
+          }
+        })
       end
     end
 
-    lsp.clangd.setup(clangd_opts)
+    vim.lsp.enable('clangd')
+    vim.lsp.enable('lua_ls')
+    vim.lsp.enable('pylsp')
+    vim.lsp.enable('tailwindcss')
+    vim.lsp.enable('ts_ls')
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
