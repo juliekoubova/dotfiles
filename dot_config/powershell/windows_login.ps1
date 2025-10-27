@@ -58,4 +58,23 @@ PrependPath {
   "${Env:UserProfile}\.local\bin"
 }
 
+PrependPath -Variable INCLUDE {
+  FindLastItem "${VSPath}\VC\Tools\MSVC\*\include"
+  FindLastItem "${VSPath}\VC\Tools\MSVC\*\ATLMFC\include"
+  "${VSPath}\VC\Auxiliary\VS|include"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\include\*\ucrt"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\include\*\um"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\include\*\winrt"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\include\*\cppwinrt"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\include\*\shared"
+}
+
+PrependPath -Variable LIB {
+  FindLastItem "${VSPath}\VC\Tools\MSVC\*\lib\x64"
+  FindLastItem "${VSPath}\VC\Tools\MSVC\*\ATLMFC\lib\x64"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\lib\*\um\x64"
+  FindLastItem "${Env:ProgramFiles(x86)}\Windows Kits\10\lib\*\ucrt\x64"
+}
+
+
 $Env:LESS = '--mouse'
