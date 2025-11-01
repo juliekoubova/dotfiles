@@ -1,57 +1,130 @@
-#!/bin/sh
+#!/usr/bin/env python3
+"""
+Download Bing daily wallpapers and configure different ones for each Sway output.
+Sets up both swaybg and swaylock with the wallpapers.
+"""
 
-command -v jq >/dev/null 2>&1 || {
-  echo >&2 "jq is required but it's not installed. Aborting."
-  exit 1
-}
+import json
+import subprocess
+import urllib.request
+from pathlib import Path
+import sys
 
-command -v swaymsg >/dev/null 2>&1 || {
-  echo >&2 "swaymsg is required but it's not installed. Aborting."
-  exit 1
-}
+# Configuration
+WALLPAPER_DIR = Path.home() / ".local/share/wallpapers"
+BING_API_URL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n={}&mkt=en-US"
+SWAYLOCK_CONFIG = Path.home() / ".config/swaylock/config"
 
-outputs=$(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name')
 
-if [ -z "$outputs" ]; then
-  echo "No active outputs found."
-  exit 1
-fi
+def get_sway_outputs():
+    """Get list of active Sway outputs."""
+    try:
+        result = subprocess.run(
+            ["swaymsg", "-t", "get_outputs", "-r"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        outputs = json.loads(result.stdout)
+        return [output["name"] for output in outputs if output["active"]]
+    except (subprocess.CalledProcessError, json.JSONDecodeError, KeyError) as e:
+        print(f"Error getting Sway outputs: {e}", file=sys.stderr)
+        sys.exit(1)
 
-num_outputs=$(echo "$outputs" | wc -l)
-dest_dir="${XDG_DATA_HOME:-$HOME/.local/share}/backgrounds/bing"
-base_url="https://www.bing.com"
-url="${base_url}/HPImageArchive.aspx?format=js&idx=0&n=${num_outputs}"
+def download_bing_wallpapers(count):
+    """Download Bing wallpapers, using cache when available."""
+    try:
+        # Get wallpaper info from Bing API
+        url = BING_API_URL.format(count)
+        with urllib.request.urlopen(url) as response:
+            data = json.loads(response.read())
+        
+        # Create wallpaper directory if it doesn't exist
+        WALLPAPER_DIR.mkdir(parents=True, exist_ok=True)
+        
+        wallpapers = []
+        for image in data["images"]:
+            image_url = "https://www.bing.com" + image["url"]
+            image_hash = image["hsh"]
+            wallpaper_path = WALLPAPER_DIR / f"bing_{image_hash}.jpg"
+            
+            # Check if we already have this wallpaper
+            if wallpaper_path.exists():
+                print(f"Using cached wallpaper (hash: {image_hash})")
+            else:
+                print(f"Downloading wallpaper (hash: {image_hash})")
+                urllib.request.urlretrieve(image_url, wallpaper_path)
+            
+            wallpapers.append(wallpaper_path)
+        
+        return wallpapers
+    
+    except Exception as e:
+        print(f"Error downloading wallpapers: {e}", file=sys.stderr)
+        sys.exit(1)
 
-mkdir -p "$dest_dir"
 
-response=$(curl -s "$url")
-swaybg="swaybg "
-swayconf="${dest_dir}/sway.config"
-swaylockconf="${XDH_CONFIG_HOME:-$HOME/.config}/swaylock/config"
+def configure_swaybg(wallpapers, outputs):
+    """Kill existing swaybg instances and start new ones for each output."""
+    # Kill existing swaybg processes
+    subprocess.run(["pkill", "swaybg"], stderr=subprocess.DEVNULL)
+    
+    # Start swaybg for each output with its wallpaper
+    for output, wallpaper in zip(outputs, wallpapers):
+        try:
+            subprocess.Popen(
+                ["swaybg", "-o", output, "-i", str(wallpaper), "-m", "fill"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            print(f"Set wallpaper for output: {output}")
+        except Exception as e:
+            print(f"Error setting wallpaper for {output}: {e}", file=sys.stderr)
 
-truncate -s 0 "$swayconf"
-echo "$(grep -v '^image=' "$swaylockconf")" > $swaylockconf
 
-i=0
-for output in $outputs; do
-  image_url=$(echo "$response" | jq -r ".images[$i].url")
-  image_hsh=$(echo "$response" | jq -r ".images[$i].hsh")
-  full_url="${base_url}${image_url}"
-  filename="${dest_dir}/${image_hsh}.jpg"
-  if [ ! -f "$filename" ]; then
-    curl -o "$filename" "$full_url"
-    echo "Downloaded wallpaper to $filename"
-  else
-    echo "Wallpaper $filename already exists, skipping download."
-  fi
-  swaybg="${swaybg} -o ${output} -i ${filename} -m fill "
-  echo "output ${output} background ${filename} fill" >> "${swayconf}"
-  echo "image=${output}:${filename}" >> "${swaylockconf}"
-  i=$((i + 1))
-done
+def configure_swaylock(wallpapers, outputs):
+    """Create/update swaylock config with the wallpapers."""
+    config_dir = SWAYLOCK_CONFIG.parent
+    config_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Read existing config or start fresh
+    existing_config = []
+    if SWAYLOCK_CONFIG.exists():
+        with open(SWAYLOCK_CONFIG, 'r') as f:
+            existing_config = [
+                line for line in f.readlines()
+                if not line.strip().startswith('image=')
+            ]
+    
+    # Write new config with wallpaper settings
+    with open(SWAYLOCK_CONFIG, 'w') as f:
+        # Write existing non-image config
+        f.writelines(existing_config)
+        
+        # Add image lines for each output
+        for output, wallpaper in zip(outputs, wallpapers):
+            f.write(f"image={output}:{wallpaper}\n")
+    
+    print(f"Updated swaylock config: {SWAYLOCK_CONFIG}")
 
-existing_swaybg_pid=`pgrep --uid $(id -ur) swaybg`
-nohup $swaybg >/dev/null 2>&1 &
-sleep 1
-[ -n "${existing_swaybg_pid}" ] && kill $existing_swaybg_pid
 
+def main():
+    print("Fetching Sway outputs...")
+    outputs = get_sway_outputs()
+    output_count = len(outputs)
+    print(f"Found {output_count} active output(s): {', '.join(outputs)}")
+    
+    print(f"\nFetching {output_count} Bing wallpaper(s)...")
+    wallpapers = download_bing_wallpapers(output_count)
+    
+    print("\nConfiguring swaybg...")
+    configure_swaybg(wallpapers, outputs)
+    
+    print("\nConfiguring swaylock...")
+    configure_swaylock(wallpapers, outputs)
+    
+    print("\n✓ All done!")
+
+
+if __name__ == "__main__":
+    main()
