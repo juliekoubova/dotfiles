@@ -100,9 +100,6 @@ if has apk; then
     apk info -W "${file}"
   }
 
-  upgradeable=`apk list --upgradeable | wc -l`
-  [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n" 
-  unset upgradeable
 fi
 
 if has brew; then
@@ -257,3 +254,14 @@ ginitall() {
 alias gres='git_reset'
 alias ghard='git_reset --hard'
 alias gsoft='git_reset --soft'
+
+if [ "$SHLVL" -eq 1 ]; then
+  if has apk; then
+    upgradeable=`apk list --upgradeable | wc -l`
+    [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n" 
+    unset upgradeable
+  fi
+  if has op; then
+    op update >/dev/null
+  fi
+fi

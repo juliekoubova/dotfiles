@@ -1,0 +1,8 @@
+#!/bin/sh
+# swayidle config hash: {{ include "dot_config/swayidle/config" | sha256sum }}
+
+command -v swaymsg >/dev/null || exit 0
+[ -n "${SWAYSOCK}" ] || exit 0
+
+echo Reloading swayidle >&2
+pkill swayidle && swaymsg exec swayidle

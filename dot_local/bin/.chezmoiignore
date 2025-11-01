@@ -26,6 +26,7 @@ totorohome
 julie-setup
 julie-setup-ansible
 julie-setup-firenvim.cmd
+julie-setup-op
 {{ end }}
 
 {{ if not .os.windows }}

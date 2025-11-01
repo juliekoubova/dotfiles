@@ -4,6 +4,7 @@ type = "file"
 executable = true
 url = "https://raw.githubusercontent.com/marty-oehme/bemoji/main/bemoji"
 refreshPeriod = "168h"
+
 {{ end }}
 
 {{ if .os.windows }}

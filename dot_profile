@@ -19,26 +19,3 @@ has() {
 if has ssh-agent && [ -z "${SSH_AGENT_PID}" ]; then
   eval "$(ssh-agent -s)" > /dev/null
 fi
-
-try_exec_dbus() {
-  local _cmd=$1; shift
-  local _log="${XDG_STATE_HOME}/${_cmd##*/}.log"
-  has "$_cmd" || return 1
-  if has dbus-run-session; then
-    exec dbus-run-session -- "$_cmd" "$@" 1>"$_log" 2>&1
-  else
-    exec "$_cmd" "$@" 1>"$_log" 2>&1
-  fi
-}
-
-exec_sway() {
-  export MOZ_ENABLE_WAYLAND="1"
-  export QT_QPA_PLATFORM="wayland-egl"
-  export XDG_CURRENT_DESKTOP="sway"
-  try_exec_dbus "${HOME}/swayfx/build/sway/sway"
-  try_exec_dbus sway
-}
-
-case "$TTY" in
-  "/dev/tty1") exec_sway;;
-esac
