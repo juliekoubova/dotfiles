@@ -26,7 +26,8 @@ If (Has less) {
 
 If (Has starship) {
   Function Invoke-Starship-PreCommand {
-    $Host.UI.RawUI.WindowTitle = "$(starship module directory)"
+    $Host.UI.RawUI.WindowTitle = (starship module directory) -replace "`e\[.*?m", '')
+
   }
   starship init powershell --print-full-init | Out-String | Invoke-Expression
 }
