@@ -37,6 +37,8 @@ vim.g.completeopt        = { "menuone", "noinsert", "noselect" }
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.o.title = true
+
 vim.api.nvim_create_autocmd('InsertEnter', {
   callback = function()
     if vim.wo.number then
