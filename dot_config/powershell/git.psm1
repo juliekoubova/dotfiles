@@ -14,6 +14,20 @@ Filter ProcessGitOutputForFzf {
   }
 }
 
+Filter IsInvalidInput ([Ref]$IsInvalidInput) {
+  If ($_ -Is [System.Management.Automation.ErrorRecord]) {
+    Write-Error $_
+    If ($_ -Match '^error: pathspec ''(.*)'' did not match') {
+      $IsInvalidInput.Value = $true
+    }
+    ElseIf ($_ -Match '^fatal: invalid upstream') {
+      $IsInvalidInput.Value = $true
+    }
+  } Else {
+    Write-Output $_
+  }
+}
+
 Function Select-GitCommit {
   Param (
     [String] $Query,
@@ -36,6 +50,18 @@ Function Select-GitBranch($Query) {
     2>&1 `
     | ProcessGitOutputForFzf `
     | Select-Fzf -Query $Query
+}
+
+Function SelectGitBranchIfInvalidInput ([Ref] $Branch) {
+  $IsInvalidInput = $False
+  $Input | IsInvalidInput ([Ref]$IsInvalidInput)
+
+  If ($IsInvalidInput) {
+    $Branch.Value = Select-GitBranch $Branch.Value
+  }
+  Else {
+    $Branch.Value = $Null
+  }
 }
 
 Function GitAdd {
@@ -65,12 +91,25 @@ Function GitCheckout {
     $Branch = Select-GitBranch
   }
   While ($Branch) {
-    git checkout $Branch
-    If ($LastExitCode) {
-      $Branch = Select-GitBranch -Query $Branch
-    } Else {
-      $Branch = $Null
+    git checkout $Branch 2>&1 | SelectGitBranchIfInvalidInput ([Ref]$Branch)
+  }
+}
+
+Function GitRebase {
+  Param (
+    [String] $Branch,
+    [Switch] $Interactive
+  )
+  If (-Not $Branch) {
+    $Branch = Select-GitBranch
+  }
+  While ($Branch) {
+    $GitArgs = @('rebase')
+    If ($Interactive) {
+      $GitArgs += '--interactive'
     }
+    $GitArgs += $Branch
+    git @GitArgs 2>&1 | SelectGitBranchIfInvalidInput ([Ref]$Branch)
   }
 }
 
