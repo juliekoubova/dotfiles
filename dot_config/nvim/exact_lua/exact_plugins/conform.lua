@@ -1,26 +1,26 @@
 return {
-  'stevearc/conform.nvim',
+  "stevearc/conform.nvim",
   opts = {
-    default_format_opts = { lsp_format = 'fallback' },
+    default_format_opts = { lsp_format = "fallback" },
     format_on_save = {
       timeout_ms = 500,
-      lsp_format = 'fallback'
+      lsp_format = "fallback",
     },
     formatters_by_ft = {
       javascript = { "prettierd", "prettier", stop_after_first = true },
-      lua = { 'stylua' },
-      sh = { 'shfmt' }
+      lua = { "stylua" },
+      sh = { "shfmt" },
     },
   },
-  event = { 'BufWritePre' },
+  event = { "BufWritePre" },
   keys = {
     {
-      '<leader>fo',
+      "<leader>fo",
       function()
-        require('conform').format({ async = true })
+        require("conform").format({ async = true })
       end,
-      mode = '',
-    }
+      mode = "",
+    },
   },
   init = function()
     -- If you want the formatexpr, here is the place to set it
