@@ -1,0 +1,8 @@
+#!/bin/sh
+{{ $destDir := .chezmoi.config.destDir -}}
+{{ range $font := glob ".config/fontconfig/conf.d/**/*.conf" -}}
+# {{ include (joinPath $destDir $font) | sha256sum }}
+{{ end -}}
+if command -v fc-cache >/dev/null; then
+  fc-cache -fv
+fi

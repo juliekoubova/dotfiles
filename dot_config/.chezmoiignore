@@ -4,6 +4,7 @@ iterm2
 
 {{ if not .os.linux }}
 alcaritty/
+fontconfig/
 foot/
 gtk-3.0/
 kitty/

@@ -1,5 +1,5 @@
 font            = "Noto Sans 11"
-monospaceFont   = "Noto Sans Mono 11"
+monospaceFont   = "Cascadia Code NF"
 gtkTheme        = "Catppuccin-Mocha-Standard-Sapphire-Dark"
 iconTheme       = "Adwaita"
 unixCursorTheme = "capitaine-cursors-light"
