@@ -33,4 +33,5 @@ julie-setup-op
 any-pwsh.cmd
 flipflop-wheel.ps1
 julie-setup.ps1
+python.cmd
 {{ end }}
