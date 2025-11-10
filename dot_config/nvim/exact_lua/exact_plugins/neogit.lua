@@ -8,6 +8,10 @@ return {
   },
   cond = not (vim.g.started_by_firenvim or vim.g.vscode),
   cmd = { "Neogit" },
+  keys = {
+    { '<leader>gs', '<cmd>Neogit<CR>' },
+    { '<leader>gl', function() require('neogit').action('log', 'log_current')() end }
+  },
   opts = {
     disable_hint             = true,
     disable_insert_on_commit = false,

@@ -34,7 +34,7 @@ return {
         local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
         local clients = vim.lsp.get_clients()
         if next(clients) == nil then
-          return ''
+          return buf_ft
         end
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
@@ -42,7 +42,7 @@ return {
             return client.name
           end
         end
-        return ''
+        return buf_ft
       end,
       color = { fg = '#ffffff', gui = 'bold' },
     }

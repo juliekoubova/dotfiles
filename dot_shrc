@@ -5,7 +5,7 @@ if uname -r | grep -q microsoft; then
     if ! test -e ${WSL_INTEROP}; then
       _pid="${PPID}"
 
-      while test -n "${_pid}"; do 
+      while test -n "${_pid}"; do
         if test -e "/run/WSL/${_pid}_interop"; then
           export WSL_INTEROP="/run/WSL/${_pid}_interop"
           break
@@ -36,9 +36,9 @@ export LESS="--mouse"
 
 if has starship; then
   case "${TTY}" in
-    /dev/tty[0-9])
-      export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship_tty.toml"
-      ;;
+  /dev/tty[0-9])
+    export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship_tty.toml"
+    ;;
   esac
 fi
 
@@ -81,7 +81,7 @@ if has loginctl; then
   alias zzz='loginctl suspend'
   alias reboot='loginctl reboot'
   alias poweroff='loginctl poweroff'
-elif [ `id -u` != 0 ] && has doas; then
+elif [ $(id -u) != 0 ] && has doas; then
   alias poweroff='doas poweroff'
   alias reboot='doas reboot'
 fi
@@ -92,10 +92,10 @@ fi
 
 if has apk; then
   whichapk() {
-    if [ -f "${1}" ]; then 
+    if [ -f "${1}" ]; then
       file="${1}"
     else
-      file=`which "${1}"`
+      file=$(which "${1}")
     fi
     apk info -W "${file}"
   }
@@ -105,7 +105,7 @@ fi
 if has brew; then
   eval "$(brew shellenv)"
   source_if_has "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"
-elif [ `uname` = "Linux" ]; then
+elif [ $(uname) = "Linux" ]; then
   export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
   source_if_has "${NVM_DIR}/nvm.sh"
 fi
@@ -129,7 +129,7 @@ elif has pbcopy && has pbpaste; then
 fi
 
 ii() {
-  if [ `uname` = "Darwin" ]; then
+  if [ $(uname) = "Darwin" ]; then
     open "$@"
     return
   fi
@@ -146,7 +146,7 @@ ii() {
 }
 
 catwhich() {
-  file=`which "${1}"` || return 1
+  file=$(which "${1}") || return 1
   cat "${file}"
 }
 
@@ -171,8 +171,8 @@ select_git_branch() {
   fi
   git for-each-ref refs/heads \
     --sort=-committerdate \
-    --format='%(refname:short)' \
-    | fzf ${1:+-q "$1"} | awk '{$1=$1};1'
+    --format='%(refname:short)' |
+    fzf ${1:+-q "$1"} | awk '{$1=$1};1'
 }
 
 select_git_commit() {
@@ -182,16 +182,16 @@ select_git_commit() {
   fi
   PAGER= git log \
     --color \
-    --max-count=200 \
-    | fzf --ansi ${1:+-q "$1"} | awk '{print $1}'
+    --max-count=200 |
+    fzf --ansi ${1:+-q "$1"} | awk '{print $1}'
 }
 
 git_reset() {
   case "$1" in
-    --soft|--hard)
-      local type="$1"
-      shift
-      ;;
+  --soft | --hard)
+    local type="$1"
+    shift
+    ;;
   esac
   local commit="$1"
   if [ -z "${commit}" ]; then
@@ -234,17 +234,17 @@ gcmp() {
 gco() {
   if [ -n "$1" ]; then
     invoke_git_ignore_input_error checkout "$1"
-    case $? in [01]) return $?;; esac
+    case $? in [01]) return $? ;; esac
   fi
-  git checkout `select_git_branch "$1"`
+  git checkout $(select_git_branch "$1")
 }
 
 gdiff() {
   if [ -n "$1" ]; then
     invoke_git_ignore_input_error diff "$1"
-    case $? in [01]) return $?;; esac
+    case $? in [01]) return $? ;; esac
   fi
-  git diff `select_git_commit "$1"`
+  git diff $(select_git_commit "$1")
 }
 
 ginitall() {
@@ -257,8 +257,8 @@ alias gsoft='git_reset --soft'
 
 if [ "$SHLVL" -eq 1 ]; then
   if has apk; then
-    upgradeable=`apk list --upgradeable | wc -l`
-    [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n" 
+    upgradeable=$(apk list --upgradeable | wc -l)
+    [ "${upgradeable}" -gt 0 ] && printf "There are ${upgradeable} upgradeable apk packages.\n"
     unset upgradeable
   fi
   if has op; then

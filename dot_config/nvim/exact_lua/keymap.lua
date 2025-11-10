@@ -22,10 +22,4 @@ else
 
   -- Disable Ctrl+Z
   vim.keymap.set('n', '<C-z>', '<nop>')
-
-  -- NeoGit
-  vim.keymap.set('n', '<leader>gs', '<cmd>Neogit<CR>')
-  vim.keymap.set('n', '<leader>gl', function()
-    require('neogit').action('log', 'log_current')()
-  end)
 end
