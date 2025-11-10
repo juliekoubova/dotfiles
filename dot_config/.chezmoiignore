@@ -1,3 +1,7 @@
+{{ if not .os.darwin }}
+iterm2
+{{ end }}
+
 {{ if not .os.linux }}
 alcaritty/
 foot/

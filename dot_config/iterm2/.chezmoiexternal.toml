@@ -1,0 +1,6 @@
+["catppuccin"]
+url = "https://github.com/catppuccin/iterm/archive/refs/heads/main.zip"
+type = "archive"
+include = [ "iterm-main/colors/*" ]
+stripComponents = 2
+
