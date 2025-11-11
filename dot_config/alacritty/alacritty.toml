@@ -1,6 +1,12 @@
 [general]
 import = ["~/.config/alacritty/catppuccin-mocha.toml"]
 
+[font]
+normal = { family = "Cascadia Code NF", style = "SemiLight" }
+italic = { family = "Cascadia Code NF", style = "SemiLight Italic" }
+bold = { family = "Cascadia Code NF", style = "Bold" }
+bold_italic = { family = "Cascadia Code NF", style = "Bold Italic" }
+
 [window]
 opacity = 0.98
 blur = true
