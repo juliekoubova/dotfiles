@@ -5,8 +5,8 @@ container = {{ (and
   (eq .chezmoi.os "linux")
   (output "sh" "-c" "echo $container" | trim)
 ) | not | not }}
-alpine = {{ and 
-  (eq .chezmoi.os "linux") 
+alpine = {{ and
+  (eq .chezmoi.os "linux")
   (.chezmoi.osRelease.id)
   (eq (.chezmoi.osRelease.id) "alpine"
 ) }}

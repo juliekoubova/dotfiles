@@ -9,9 +9,6 @@ if vim.g.vscode then
   vim.keymap.set('n', '<leader>fb', vsc('workbench.action.openPreviousEditorFromHistory'))
   vim.keymap.set('n', '<leader>ft', vsc('workbench.view.explorer'))
 else
-  -- Telescope
-
-
   vim.keymap.set('n', '<leader>v', '<cmd>echomsg system("curl -s -m 3 https://vtip.43z.one")<CR>')
 
   -- Clear search and notifications with <Esc>
