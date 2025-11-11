@@ -1,40 +1,3 @@
-font            = "Noto Sans 11"
-monospaceFont   = "Cascadia Code NF"
-gtkTheme        = "Catppuccin-Mocha-Standard-Sapphire-Dark"
-iconTheme       = "Adwaita"
-unixCursorTheme = "capitaine-cursors-light"
-unixCursorSize  = "48"
-gitLogPretty    = "format:%C(auto)%h (%Cblue%al%Creset)%C(auto)%d %s"
-xkbLayout       = "us,cz(qwerty)"
-xkbLayoutLocked = "us"
-
-[aliases]
-cz  = "chezmoi"
-cza = "chezmoi apply"
-cze = "chezmoi edit"
-czu = "chezmoi update"
-ff  = "firefox"
-lg  = "lazygit"
-
-[gitaliases]
-ca   = "commit --amend --no-edit"
-cb   = "checkout -b"
-d    = "diff"
-dc   = "diff --cached"
-dcs  = "diff --cached --stat"
-df   = "diff"
-ds   = "diff --stat"
-f    = "fetch --prune"
-l    = "log"
-p    = "push"
-pf   = "push --force"
-pl   = "pull"
-r    = "rebase"
-ra   = "rebase --abort"
-rc   = "rebase --continue"
-rs   = "rebase --skip"
-s    = "status --short"
-
 [packages]
 alpine = [
   "delta",
@@ -46,7 +9,6 @@ alpine = [
   "htop",
   "jq",
   "lazygit",
-  "lua-language-server@testing",
   "less",
   "python3",
   "neovim",

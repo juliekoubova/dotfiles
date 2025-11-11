@@ -1,0 +1,9 @@
+{{- if (.os.windows) -}}
+{{-   (get .pkg "winget") -}}
+{{- else if (.os.alpine) -}}
+{{-   (or (get .pkg "alpine") (get .pkg "unix")) -}}
+{{- else if (.os.chimera) -}}
+{{-   (or (get .pkg "chimera") (get .pkg "unix")) -}}
+{{- else if (.os.darwin) -}}
+{{-   (or (get .pkg "brew") (get .pkg "unix")) -}}
+{{- end -}}

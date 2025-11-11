@@ -1,15 +1,21 @@
-{{- if .os.alpine -}}
-{{ template "packages_alpine" .packages }}
-{{- else if .os.darwin -}}
 #!/bin/sh
+{{ $apk := (or .os.alpine .os.chimera) }}
+{{ $args := dict "os" .os "pkgs" .pkgs "virtual_pkgs" .virtual_pkgs }}
 
-if command -v brew >/dev/null 2>&1; then
-  echo Homebrew already installed >&2
-else
-  echo Installing Homebrew >&2
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{- if not .os.darwin }}
+if [ `id -u` != "0" ]; then
+  echo "Need root" >&2
+  exit 1
 fi
+{{ end -}}
 
+{{- if $apk -}}
+{{ template "packages_apk" $args }}
+{{- else if .os.darwin -}}
+{{ template "packages_brew" $args }}
+{{- end -}}
+
+{{- if .os.darwin }}
 brew install \
   git \
   git-delta \
@@ -26,5 +32,4 @@ brew install \
   rsync \
   starship \
   ;
-
 {{- end }}

@@ -1,22 +1,12 @@
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data.os]
-container = {{ (and
-  (eq .chezmoi.os "linux")
-  (output "sh" "-c" "echo $container" | trim)
-) | not | not }}
-alpine = {{ and
-  (eq .chezmoi.os "linux")
-  (.chezmoi.osRelease.id)
-  (eq (.chezmoi.osRelease.id) "alpine"
-) }}
+container = {{ (and (eq .chezmoi.os "linux") (output "sh" "-c" "echo $container" | trim)) | not | not }}
+alpine = {{ and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id) (eq (.chezmoi.osRelease.id) "alpine") }}
+chimera = {{ and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id) (eq (.chezmoi.osRelease.id) "chimera") }}
 darwin = {{ (eq .chezmoi.os "darwin") }}
 freebsd = {{ (eq .chezmoi.os "freebsd") }}
 linux = {{ (eq .chezmoi.os "linux") }}
 unix = {{ (eq .chezmoi.os "darwin" "freebsd" "linux") }}
 windows = {{ (eq .chezmoi.os "windows") }}
-wsl = {{ (and
-  (eq .chezmoi.os "linux") 
-  (.chezmoi.kernel.osrelease | lower | contains "microsoft")
-) | not | not }}
-
+wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) | not | not }}

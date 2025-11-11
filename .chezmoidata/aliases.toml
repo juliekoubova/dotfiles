@@ -1,0 +1,8 @@
+[aliases]
+cz  = "chezmoi"
+cza = "chezmoi apply"
+cze = "chezmoi edit"
+czu = "chezmoi update"
+ff  = "firefox"
+lg  = "lazygit"
+

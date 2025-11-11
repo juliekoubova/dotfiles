@@ -1,0 +1,30 @@
+echo "Updating APK..." >&2
+apk update || exit 1
+
+{{ $os := .os -}}
+{{- $pkgDefs := .pkgs -}}
+{{- $virtualPkgDefs := .virtual_pkgs -}}
+
+echo "Installing packages" >&2
+{{- range $virtual, $pkgs := $virtualPkgDefs }}
+apk add --virtual ".{{ $virtual }}" \
+  {{  range $k, $pkg := $pkgs }}
+  {{-   $vpkg := "" -}}
+  {{-   if (eq (typeOf $pkg) "string") -}}
+  {{-     $vpkg = (get $virtualPkgDefs $pkg) -}}
+  {{-     $pkg  = (get $pkgDefs $pkg) -}}
+  {{-   end -}}
+  {{-   if $vpkg }}
+  ".{{ $vpkg }}" \
+  {{-   else -}}
+  {{      template "package" dict "os" $os "pkg" $pkg }} \
+  {{    end -}}
+  {{  end -}}
+  ;
+{{ end }}
+
+exec apk add \
+{{- range $k, $pkg := .pkgs }}
+  {{ template "package" dict "os" $os "pkg" $pkg }} \
+{{- end }}
+;

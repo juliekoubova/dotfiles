@@ -1,0 +1,45 @@
+[pkgs]
+cascadia-code.brew = "font-cascadia-code-nf"
+curl = { unix = "curl" }
+everything.winget = "voidtools.Everything"
+eza.unix = "eza"
+fd = { unix = "fd", winget = "sharkdp.fd" }
+fzf = { unix = "fzf", winget = "junegunn.fzf" }
+htop.unix = "htop"
+jq.unix = "jq"
+less = { unix = "less", winget = "jftuga.less" }
+powershell.winget = "Microsoft.PowerShell.Preview"
+ripgrep = { unix = "ripgrep", winget = "BurntSushi.ripgrep.MSVC" }
+rsync.unix = "rsync"
+starship = { unix = "starship", winget = "Starship.Starship" }
+sysinternals.winget = "Microsoft.Sysinternals.Suite"
+unzip.unix = "unzip"
+vscode.winget = "Microsoft.VisualStudioCode.Insiders"
+windows-term.winget = "Microsoft.WindowsTerminal.Preview"
+zsh.unix = "zsh"
+
+[virtual_pkgs]
+buildtools = [
+  { chimera = "clang" },
+  { chimera = "cmake" },
+  { chimera = "meson" },
+  { chimera = "gmake" },
+]
+
+git = [
+  { unix = "git", winget = "Git.Git" },
+  { brew = "git-delta", unix = "delta", winget = "dandavison.delta" }
+]
+
+neovim = [
+  { unix = "neovim", winget =  "Neovim.Neovim" },
+  "curl",
+  "fd",
+  "fzf",
+  "ripgrep",
+  { chimera = "gcompat" },
+  { chimera = "libgcc-chimera" },
+  { unix = "tree-sitter-python" },
+  { unix = "tree-sitter-cli" },
+  { unix = "bash" },
+]
