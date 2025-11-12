@@ -1,5 +1,7 @@
 [pkgDefs.mandatory]
+azure-cli = { winget = "Microsoft.AzureCLI" }
 cascadia-code = { brew = "font-cascadia-code-nf" }
+chezmoi = { unix = "chezmoi", winget = "twpayne.chezmoi" }
 curl = { unix = "curl" }
 drill = { alpine = "drill", chimera = "ldns" }
 everything = { winget = "voidtools.Everything" }
@@ -17,14 +19,10 @@ strace = { linux = "strace" }
 sysinternals = { winget = "Microsoft.Sysinternals.Suite" }
 tcpdump = { unix = "tcpdump" }
 unzip = { unix = "unzip" }
-vscode = { winget = "Microsoft.VisualStudioCode.Insiders" }
-terminal = { brew = "iterm2", winget = "Microsoft.WindowsTerminal.Preview" }
 zsh = { unix = "zsh" }
 
 [pkgDefs.optional]
-ansible = [
-  { unix = "ansible" },
-]
+ansible = { unix = "ansible" }
 
 buildtools = [
   { chimera = "clang" },
@@ -47,3 +45,11 @@ neovim = [
   { unix = "tree-sitter-cli" },
   { unix = "bash" },
 ]
+
+vscode = { winget = "Microsoft.VisualStudioCode" }
+vscode-insiders = { winget = "Microsoft.VisualStudioCode.Insiders" }
+
+iterm2 = { brew = "iterm2" }
+
+windows-terminal = { winget = "Microsoft.WindowsTerminal" }
+windows-terminal-preview = { winget = "Microsoft.WindowsTerminal.Preview" }

@@ -5,10 +5,12 @@
 {{-   template "package" (dict "os" $os "pkg" $def) -}}
 {{- end -}}
 {{- range $name, $pkgs := $pkgDefs.optional -}}
-{{-   range $def := $pkgs -}}
-{{-     if has $name $enabledOptionalPkgs -}}
+{{-   if has $name $enabledOptionalPkgs -}}
+{{-     if kindIs "map" $pkgs -}}
+{{-       $pkgs = list $pkgs  -}}
+{{-     end -}}
+{{-     range $def := $pkgs -}}
 {{-       template "package" (dict "os" $os "pkg" $def) -}}
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
-
