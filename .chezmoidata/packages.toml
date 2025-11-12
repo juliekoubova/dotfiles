@@ -1,4 +1,4 @@
-[pkgDefs.mandatory]
+[packages.mandatory]
 azure-cli = { winget = "Microsoft.AzureCLI" }
 cascadia-code = { brew = "font-cascadia-code-nf" }
 chezmoi = { unix = "chezmoi", winget = "twpayne.chezmoi" }
@@ -21,7 +21,7 @@ tcpdump = { unix = "tcpdump" }
 unzip = { unix = "unzip" }
 zsh = { unix = "zsh" }
 
-[pkgDefs.optional]
+[packages.optional]
 ansible = { unix = "ansible" }
 
 buildtools = [
@@ -49,7 +49,13 @@ neovim = [
 vscode = { winget = "Microsoft.VisualStudioCode" }
 vscode-insiders = { winget = "Microsoft.VisualStudioCode.Insiders" }
 
-iterm2 = { brew = "iterm2" }
+mac-iterm2 = { brew = "iterm2" }
+
+windows-hyperv = [
+  { dism = "Containers-DisposableClientVM" },
+  { dism = "Microsoft-Hyper-V" },
+  { dism = "VirtualMachinePlatform" },
+]
 
 windows-terminal = { winget = "Microsoft.WindowsTerminal" }
 windows-terminal-preview = { winget = "Microsoft.WindowsTerminal.Preview" }

@@ -1,24 +1,23 @@
-{{- $pkgDefs := (include ".chezmoidata/pkgDefs.toml" | fromToml).pkgDefs -}}
-{{- $optionalPkgNames := $pkgDefs.optional | keys | sortAlpha -}}
+{{- $packages := (include ".chezmoidata/packages.toml" | fromToml).packages -}}
+{{- $optionalPkgNames := $packages.optional | keys | sortAlpha -}}
 {{- $enabledOptionalPkgs := promptMultichoice
   "Select optional package sets"
   $optionalPkgNames
-  (get . "enabledOptionalPkgs" | default list)
+  (dig "packages" "enabled" (list) .)
 -}}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-[data]
-enabledOptionalPkgs = {{ $enabledOptionalPkgs | toToml }}
+[data.packages]
+enabled = {{ $enabledOptionalPkgs | toToml }}
 
 [data.os]
-container = {{ (and (eq .chezmoi.os "linux") (output "sh" "-c" "echo $container" | trim)) | not | not }}
 alpine = {{ and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id) (eq (.chezmoi.osRelease.id) "alpine") }}
 chimera = {{ and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id) (eq (.chezmoi.osRelease.id) "chimera") }}
+container = {{ (and (eq .chezmoi.os "linux") (output "sh" "-c" "echo $container" | trim)) | not | not }}
 darwin = {{ (eq .chezmoi.os "darwin") }}
 freebsd = {{ (eq .chezmoi.os "freebsd") }}
 linux = {{ (eq .chezmoi.os "linux") }}
 unix = {{ (eq .chezmoi.os "darwin" "freebsd" "linux") }}
 windows = {{ (eq .chezmoi.os "windows") }}
 wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) | not | not }}
-

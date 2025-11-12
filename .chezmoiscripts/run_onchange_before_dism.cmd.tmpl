@@ -1,0 +1,5 @@
+{{- define "pkgCommand" -}}
+rem dism fails to open its log when run directly from sudo
+sudo cmd /c dism /Online /Enable-Feature{{ end -}}
+{{- define "pkgName" }} {{ (print "/FeatureName:" .) | quote }}{{ end -}}
+{{- template "enabled_packages" dict "manager" "dism" "packages" .packages -}}

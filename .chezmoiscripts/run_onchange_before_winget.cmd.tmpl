@@ -1,0 +1,8 @@
+{{ define "pkgCommand" }}
+sudo --disable-input winget install ^
+  --silent ^
+  --accept-package-agreements ^
+  --accept-source-agreements ^
+{{ end }}
+{{ define "pkgName" }} {{ . | quote }}{{ end }}
+{{ template "enabled_packages" dict "manager" "winget" "packages" .packages }}

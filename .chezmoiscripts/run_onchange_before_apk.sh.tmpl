@@ -1,0 +1,22 @@
+{{- if or .os.alpine .os.chimera -}}
+#!/bin/sh
+{{ define "pkgName" }} {{ . | quote }}{{ end -}}
+
+echo >&2 Installing packages...
+
+if [ `id -u` != "0" ] && ! command -v doas >/dev/null; then
+  echo >&2 "Need to be a root or have doas/sudo installed"
+  exit 1
+fi
+
+{{- $args := dict "pkgDefs" .pkgDefs "enabledOptionalPkgs" .enabledOptionalPkgs -}}
+{{- if .os.alpine -}}
+{{-   set $args "manager" "alpine-apk" -}}
+{{- else if .os.chimera -}}
+{{-   set $args "manager" "chimera-apk" -}}
+{{- end -}}
+
+cat | exec doas sh <<EOF
+apk update && exec apk add {{ template "enabled_packages" $args }} ;
+EOF
+{{ end -}}

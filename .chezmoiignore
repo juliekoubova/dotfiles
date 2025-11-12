@@ -14,6 +14,10 @@ vim:ft=gotexttmpl
 **/*_alpine.sh
 {{ end }}
 
+{{ if not .os.chimera }}
+**/*_chimera.sh
+{{ end }}
+
 {{ if not .os.darwin }}
 **/*_darwin.sh
 {{ end }}
