@@ -27,3 +27,4 @@ curl -sSfo op.zip \
   https://cache.agilebits.com/dist/1P/op2/pkg/v"$OP_VERSION"/op_linux_"$ARCH"_v"$OP_VERSION".zip \
   && unzip -o op.zip -x op.sig >/dev/null \
   && rm op.zip
+
