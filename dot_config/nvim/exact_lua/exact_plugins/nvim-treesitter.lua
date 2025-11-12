@@ -14,6 +14,7 @@ return {
         "git_rebase",
         "gitcommit",
         "go",
+        "gotmpl",
         "html",
         "javascript",
         "jsdoc",
