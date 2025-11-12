@@ -7,7 +7,6 @@ Without [chezmoi](https://www.chezmoi.io/), they are useless.
 ```
 # apk add chezmoi
 $ chezmoi init --apply juliekoubova --source ~/dotfiles
-# julie-setup
 ```
 
 ### FreeBSD
@@ -44,7 +43,6 @@ Then reboot and execute this in a non-elevated PowerShell:
 ```pwsh
 winget install --id twpayne.chezmoi
 chezmoi init --apply juliekoubova --source C:\src\dotfiles
-sudo any-pwsh -Command julie-setup
 ```
 Finally, open a n
 ## Write Access
