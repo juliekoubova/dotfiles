@@ -10,7 +10,8 @@ return {
       javascript = { "prettierd", "prettier", stop_after_first = true },
       python = { "black" },
       lua = { "stylua" },
-      sh = { "shfmt" },
+      sh = { "beautysh" },
+      ["_"] = { "trim_whitespace" },
     },
   },
   event = { "BufWritePre" },
@@ -23,8 +24,4 @@ return {
       mode = "",
     },
   },
-  init = function()
-    -- If you want the formatexpr, here is the place to set it
-    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-  end,
 }

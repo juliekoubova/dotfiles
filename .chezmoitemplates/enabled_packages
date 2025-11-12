@@ -17,17 +17,13 @@
 
 {{- $commandPkgs := list -}}
 {{- range $defs -}}
-{{-   $p := "" -}}
-{{-   if eq $manager "dism" -}}
-{{-     $p = get . "dism" -}}
-{{-   else if eq $manager "winget" -}}
-{{-     $p = get . "winget" -}}
-{{-   else if eq $manager "alpine-apk" -}}
-{{-     $p = coalesce (get . "alpine") (get . "linux") (get . "unix") -}}
+{{-   $p := get . $manager -}}
+{{-   if eq $manager "alpine-apk" -}}
+{{-     $p = coalesce $p (get . "alpine") (get . "linux") (get . "unix") -}}
 {{-   else if eq $manager "chimera-apk" -}}
-{{-     $p = coalesce (get . "chimera") (get . "linux") (get . "unix") -}}
+{{-     $p = coalesce $p (get . "chimera") (get . "linux") (get . "unix") -}}
 {{-   else if eq $manager "brew" -}}
-{{-     $p = coalesce (get . "brew") (get . "unix") -}}
+{{-     $p = coalesce $p (get . "brew") (get . "unix") -}}
 {{-   end -}}
 {{-   if $p -}}
 {{-     $commandPkgs = append $commandPkgs $p -}}

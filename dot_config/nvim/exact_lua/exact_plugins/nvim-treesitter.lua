@@ -1,7 +1,35 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  lazy = false,
-  branch = "main",
+  branch = "master",
   build = ":TSUpdate",
   enabled = not vim.g.vscode,
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      auto_install = true,
+      ensure_installed = {
+        "cpp",
+        "css",
+        "diff",
+        "go",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
+        "powershell",
+        "python",
+        "regex",
+        "rust",
+        "toml",
+        "tsx",
+        "xml",
+        "yaml",
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+      sync_install = true,
+      ignore_install = {},
+      modules = {},
+    })
+  end,
 }

@@ -4,8 +4,8 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   lazy = false,
   keys = {
-    { '<Leader>ft', '<Cmd>NvimTreeOpen<CR>' },
-    { '<C-L>', '<Cmd>NvimTreeFindFile<CR>' },
+    { "<Leader>ft", "<Cmd>NvimTreeOpen<CR>" },
+    { "<C-L>", "<Cmd>NvimTreeFindFile<CR>" },
   },
   opts = {
     actions = {
@@ -29,7 +29,7 @@ return {
     view = {
       width = 30,
     },
-    update_focused_file = { enable = true }
+    update_focused_file = { enable = true },
   },
   init = function()
     vim.api.nvim_create_autocmd("VimEnter", {
@@ -47,7 +47,7 @@ return {
         require("nvim-tree.api").tree.toggle({ focus = false })
         -- delete the directory buffer
         vim.cmd.bdelete(data.buf)
-      end
+      end,
     })
 
     vim.api.nvim_create_autocmd("QuitPre", {
@@ -63,7 +63,7 @@ return {
         for _, w in ipairs(nvimtree_windows) do
           vim.api.nvim_win_close(w, true)
         end
-      end
+      end,
     })
-  end
+  end,
 }

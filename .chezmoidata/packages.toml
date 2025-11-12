@@ -20,7 +20,11 @@ unzip = { unix = "unzip" }
 zsh = { unix = "zsh" }
 
 [packages.optional]
-ansible = { unix = "ansible" }
+ansible = [
+  { unix = "ansible" },
+  { mason = "ansible-language-server" },
+  { mason = "ansible-lint" },
+]
 
 azure-cli = [
   { brew = "azure-cli", winget = "Microsoft.AzureCLI" }
@@ -46,6 +50,9 @@ neovim = [
   { linux = "tree-sitter-python" },
   { unix = "tree-sitter-cli" },
   { unix = "bash" },
+  { mason = "stylua" },
+  { mason = "beautysh" },
+  { mason = "lua-language-server" },
 ]
 
 powershell = [
