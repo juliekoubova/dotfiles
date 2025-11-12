@@ -1,8 +1,0 @@
-{{ if .os.windows }}
-wsl --status >$null 2>&1
-If ($LastExitCode -eq 0) {
-  wsl --update
-} Else {
-  wsl --install --no-distribution
-}
-{{ end }}

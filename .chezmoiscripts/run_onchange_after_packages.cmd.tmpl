@@ -1,8 +1,6 @@
 {{- define "pkgName" }} {{ . | quote }}{{ end -}}
-{{- if .os.windows -}}
 sudo --disable-input winget install ^
   --silent ^
   --accept-package-agreements ^
   --accept-source-agreements ^
  {{ template "enabled_packages" . }}
-{{ end }}
