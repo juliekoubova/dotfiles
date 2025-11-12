@@ -1,5 +1,4 @@
 [packages.mandatory]
-azure-cli = { winget = "Microsoft.AzureCLI" }
 cascadia-code = { brew = "font-cascadia-code-nf" }
 chezmoi = { unix = "chezmoi", winget = "twpayne.chezmoi" }
 curl = { unix = "curl" }
@@ -11,7 +10,6 @@ fzf = { unix = "fzf", winget = "junegunn.fzf" }
 htop = { unix = "htop" }
 jq = { unix = "jq" }
 less = { unix = "less", winget = "jftuga.less" }
-pwsh = { winget = "Microsoft.PowerShell.Preview" }
 ripgrep = { unix = "ripgrep", winget = "BurntSushi.ripgrep.MSVC" }
 rsync = { unix = "rsync" }
 starship = { unix = "starship", winget = "Starship.Starship" }
@@ -23,6 +21,10 @@ zsh = { unix = "zsh" }
 
 [packages.optional]
 ansible = { unix = "ansible" }
+
+azure-cli = [
+  { brew = "azure-cli", winget = "Microsoft.AzureCLI" }
+]
 
 buildtools = [
   { chimera = "clang" },
@@ -41,9 +43,17 @@ neovim = [
   { unix = "neovim", winget = "Neovim.Neovim" },
   { chimera = "gcompat" },
   { chimera = "libgcc-chimera" },
-  { unix = "tree-sitter-python" },
+  { linux = "tree-sitter-python" },
   { unix = "tree-sitter-cli" },
   { unix = "bash" },
+]
+
+powershell = [
+  { brew = "powershell", winget = "Microsoft.PowerShell" }
+]
+
+powershell-preview = [
+  { brew = "powershell@preview", winget = "Microsoft.PowerShell.Preview" }
 ]
 
 vscode = { winget = "Microsoft.VisualStudioCode" }
