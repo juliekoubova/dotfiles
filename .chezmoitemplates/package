@@ -1,10 +1,13 @@
+{{- $pkgName := "" -}}
 {{- if (.os.windows) -}}
-{{-   get .pkg "winget" | quote -}}
+{{-   $pkgName = get .pkg "winget" -}}
 {{- else if (.os.alpine) -}}
-{{-   coalesce (get .pkg "alpine") (get .pkg "linux") (get .pkg "unix") | quote -}}
+{{-   $pkgName = coalesce (get .pkg "alpine") (get .pkg "linux") (get .pkg "unix") -}}
 {{- else if (.os.chimera) -}}
-{{-   coalesce (get .pkg "chimera") (get .pkg "linux") (get .pkg "unix") | quote -}}
+{{-   $pkgName = coalesce (get .pkg "chimera") (get .pkg "linux") (get .pkg "unix") -}}
 {{- else if (.os.darwin) -}}
-{{-   coalesce (get .pkg "brew") (get .pkg "unix") | quote -}}
-{{- else -}}
+{{-   $pkgName = coalesce (get .pkg "brew") (get .pkg "unix") -}}
+{{- end -}}
+{{- if $pkgName -}}
+{{-   template "pkgName" $pkgName -}}
 {{- end -}}

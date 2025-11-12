@@ -1,0 +1,14 @@
+{{- $os := .os -}}
+{{- $pkgDefs := .pkgDefs -}}
+{{- $enabledOptionalPkgs := .enabledOptionalPkgs -}}
+{{- range $name, $def := $pkgDefs.mandatory -}}
+{{-   template "package" (dict "os" $os "pkg" $def) -}}
+{{- end -}}
+{{- range $name, $pkgs := $pkgDefs.optional -}}
+{{-   range $def := $pkgs -}}
+{{-     if has $name $enabledOptionalPkgs -}}
+{{-       template "package" (dict "os" $os "pkg" $def) -}}
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+
