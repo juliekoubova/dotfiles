@@ -1,15 +1,10 @@
-{{- $packages := (include ".chezmoidata/packages.toml" | fromToml).packages -}}
-{{- $optionalPkgNames := $packages.optional | keys | sortAlpha -}}
-{{- $enabledOptionalPkgs := promptMultichoice
-  "Select optional package sets"
-  $optionalPkgNames
-  (dig "packages" "enabled" (list) .)
--}}
-
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data.packages]
-enabled = {{ $enabledOptionalPkgs | toToml }}
+enabled = {{- (promptMultichoice
+  "Select optional package sets"
+  ((include ".chezmoidata/packages.toml" | fromToml).packages.optional | keys | sortAlpha)
+  (dig "packages" "enabled" (list) .) | toToml) }}
 
 [data.os]
 alpine = {{ and (eq .chezmoi.os "linux") (.chezmoi.osRelease.id) (eq (.chezmoi.osRelease.id) "alpine") }}

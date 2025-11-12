@@ -1,3 +1,4 @@
+{{- define "pkgCommandSuffix" -}}{{- end -}}
 {{- define "pkgCommand" -}}
 rem dism fails to open its log when run directly from sudo
 sudo cmd /c dism /Online /Enable-Feature{{ end -}}
