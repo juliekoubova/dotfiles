@@ -1,0 +1,41 @@
+{{- define "package_names" -}}
+{{-   $os := .os -}}
+{{-   $pkgDefs := .pkgDefs -}}
+{{-   $enabledOptionalPkgs := .enabledOptionalPkgs -}}
+{{-   range $name, $def := $pkgDefs.mandatory }}
+{{-     template "package" dict "os" $os "pkg" $def }} \\
+{{    end -}}
+{{-   range $name, $pkgs := $pkgDefs.optional -}}
+{{-     range $pkg := $pkgs -}}
+{{-       if has $name $enabledOptionalPkgs -}}
+{{          template "package" dict "os" $os "pkg" $pkg }} \\
+{{        end -}}
+{{-     end -}}
+{{-   end -}}
+{{- end }}
+{{- if .os.unix -}}
+#!/bin/sh
+
+echo >&2 Installing packages...
+{{- if not .os.darwin }}
+if [ `id -u` != "0" ] && ! command -v doas >/dev/null; then
+  echo >&2 "Need to be a root or have doas/sudo installed"
+  exit 1
+fi
+{{ end -}}
+
+{{- if (or .os.alpine .os.chimera) -}}
+cat | exec doas sh <<EOF
+apk update && exec apk add {{- template "package_names" $ -}} ;
+EOF
+
+{{- else if .os.darwin -}}
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo >&2 Installing Homebrew 
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+exec brew install {{- template "package_names" $ -}} ;
+{{- end }}
+{{- end }}

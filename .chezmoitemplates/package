@@ -1,9 +1,10 @@
 {{- if (.os.windows) -}}
-{{-   (get .pkg "winget") -}}
+{{-   get .pkg "winget" | quote -}}
 {{- else if (.os.alpine) -}}
-{{-   (or (get .pkg "alpine") (get .pkg "unix")) -}}
+{{-   coalesce (get .pkg "alpine") (get .pkg "linux") (get .pkg "unix") | quote -}}
 {{- else if (.os.chimera) -}}
-{{-   (or (get .pkg "chimera") (get .pkg "unix")) -}}
+{{-   coalesce (get .pkg "chimera") (get .pkg "linux") (get .pkg "unix") | quote -}}
 {{- else if (.os.darwin) -}}
-{{-   (or (get .pkg "brew") (get .pkg "unix")) -}}
+{{-   coalesce (get .pkg "brew") (get .pkg "unix") | quote -}}
+{{- else -}}
 {{- end -}}
