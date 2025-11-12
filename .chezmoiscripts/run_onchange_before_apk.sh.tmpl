@@ -1,6 +1,11 @@
+{{- define "pkgName" }} {{ . | quote }}{{ end -}}
+{{- define "pkgCommand" }}cat | exec doas sh <<EOF
+apk update && exec apk add{{ end }}
+{{- define "pkgCommandSuffix" }}
+EOF
+{{ end -}}
 {{- if or .os.alpine .os.chimera -}}
 #!/bin/sh
-{{ define "pkgName" }} {{ . | quote }}{{ end -}}
 
 echo >&2 Installing packages...
 
@@ -9,14 +14,12 @@ if [ `id -u` != "0" ] && ! command -v doas >/dev/null; then
   exit 1
 fi
 
-{{- $args := dict "pkgDefs" .pkgDefs "enabledOptionalPkgs" .enabledOptionalPkgs -}}
+{{  $args := dict "packages" .packages -}}
 {{- if .os.alpine -}}
-{{-   set $args "manager" "alpine-apk" -}}
+{{-   $args = set $args "manager" "alpine-apk" -}}
 {{- else if .os.chimera -}}
-{{-   set $args "manager" "chimera-apk" -}}
+{{-   $args = set $args "manager" "chimera-apk" -}}
 {{- end -}}
 
-cat | exec doas sh <<EOF
-apk update && exec apk add {{ template "enabled_packages" $args }} ;
-EOF
+{{ template "enabled_packages" $args }}
 {{ end -}}

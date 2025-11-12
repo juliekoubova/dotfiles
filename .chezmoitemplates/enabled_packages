@@ -38,4 +38,5 @@
 {{-   range $commandPkgs -}}
 {{-     template "pkgName" . -}}
 {{-   end -}}
+{{-   block "pkgCommandSuffix" . -}}{{- end -}}
 {{- end -}}
