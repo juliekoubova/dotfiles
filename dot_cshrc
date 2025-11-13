@@ -1,3 +1,4 @@
+#!/bin/csh
 alias h		history 25
 alias j		jobs -l
 alias la	ls -aF
