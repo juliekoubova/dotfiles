@@ -24,15 +24,11 @@ totorohome
 {{ end }}
 
 {{ if not .os.unix }}
-julie-setup
-julie-setup-ansible
 julie-setup-firenvim.cmd
-julie-setup-op
 {{ end }}
 
 {{ if not .os.windows }}
 any-pwsh.cmd
 flipflop-wheel.ps1
-julie-setup.ps1
 python.cmd
 {{ end }}
