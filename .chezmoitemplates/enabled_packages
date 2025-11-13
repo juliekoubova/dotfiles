@@ -30,7 +30,7 @@
 {{-   end -}}
 {{- end -}}
 {{- if $commandPkgs -}}
-{{-   template "pkgCommand" -}}
+{{-   block "pkgCommand" . -}}{{- end -}}
 {{-   range $commandPkgs -}}
 {{-     template "pkgName" . -}}
 {{-   end -}}

@@ -1,0 +1,19 @@
+#!/bin/sh
+command -v nvim >/dev/null || exit 0
+
+
+echo >&2 Installing Lazy packages
+nvim --headless -c "lua require('lazy').sync({ wait = true })" -c qall || exit 1
+
+echo >&2 Installing Treesitter parsers
+nvim --headless -c "TSUpdateSync" -c qall || exit 1
+
+echo >&2 Installing Mason packages
+{{- define "pkgName" }}
+nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qall || exit 1
+{{ end }}
+{{- define "pkgCommand" -}}{{- end -}}
+{{- define "pkgCommandSuffix" -}}{{- end -}}
+{{- template "enabled_packages" dict "manager" "mason" "packages" .packages -}}
+
+

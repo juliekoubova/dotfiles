@@ -1,3 +1,4 @@
-REM Help Mason.nvim find Python; it probably doesn't like that the WindowsApps
-REM stub a reparse point.
+@echo off
+rem Help Mason.nvim find Python; it probably doesn't like that the WindowsApps
+rem stub a reparse point.
 "%LocalAppData%\Microsoft\WindowsApps\python.exe" %*
