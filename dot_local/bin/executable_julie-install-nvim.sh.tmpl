@@ -2,13 +2,15 @@
 command -v nvim >/dev/null || exit 0
 
 
-echo >&2 Installing Lazy packages
+echo >&2 Installing Neovim Lazy packages
 nvim --headless -c "lua require('lazy').sync({ wait = true })" -c qall || exit 1
 
-echo >&2 Installing Treesitter parsers
+echo >&2 Installing Neovim Treesitter parsers
 nvim --headless -c "TSUpdateSync" -c qall || exit 1
 
-echo >&2 Installing Mason packages
+echo >&2 Installing Neovim Mason packages
+nvim --headless -c MasonUpdate -c qall
+
 {{- define "pkgName" }}
 nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qall || exit 1
 {{ end }}

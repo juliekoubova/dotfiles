@@ -2,15 +2,17 @@
 where nvim >nul 2>&1 || exit 0
 set XDG_CONFIG_HOME=%USERPROFILE%\.config
 
-echo >&2 Installing Lazy packages
+echo >&2 Installing Neovim Lazy packages
 nvim --headless -c "lua require('lazy').sync({ wait = true })" -c qall || exit 1
 
-echo >&2 Installing Treesitter parsers
+echo >&2 Installing Neovim Treesitter parsers
 nvim --headless -c "TSUpdateSync" -c qall || exit 1
 
-echo >&2 Installing Mason packages
+echo >&2 Installing Neovim Mason packages
+nvim --headless -c MasonUpdate -c qall
+
 {{- define "pkgName" }}
-nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qa || exit 1
+nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qall || exit 1
 {{ end }}
 {{- define "pkgCommand" -}}{{- end -}}
 {{- define "pkgCommandSuffix" -}}{{- end -}}
