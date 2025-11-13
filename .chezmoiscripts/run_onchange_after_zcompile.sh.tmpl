@@ -1,0 +1,20 @@
+#!/bin/sh
+command -v zsh >/dev/null || exit 0
+echo >&2 Compiling ZSH scripts...
+exec zsh <<'EOF'
+{{ define "compile" }}
+# {{ . | include | sha256sum }}
+zcompile {{ .
+  | replaceAllRegex "dot_" "."
+  | replaceAllRegex "\\.tmpl" ""
+  | quote }}
+{{ end }}
+
+{{ template "compile" "dot_aliases.tmpl" }}
+{{ template "compile" "dot_config/zsh/dot_zprofile" }}
+{{ template "compile" "dot_config/zsh/dot_zshrc" }}
+{{ template "compile" "dot_profile" }}
+{{ template "compile" "dot_shrc" }}
+{{ template "compile" "dot_zprofile" }}
+EOF
+

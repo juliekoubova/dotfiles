@@ -12,7 +12,7 @@ if command -v apk >/dev/null; then
         exit 1
     fi
     echo >&2 "Updating apk..."
-    $_sh -c "apk update && apk upgrade" || exit 1
+    $_sh -c "apk update --no-interactive && apk upgrade --no-interactive" || exit 1
 fi
 
 if command -v brew >/dev/null; then
