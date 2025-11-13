@@ -1,4 +1,5 @@
 [packages.mandatory]
+7zip = { winget = "7zip.7zip" }
 cascadia-code = { brew = "font-cascadia-code-nf" }
 chezmoi = { unix = "chezmoi", winget = "twpayne.chezmoi" }
 curl = { unix = "curl" }

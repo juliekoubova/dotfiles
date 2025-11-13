@@ -21,3 +21,4 @@ require("lazy").setup({
   import = "plugins",
   checker = { enabled = true },
 })
+require("filetypes")
