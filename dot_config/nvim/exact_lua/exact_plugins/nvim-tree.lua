@@ -50,20 +50,5 @@ return {
       end,
     })
 
-    vim.api.nvim_create_autocmd("QuitPre", {
-      callback = function()
-        local nvimtree_windows = {}
-        for _, w in ipairs(vim.api.nvim_list_wins()) do
-          local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
-          if bufname:match("NvimTree_") ~= nil then
-            table.insert(nvimtree_windows, w)
-          end
-        end
-        -- Should quit, so we close all invalid windows.
-        for _, w in ipairs(nvimtree_windows) do
-          vim.api.nvim_win_close(w, true)
-        end
-      end,
-    })
   end,
 }
