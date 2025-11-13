@@ -1,0 +1,11 @@
+@Echo Off
+Where nvim >nul 2>&1
+If %ErrorLevel% Equ 0 (
+{{- define "pkgCommandSuffix" -}}{{- end -}}
+{{- define "pkgCommand" -}}{{- end -}}
+{{- define "pkgName" }}
+  nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qa || exit 1
+{{ end }}
+{{- template "enabled_packages" dict "manager" "mason" "packages" .packages -}}
+)
+

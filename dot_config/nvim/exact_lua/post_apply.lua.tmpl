@@ -1,9 +1,0 @@
--- invoked from .chezmoiscripts/run_after_nvim.{cmd,sh}
-require("lazy").sync({ wait = true })
-vim.cmd('TSUpdateSync')
-{{- define "pkgCommandSuffix" }}{{ end -}}
-{{- define "pkgCommand" -}}{{- end -}}
-{{- define "pkgName" }}
-vim.cmd({{ (print "MasonInstall " .) | quote }}){{- end -}}
-{{- template "enabled_packages" dict "manager" "mason" "packages" .packages -}}
-
