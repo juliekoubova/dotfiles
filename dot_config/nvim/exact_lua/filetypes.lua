@@ -1,3 +1,6 @@
 vim.filetype.add({
-  pattern = { [".*/%.chezmoitemplates/.*"]  = 'gotmpl' }
+  pattern = {
+    [".*/%.chezmoitemplates/.*"]  = "gotmpl",
+    [".*dot_gitconfig.*"] = "git_config"
+  }
 })
