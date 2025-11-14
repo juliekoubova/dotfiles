@@ -102,6 +102,7 @@ return {
           {
             "branch",
             icon = "",
+            cond = conditions.not_terminal,
             color = { fg = colors.violet, gui = "bold" },
           },
           {

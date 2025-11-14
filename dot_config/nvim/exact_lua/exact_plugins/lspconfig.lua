@@ -47,6 +47,7 @@ return {
     vim.lsp.enable("pylsp")
     vim.lsp.enable("tailwindcss")
     vim.lsp.enable("ts_ls")
+    vim.lsp.enable("tombi")
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
