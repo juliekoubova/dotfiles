@@ -7,7 +7,8 @@ return {
       lsp_format = "fallback",
     },
     formatters_by_ft = {
-      javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { "prettierd" },
+      jsonc = { "prettierd" },
       python = { "black" },
       lua = { "stylua" },
       sh = { "beautysh" },

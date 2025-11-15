@@ -26,9 +26,6 @@ return {
       group_empty = true,
       indent_markers = { enable = true },
     },
-    view = {
-      width = 30,
-    },
     update_focused_file = { enable = true },
   },
   init = function()
@@ -49,6 +46,5 @@ return {
         vim.cmd.bdelete(data.buf)
       end,
     })
-
   end,
 }

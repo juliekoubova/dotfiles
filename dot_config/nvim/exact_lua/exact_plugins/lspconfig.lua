@@ -25,6 +25,7 @@ return {
 
     vim.lsp.enable("clangd")
     vim.lsp.enable("lua_ls")
+    vim.lsp.enable("prettierd")
     vim.lsp.enable("pylsp")
     vim.lsp.enable("tailwindcss")
     vim.lsp.enable("ts_ls")
