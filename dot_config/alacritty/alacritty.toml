@@ -8,7 +8,7 @@ bold = { family = "Cascadia Code NF", style = "Bold" }
 bold_italic = { family = "Cascadia Code NF", style = "Bold Italic" }
 
 [window]
-opacity = 0.98
+opacity = 0.8
 blur = true
 padding = { x = 4, y = 0 }
 

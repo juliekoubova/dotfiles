@@ -36,6 +36,8 @@ buildtools = [
   { chimera = "cmake" },
   { chimera = "meson" },
   { chimera = "gmake" },
+  { chimera = "pkgconf" },
+  { chimera = "ninja" },
 ]
 
 git = [
@@ -56,6 +58,11 @@ neovim = [
   { mason = "lua-language-server" },
 ]
 
+niri = [
+  { chimera = "niri" },
+  { chimera = "quickshell" },
+]
+
 powershell = [
   { brew = "powershell", winget = "Microsoft.PowerShell" }
 ]
@@ -63,6 +70,12 @@ powershell = [
 powershell-preview = [
   { brew = "powershell@preview", winget = "Microsoft.PowerShell.Preview" }
 ]
+
+sway = [
+  { chimera = "sway" },
+  { chimera = "waybar" },
+]
+
 
 vscode = { winget = "Microsoft.VisualStudioCode" }
 vscode-insiders = { winget = "Microsoft.VisualStudioCode.Insiders" }
