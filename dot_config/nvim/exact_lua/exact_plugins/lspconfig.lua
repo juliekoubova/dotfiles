@@ -1,6 +1,24 @@
 return {
   "neovim/nvim-lspconfig",
   enabled = not vim.g.vscode,
+  ft = {
+    -- clangd
+    "c",
+    "cpp",
+    "objc",
+    "objcpp",
+    -- tailwindcss
+    "css",
+    -- lua
+    "lua",
+    -- pylsp
+    "python",
+    -- prettier
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
   config = function()
     vim.lsp.config("*", {
       capabilities = require("cmp_nvim_lsp").default_capabilities(),

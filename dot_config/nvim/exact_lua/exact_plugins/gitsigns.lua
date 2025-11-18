@@ -1,7 +1,7 @@
 return {
   "lewis6991/gitsigns.nvim",
   cond = not (vim.g.started_by_firenvim or vim.g.vscode),
-  lazy = false,
+  event = "VeryLazy",
   opts = {
     current_line_blame = true,
     current_line_blame_opts = {

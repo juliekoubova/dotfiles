@@ -1,1 +1,5 @@
-return { "ngynkvn/gotmpl.nvim", opts = {} }
+return { 
+  "ngynkvn/gotmpl.nvim",
+  ft = "gotmpl",
+  opts = {}
+}

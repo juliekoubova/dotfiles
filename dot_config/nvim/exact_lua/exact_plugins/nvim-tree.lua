@@ -1,8 +1,8 @@
 return {
   "nvim-tree/nvim-tree.lua",
   cond = not (vim.g.started_by_firenvim or vim.g.vscode),
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  lazy = false,
+  dependencies = { "nvim-tree/nvim-web-devicons", "folke/edgy.nvim" },
+  lazy = true,
   keys = {
     { "<Leader>ft", "<Cmd>NvimTreeOpen<CR>" },
     { "<C-L>", "<Cmd>NvimTreeFindFile<CR>" },

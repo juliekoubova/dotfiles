@@ -71,6 +71,19 @@
     "newTabMenu": 
     [
         {
+            "icon": null,
+            "profile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+            "type": "profile"
+        },
+        {
+            "icon": null,
+            "profile": "{40df05f2-25f5-4d99-bd33-d59caa4bfc3b}",
+            "type": "profile"
+        },
+        {
+            "type": "separator"
+        },
+        {
             "type": "remainingProfiles"
         }
     ],
@@ -81,6 +94,7 @@
             "adjustIndistinguishableColors": "always",
             "backgroundImage": null,
             "backgroundImageOpacity": 0.23,
+            "bellStyle": "window",
             "colorScheme": 
             {
                 "dark": "Catppuccin Mocha",
@@ -102,33 +116,35 @@
         "list": 
         [
             {
-                "commandline": "\"%UserProfile%\\.local\\bin\\any-pwsh.cmd\" -NoLogo",
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "commandline": "%UserProfile%\\.local\\bin\\any-pwsh.cmd",
+                "guid": "{40df05f2-25f5-4d99-bd33-d59caa4bfc3b}",
                 "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
+                "icon": "ms-appx:///ProfileIcons/pwsh.png",
+                "name": "PowerShell"
             },
             {
-                "commandline": "\"%ProgramFiles%\\Neovim\\bin\\nvim.exe\"",
-                "guid": "{96150a7c-9d4e-4f74-b351-feed48f5ed0c}",
+                "commandline": "%UserProfile%\\.local\\bin\\any-pwsh.cmd",
+                "guid": "{57695016-a39f-49a6-8f8c-96608f279628}",
                 "hidden": false,
-                "historySize": 0,
-                "icon": "%LocalAppData%\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\neovim.ico",
-                "name": "Neovim"
+                "icon": "ms-appx:///ProfileIcons/pwsh.png",
+                "name": "c:\\src\\teams\\tcns",
+                "startingDirectory": "c:\\src\\teams\\tcns"
             },
             {
-                "commandline": "%SystemRoot%\\System32\\OpenSSH\\ssh.exe bydlenka",
-                "guid": "{da67a221-a91f-4170-aaf4-b71731986225}",
+                "commandline": "%UserProfile%\\.local\\bin\\any-pwsh.cmd",
+                "guid": "{d96365e0-3c92-4d19-85b8-843ef0b54dd0}",
                 "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "Bydlenka"
+                "icon": "ms-appx:///ProfileIcons/pwsh.png",
+                "name": "c:\\src\\teams\\tcns2",
+                "startingDirectory": "c:\\src\\teams\\tcns2"
             },
             {
-                "commandline": "%SystemRoot%\\System32\\OpenSSH\\ssh.exe raptorek",
-                "guid": "{f9834eae-d6a9-4f21-9a12-8006b9df5a4d}",
+                "commandline": "%UserProfile%\\.local\\bin\\any-pwsh.cmd",
+                "guid": "{e513b55d-d996-4d9c-b132-a932ea4c7e9d}",
                 "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "Raptorek"
+                "icon": "ms-appx:///ProfileIcons/pwsh.png",
+                "name": "c:\\src\\dotfiles",
+                "startingDirectory": "c:\\src\\dotfiles"
             }
         ]
     },

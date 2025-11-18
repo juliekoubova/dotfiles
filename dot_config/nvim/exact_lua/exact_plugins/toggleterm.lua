@@ -1,12 +1,13 @@
 return {
   "akinsho/toggleterm.nvim",
+  dependencies = { "folke/edgy.nvim" },
+  keys = { { "<Leader>tt", "<Cmd>ToggleTerm<CR>", desc = "ToggleTerm" } },
   opts = {
     auto_scroll = true,
     close_on_exit = true,
     direction = 'vertical',
     hide_numbers = true,
     insert_mappings = false,
-    open_mapping = { '<Leader>tt' },
     start_in_insert = true,
     terminal_mappings = false,
     float_opts = { border = 'rounded' },

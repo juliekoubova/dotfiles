@@ -22,3 +22,4 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 require("filetypes")
+
