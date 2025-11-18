@@ -21,6 +21,10 @@ unzip = { unix = "unzip" }
 zsh = { unix = "zsh" }
 
 [packages.optional]
+alacritty = [
+  { unix = "alacritty", winget = "Alacritty.Alacritty" }
+]
+
 ansible = [
   { unix = "ansible" },
   { mason = "ansible-language-server" },
@@ -56,6 +60,7 @@ neovim = [
   { mason = "stylua" },
   { mason = "beautysh" },
   { mason = "lua-language-server" },
+  { mason = "tombi" },
 ]
 
 niri = [
@@ -90,3 +95,5 @@ windows-hyperv = [
 
 windows-terminal = { winget = "Microsoft.WindowsTerminal" }
 windows-terminal-preview = { winget = "Microsoft.WindowsTerminal.Preview" }
+
+wezterm = { winget = "wez.wezterm" }

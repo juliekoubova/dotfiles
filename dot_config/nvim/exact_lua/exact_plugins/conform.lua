@@ -12,6 +12,7 @@ return {
       python = { "black" },
       lua = { "stylua" },
       sh = { "beautysh" },
+      toml = { "tombi" },
       ["_"] = { "trim_whitespace" },
     },
   },

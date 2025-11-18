@@ -9,10 +9,10 @@ echo >&2 Installing Neovim Treesitter parsers
 nvim --headless -c "TSUpdateSync" -c qall || exit 1
 
 echo >&2 Installing Neovim Mason packages
-nvim --headless -c MasonUpdate -c qall
+nvim --headless -c "lua require('mason')" -c MasonUpdate -c qall
 
 {{- define "pkgName" }}
-nvim --headless -c {{ (print "MasonInstall " .) | quote }} -c qall || exit 1
+nvim --headless -c "lua require('mason')" -c {{ (print "MasonInstall " .) | quote }} -c qall || exit 1
 {{ end }}
 {{- define "pkgCommand" -}}{{- end -}}
 {{- define "pkgCommandSuffix" -}}{{- end -}}
