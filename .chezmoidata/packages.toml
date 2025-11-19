@@ -81,9 +81,13 @@ sway = [
   { chimera = "waybar" },
 ]
 
+vscode = [
+  { brew = "visual-studio-code", winget = "Microsoft.VisualStudioCode" }
+]
 
-vscode = { winget = "Microsoft.VisualStudioCode" }
-vscode-insiders = { winget = "Microsoft.VisualStudioCode.Insiders" }
+vscode-insiders = [
+  { brew = "visual-studio-code@insiders", winget = "Microsoft.VisualStudioCode.Insiders" }
+]
 
 mac-iterm2 = { brew = "iterm2" }
 
@@ -96,4 +100,4 @@ windows-hyperv = [
 windows-terminal = { winget = "Microsoft.WindowsTerminal" }
 windows-terminal-preview = { winget = "Microsoft.WindowsTerminal.Preview" }
 
-wezterm = { winget = "wez.wezterm" }
+wezterm = { unix = "wezterm", winget = "wez.wezterm" }
