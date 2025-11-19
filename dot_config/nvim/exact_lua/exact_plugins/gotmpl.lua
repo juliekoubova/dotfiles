@@ -1,5 +1,5 @@
 return { 
   "ngynkvn/gotmpl.nvim",
-  ft = "gotmpl",
+  ft = "template",
   opts = {}
 }

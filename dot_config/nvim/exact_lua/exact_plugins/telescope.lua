@@ -8,6 +8,7 @@ return {
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install",
     },
   },
+  event = "VeryLazy",
   keys = {
     { "<Leader>ff", "<Cmd>Telescope find_files<CR>" },
     { "<Leader>fb", "<Cmd>Telescope buffers<CR>" },
