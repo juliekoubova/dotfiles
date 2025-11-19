@@ -14,7 +14,7 @@ config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
 if wezterm.target_triple:match("-windows-") then
   config.default_cwd = "c:\\src"
-  config.default_prog = { "pwsh" }
+  config.default_prog = { "pwsh", "-NoLogo" }
 elseif wezterm.target_triple:match("-darwin") then
   config.default_cwd = os.getenv("HOME")
   local brew_env = require("brew_env")
