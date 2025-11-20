@@ -26,7 +26,12 @@ If (Has less) {
 
 If (Has starship) {
   Function Invoke-Starship-PreCommand {
-    $Host.UI.RawUI.WindowTitle = (starship prompt --profile title) -replace "`e\[.*?m", ''
+    Try {
+      $Env:STARSHIP_CONFIG = "${Env:XDG_CONFIG_HOME}\starship_termtitle.toml"
+      Write-Host -NoNewLine "`e]2;$(starship prompt)`a"
+    } Finally {
+      Remove-Item Env:STARSHIP_CONFIG
+    }
   }
   starship init powershell --print-full-init | Out-String | Invoke-Expression
 }
