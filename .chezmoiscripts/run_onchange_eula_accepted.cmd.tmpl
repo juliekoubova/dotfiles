@@ -1,0 +1,16 @@
+@echo off
+
+call :AcceptEula Autoruns
+call :AcceptEula Junction
+call :AcceptEula ProcDump
+call :AcceptEula "Process Explorer"
+call :AcceptEula "Process Monitor"
+call :AcceptEula PsShutdown
+call :AcceptEula WinObj
+goto :EOF
+
+:AcceptEula
+echo "HKCU\Software\Sysinternals\%~1" EulaAccepted = 1
+reg add "HKCU\Software\Sysinternals\%~1" /v EulaAccepted /t REG_DWORD /d 1 /f > NUL
+goto :EOF
+
