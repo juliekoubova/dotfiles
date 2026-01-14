@@ -39,6 +39,7 @@ return function()
     return spawn_window({
       { cwd = root .. "teams\\tcns" },
       { cwd = root .. "teams\\tcns2" },
+      { cwd = root .. "teams\\tmp" },
       dotfiles_tab(root .. "dotfiles"),
       position = { x = 3840, y = 0 },
     })
