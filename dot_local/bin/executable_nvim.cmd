@@ -1,2 +1,2 @@
 @Echo Off
-Start /AboveNormal /Wait nvim.exe
+Start /AboveNormal /B /Wait nvim.exe %*
