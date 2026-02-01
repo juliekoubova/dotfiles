@@ -21,20 +21,13 @@ unzip = { unix = "unzip" }
 zsh = { unix = "zsh" }
 
 [packages.optional]
-alacritty = [
-  { unix = "alacritty", winget = "Alacritty.Alacritty" }
-]
-
+alacritty = [{ unix = "alacritty", winget = "Alacritty.Alacritty" }]
 ansible = [
   { unix = "ansible" },
   { mason = "ansible-language-server" },
   { mason = "ansible-lint" },
 ]
-
-azure-cli = [
-  { brew = "azure-cli", winget = "Microsoft.AzureCLI" }
-]
-
+azure-cli = [{ brew = "azure-cli", winget = "Microsoft.AzureCLI" }]
 buildtools = [
   { chimera = "clang" },
   { chimera = "cmake" },
@@ -43,13 +36,11 @@ buildtools = [
   { chimera = "pkgconf" },
   { chimera = "ninja" },
 ]
-
 git = [
   { unix = "git", winget = "Git.Git" },
   { alpine = "git-crypt" },
   { brew = "git-delta", unix = "delta", winget = "dandavison.delta" }
 ]
-
 neovim = [
   { unix = "neovim", winget = "Neovim.Neovim" },
   { chimera = "gcompat" },
@@ -61,43 +52,32 @@ neovim = [
   { mason = "beautysh" },
   { mason = "lua-language-server" },
   { mason = "tombi" },
+  { unix = "wget" },  # needed for lua-language-server
 ]
-
 niri = [
   { chimera = "niri" },
   { chimera = "quickshell" },
 ]
-
-powershell = [
-  { brew = "powershell", winget = "Microsoft.PowerShell" }
-]
-
+powershell = [{ brew = "powershell", winget = "Microsoft.PowerShell" }]
 powershell-preview = [
   { brew = "powershell@preview", winget = "Microsoft.PowerShell.Preview" }
 ]
-
 sway = [
   { chimera = "sway" },
   { chimera = "waybar" },
 ]
-
 vscode = [
   { brew = "visual-studio-code", winget = "Microsoft.VisualStudioCode" }
 ]
-
 vscode-insiders = [
   { brew = "visual-studio-code@insiders", winget = "Microsoft.VisualStudioCode.Insiders" }
 ]
-
 mac-iterm2 = { brew = "iterm2" }
-
 windows-hyperv = [
   { dism = "Containers-DisposableClientVM" },
   { dism = "Microsoft-Hyper-V" },
   { dism = "VirtualMachinePlatform" },
 ]
-
 windows-terminal = { winget = "Microsoft.WindowsTerminal" }
 windows-terminal-preview = { winget = "Microsoft.WindowsTerminal.Preview" }
-
 wezterm = { unix = "wezterm", winget = "wez.wezterm" }
