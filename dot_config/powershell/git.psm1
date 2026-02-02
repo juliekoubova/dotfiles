@@ -3,10 +3,10 @@ Using Module './fzf.psm1'
 
 Filter ProcessGitOutputForFzf {
   If ($_ -Is [System.Management.Automation.ErrorRecord]) {
-    If ($_ -Match 'fatal: (.*)') {
-      Throw $Matches[1]
-    } Else {
-      Write-Error $_
+    Switch -Regex ($_) {
+      '^fatal: (.*)' { Throw $Matches[1] }
+      '^error: (.*)' { Write-Error $Matches[1] }
+      Default { Write-Output $_ }
     }
   }
   Else {

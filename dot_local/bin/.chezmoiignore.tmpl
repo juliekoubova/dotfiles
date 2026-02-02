@@ -23,12 +23,6 @@ teams
 totorohome
 {{ end }}
 
-{{ if not .os.unix }}
-julie-setup-firenvim.cmd
-{{ end }}
-
 {{ if not .os.windows }}
-any-pwsh.cmd
 flipflop-wheel.ps1
-python.cmd
 {{ end }}

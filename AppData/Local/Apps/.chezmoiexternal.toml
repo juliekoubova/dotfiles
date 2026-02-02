@@ -1,0 +1,15 @@
+{{ if .os.windows }}
+["NVimNightly"]
+type = "archive"
+exact = true
+url = "https://github.com/neovim/neovim/releases/download/nightly/nvim-win64.zip"
+stripComponents = 1
+refreshPeriod = "24h"
+
+["WeztermNightly"]
+type = "archive"
+exact = true
+url = "https://github.com/wezterm/wezterm/releases/download/nightly/WezTerm-windows-nightly.zip"
+stripComponents = 1
+refreshPeriod = "24h"
+{{ end }}

@@ -8,10 +8,18 @@ local function leader_action(key, action)
   }
 end
 
+local function leader_action_shift(key, action)
+  return {
+    key = key,
+    mods = "LEADER|SHIFT",
+    action = action,
+  }
+end
+
 local actions = {
   leader_action(
     "v",
-    wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" })
+    act.SplitHorizontal({ domain = "CurrentPaneDomain" })
   ),
   leader_action("[", act.ActivateTabRelative(-1)),
   leader_action("]", act.ActivateTabRelative(1)),
@@ -20,6 +28,7 @@ local actions = {
   leader_action("k", act.ActivatePaneDirection("Up")),
   leader_action("l", act.ActivatePaneDirection("Right")),
   leader_action("q", act.CloseCurrentPane({ confirm = false })),
+  leader_action_shift("q", act.QuitApplication),
   leader_action("t", act.SpawnTab("CurrentPaneDomain")),
   leader_action("1", act.ActivateTab(0)),
   leader_action("2", act.ActivateTab(1)),
@@ -30,6 +39,8 @@ local actions = {
   leader_action("7", act.ActivateTab(6)),
   leader_action("8", act.ActivateTab(7)),
   leader_action("9", act.ActivateTab(-1)),
+  leader_action("/", act.Search("CurrentSelectionOrEmptyString")),
+  leader_action_shift(";", act.ShowDebugOverlay),
 }
 
 return actions

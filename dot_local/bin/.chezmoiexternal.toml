@@ -4,13 +4,4 @@ type = "file"
 executable = true
 url = "https://raw.githubusercontent.com/marty-oehme/bemoji/main/bemoji"
 refreshPeriod = "168h"
-
-{{ end }}
-
-{{ if .os.windows }}
-["nvim-nightly"]
-type = "archive"
-exact = true
-url = "https://github.com/neovim/neovim/releases/latest/download/nvim-win64.zip"
-stripComponents = 1
 {{ end }}
