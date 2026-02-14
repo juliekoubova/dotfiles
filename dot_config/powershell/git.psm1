@@ -73,12 +73,20 @@ Function GitCommit {
   git commit -m "${args}"
 }
 
+Function GitCommitAmend {
+  git commit --amend --no-edit
+}
+
 Function GitCommitPush {
   GitCommit @args && git push
 }
 
 Function GitAddCommit {
   GitAdd && GitCommit @args
+}
+
+Function GitAddCommitAmend {
+  GitAdd @args && GitCommitAmend
 }
 
 Function GitAddCommitPush {
@@ -169,9 +177,12 @@ Function GitSquash {
 Export-ModuleMember -Function @(
   'GitAdd'
   'GitAddCommit'
+  'GitAddCommitAmend'
   'GitAddCommitPush'
   'GitCheckout'
   'GitCommit'
+  'GitCommitAmend'
+  'GitCommitPush'
   'GitReset'
   'GitUnAdd'
   'GitSquash'

@@ -217,7 +217,11 @@ ga() {
 }
 
 gaca() {
-  ga "$@" && git commit --amend --no-edit
+  ga "$@" && gca
+}
+
+gca() {
+  git commit --ammend --no-edit
 }
 
 gcm() {
