@@ -89,6 +89,10 @@ Function GitAddCommitAmend {
   GitAdd @args && GitCommitAmend
 }
 
+Function GitAddCommitAmendPushForce {
+  GitAddCommitAmend @args && git push --force
+}
+
 Function GitAddCommitPush {
   GitAdd && GitCommit @args && git push
 }
@@ -178,6 +182,7 @@ Export-ModuleMember -Function @(
   'GitAdd'
   'GitAddCommit'
   'GitAddCommitAmend'
+  'GitAddCommitAmendPushForce'
   'GitAddCommitPush'
   'GitCheckout'
   'GitCommit'

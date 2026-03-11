@@ -66,14 +66,16 @@ Set-Alias which Get-Command
 Remove-Alias gcm -Force -Scope Global -ea 0
 Remove-Alias rm -Force -Scope Global -ea 0
 
-Set-Alias ga    GitAdd
-Set-Alias gacm  GitAddCommit
-Set-Alias gacmp GitAddCommitPush
-Set-Alias gcm   GitCommit
-Set-Alias gcmp  GitCommitPush
-Set-Alias gco   GitCheckout
-Set-Alias gsq   GitSquash
-Set-Alias gua   GitUnAdd
+Set-Alias ga     GitAdd
+Set-Alias gaca   GitAddCommitAmend
+Set-Alias gacapf GitAddCommitAmendPushForce
+Set-Alias gacm   GitAddCommit
+Set-Alias gacmp  GitAddCommitPush
+Set-Alias gcm    GitCommit
+Set-Alias gcmp   GitCommitPush
+Set-Alias gco    GitCheckout
+Set-Alias gsq    GitSquash
+Set-Alias gua    GitUnAdd
 
 Function gres($Commit)  { GitReset -Commit $Commit }
 Function gsoft($Commit) { GitReset -Commit $Commit -Soft }
